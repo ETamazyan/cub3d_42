@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etamazya <el.tamazyan03@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/03 21:03:10 by etamazya          #+#    #+#             */
-/*   Updated: 2025/03/04 21:39:46 by etamazya         ###   ########.fr       */
+/*   Created: 2025/03/04 20:51:01 by etamazya          #+#    #+#             */
+/*   Updated: 2025/03/04 21:51:42 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int main(int argc, char **argv)
+void clean_data(t_data *data)
 {
-	int		fd;
-	t_data	*data;
+    if (data)
+    { 
+        data->map = NULL;
+        free(*(data)->map);
+	    free(data->north);
+	    free(data->west);
+	    free(data->east);
+	    free(data->south);
+	    // free(data->player);
+    }
+}
 
-	fd = 0;
-    data = NULL;
-    (void)data;
-	if (argc != 2)
-        print_error(data, "Error: Invalid amount of arguments.\n");
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0)
-        print_error(data, "Error: Invalid file.\n");
-	is_fd_valid(data, argv[1]);
-	// map.data = fd_parse(fd);
-    return (0);
+void print_error(t_data *data, char *str)
+{
+    write(1, str, ft_strlen(str));
+    clean_data(data);
+    exit(1);
 }
