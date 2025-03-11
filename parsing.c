@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etamazya <el.tamazyan03@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/03 21:03:10 by etamazya          #+#    #+#             */
-/*   Updated: 2025/03/07 14:42:44 by etamazya         ###   ########.fr       */
+/*   Created: 2025/03/07 14:45:22 by etamazya          #+#    #+#             */
+/*   Updated: 2025/03/07 14:45:34 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int main(int argc, char **argv)
+char	**fd_parse(int fd)
 {
-	int		fd;
-	t_data	*data;
+	char	*each_line;
+	char	*temp;
+	char	**res;
 
-	fd = 0;
-    data = NULL;
-    (void)data;
-	if (argc != 2)
-        print_error(data, "Error: Invalid amount of arguments.\n");
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0)
-        print_error(data, "Error: Invalid cannot read file.\n");
-	is_fd_valid(data, argv[1]);
-	// map.data = fd_parse(fd);
-    return (0);
+	each_line = get_next_line(fd);
+	temp = each_line;
+	if (!each_line)
+		return (NULL);
+	while (temp)
+	{
+		temp = get_next_line(fd);
+		each_line = ft_strjoin(each_line, temp);
+		free(temp);
+	}
+	each_line = check_newline2(each_line);
+	check_newline(each_line);
+	res = ft_split(each_line, '\n');
+	check_whitespaces(res);
+	free (each_line);
+	return (res);
 }

@@ -37,6 +37,7 @@ typedef struct s_data
 void print_error(t_data *data, char *str);
 void is_fd_valid(t_data *data, char *path);
 void clean_data(t_data *data);
+char	**fd_parse(int fd);
 
 //lib_utils
 int ft_strlen(const char *str);

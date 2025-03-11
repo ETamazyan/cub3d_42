@@ -4,7 +4,9 @@ CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address
 
 MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
 
-SRCS =  main.c validation.c error.c lib_utils.c
+SRCS =  main.c validation.c \
+		error.c lib_utils.c \
+		parsing.c
 
 INCS = cub3D.h ./get_next_line/get_next_line.h
 
