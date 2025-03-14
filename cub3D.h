@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include "get_next_line/get_next_line.h"
 
 typedef struct s_pos
 {
@@ -40,9 +41,9 @@ void clean_data(t_data *data);
 char	**fd_parse(int fd);
 
 //lib_utils
-int ft_strlen(const char *str);
+size_t	ft_strlen(char *src);
 int	ft_strncmp(const char *s1, const char *s2, int limit);
-
+char	**ft_split(char const *s, char c);
 
 
 #endif

@@ -12,15 +12,16 @@
 
 #include "cub3D.h"
 
-int ft_strlen(const char *str)
-{
-    int i;
+//GNL i mej ft_strlen ka hly vor da em ogtagorcel
+// int ft_strlen(const char *str)
+// {
+//     int i;
 
-    i = 0;
-    while (str[i])
-        i++;
-    return (i);
-}
+//     i = 0;
+//     while (str[i])
+//         i++;
+//     return (i);
+// }
 
 int	ft_strncmp(const char *s1, const char *s2, int limit)
 {
