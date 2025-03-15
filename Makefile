@@ -2,13 +2,22 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address
 
-MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
+UNAME := $(shell uname)
+
+ifeq ($(UNAME), Darwin)  # macOS
+    MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
+else  # Linux or other systems
+    MLX_FLAGS = -lmlx -lX11 -lGL -lGLU
+endif
+
+# MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
 
 SRCS =  main.c validation.c \
-		error.c lib_utils.c \
-		parsing.c
+		error.c \
+		parsing.c \
+		./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c
 
-INCS = cub3D.h ./get_next_line/get_next_line.h
+INCS = cub3D.h
 
 NAME = cub3D
 

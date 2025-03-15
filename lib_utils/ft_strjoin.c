@@ -1,41 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lib_utils.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etamazya <el.tamazyan03@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/04 20:50:26 by etamazya          #+#    #+#             */
-/*   Updated: 2025/03/04 21:40:58 by etamazya         ###   ########.fr       */
+/*   Created: 2024/02/05 17:56:11 by etamazya          #+#    #+#             */
+/*   Updated: 2025/03/03 13:56:31 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "libft.h"
 
-int ft_strlen(const char *str)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-    int i;
+	char	*res;
+	size_t	len;
+	size_t	i;
+	size_t	j;
 
-    i = 0;
-    while (str[i])
-        i++;
-    return (i);
-}
-
-int	ft_strncmp(const char *s1, const char *s2, int limit)
-{
-	int	i;
-	int	res;
-
+	len = ft_strlen(s1) + ft_strlen(s2);
+	res = (char *)malloc((len + 1) * sizeof(char));
+	if (!res)
+		return (NULL);
 	i = 0;
-	while (((s1[i] || s2[i]) && (i < limit)))
+	while (s1 && s1[i])
 	{
-		if (s1[i] != s2[i])
-		{
-			res = (int)(unsigned char)s1[i] - (int)(unsigned char)s2[i];
-			return (res);
-		}
+		res[i] = s1[i];
 		i++;
 	}
-	return (0);
+	j = 0;
+	while (s2 && s2[j])
+		res[i++] = s2[j++];
+	res[i] = '\0';
+	return (res);
 }

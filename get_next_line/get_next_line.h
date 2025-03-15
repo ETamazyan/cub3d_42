@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etamazya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:06:43 by etamazya          #+#    #+#             */
-/*   Updated: 2024/04/14 16:46:48 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/03/15 12:27:32 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 char	*get_next_line(int fd);
 char	*ft_readfd(int fd, char *buffer);
 char	*ft_filtr(char	*buffer);
-char	*ft_strdup(char *s1, int dir);
-size_t	ft_strlen(char *src);
-char	*ft_strjoin(char *s1, char *s2);
-int		ft_strchr(char *s, int c);
+char	*ft_str_dup(char *s1, int dir);
+size_t	ft_str_len(char *src);
+char	*str_join(char *s1, char *s2);
+int		ft_str_chr(char *s, int c);
 
 #endif

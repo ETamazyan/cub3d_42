@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etamazya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:08:33 by etamazya          #+#    #+#             */
-/*   Updated: 2024/04/15 21:16:47 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/03/15 12:27:46 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "get_next_line.h"
 
 char	*ft_filtr(char *buffer)
@@ -49,7 +50,7 @@ char	*ft_readfd(int fd, char *buffer)
 	if (!res)
 		return (NULL);
 	bytes = 1;
-	while (bytes != 0 && ft_strchr(buffer, '\n') == 0)
+	while (bytes != 0 && ft_str_chr(buffer, '\n') == 0)
 	{
 		bytes = read(fd, res, BUFFER_SIZE);
 		if (bytes == -1)
@@ -60,7 +61,7 @@ char	*ft_readfd(int fd, char *buffer)
 			return (NULL);
 		}
 		res[bytes] = '\0';
-		buffer = ft_strjoin(buffer, res);
+		buffer = str_join(buffer, res);
 	}
 	free(res);
 	res = NULL;
@@ -90,7 +91,7 @@ char	*get_next_line(int fd)
 		buffer = NULL;
 		return (NULL);
 	}
-	buffer = ft_strdup(buffer, dir);
+	buffer = ft_str_dup(buffer, dir);
 	if (!buffer)
 		return (NULL);
 	return (res);
