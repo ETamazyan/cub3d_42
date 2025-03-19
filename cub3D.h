@@ -18,7 +18,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include "./get_next_line/get_next_line.h"
-#include "./lib_utils/libft.h"
+#include "libft/libft.h"
 
 typedef struct s_pos
 {

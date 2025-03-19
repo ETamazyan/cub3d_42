@@ -1,21 +1,16 @@
 CC = cc
+CFLAGS = -Wall -Wextra -Werror
 
-CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address
+MLX_DIR = ./minilibx-linux
 
-UNAME := $(shell uname)
+LIB_UTILS_DIR = ./libft
 
-ifeq ($(UNAME), Darwin)  # macOS
-    MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
-else  # Linux or other systems
-    MLX_FLAGS = -lmlx -lX11 -lGL -lGLU
-endif
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -lX11 -lGL -lGLU
 
-# MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
+LIB_UTILS_FLAGS = -L$(LIB_UTILS_DIR) -lft
 
-SRCS =  main.c validation.c \
-		error.c \
-		parsing.c \
-		./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c
+SRCS = main.c validation.c error.c parsing.c \
+       ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c
 
 INCS = cub3D.h
 
@@ -23,20 +18,25 @@ NAME = cub3D
 
 OBJS = $(SRCS:.c=.o)
 
-all: $(NAME)
+all: lib_utils $(NAME)
 
-$(NAME): $(OBJS) Makefile cub3D.h
-		$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME)
+lib_utils:
+	$(MAKE) -C $(LIB_UTILS_DIR)
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIB_UTILS_FLAGS) $(MLX_FLAGS) -o $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $^ -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 re: fclean all
 
 clean:
 	rm -f $(OBJS)
+	$(MAKE) -C $(LIB_UTILS_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
+	$(MAKE) -C $(LIB_UTILS_DIR) fclean
 
-.PHONY: all re clean fclean
+.PHONY: all re clean fclean libft
