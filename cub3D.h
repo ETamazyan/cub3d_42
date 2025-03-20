@@ -56,7 +56,7 @@ size_t	ft_startlen(const char *s1, const char *set);
 int	ft_size(int start, int end);
 char	*ft_strtrim2(char *s1, char *set);
 
-
+int	valid(char *filename);
 
 
 #endif

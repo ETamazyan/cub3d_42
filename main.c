@@ -14,18 +14,14 @@
 
 int main(int argc, char **argv)
 {
-	int		fd;
-	t_data	*data;
-
-	fd = 0;
-	data = NULL;
-	(void)data;
 	if (argc != 2)
-		print_error(data, "Error: Invalid amount of arguments.\n");
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0)
-		print_error(data, "Error: Invalid cannot read file.\n");
-	is_fd_valid(data, argv[1]);
-	data->map = fd_parse(fd);
+		// print_error(data, "Error: Invalid amount of arguments.\n");
+		printf("not enough args\n");
+	// fd = open(argv[1], O_RDONLY);
+	// if (fd < 0)
+	// 	// print_error(data, "Error: Invalid cannot read file.\n");
+	// 	printf("reading failed");
+	//check validity then create data type
+	valid(argv[1]);
 	return (0);
 }
