@@ -57,6 +57,6 @@ int	ft_size(int start, int end);
 char	*ft_strtrim2(char *s1, char *set);
 
 int	valid(char *filename);
-
-
+void	only_whitespace(char	*res);
+void	free_res(char *buf, char *res);
 #endif

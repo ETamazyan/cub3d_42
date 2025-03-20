@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etamazya <el.tamazyan03@gmail.com>         +#+  +:+       +#+        */
+/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/04 20:42:22 by etamazya          #+#    #+#             */
-/*   Updated: 2025/03/04 21:39:06 by etamazya         ###   ########.fr       */
+/*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
+/*   Updated: 2025/03/20 19:13:38 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "cub3D.h"
 
@@ -47,33 +48,26 @@ void	valid_filename(char *filename)
 // 	}
 // }
 
-// char	*initialize_buf(int fd)
-// {
-// 	char		*temp;
-// 	char		*buf;
-// 	char		*res;
+char	*initialize_buf(int fd)
+{
+	char		*temp;
+	char		*buf;
+	char		*res;
 
-// 	res = ft_strdup("");
-// 	buf = get_next_line(fd);
-// 	while (buf)
-// 	{
-// 		temp = res;
-// 		res = ft_strjoin(res, buf);
-// 		free(temp);
-// 		free(buf);
-// 		buf = get_next_line(fd);
-// 	}
-// 	if (!res)
-// 		exit (1);
-// 	return (res);
-// }
-
-// void	free_res(char *buf, char *res)
-// {
-// 	free(buf);
-// 	free(res);
-// }
-
+	res = ft_strdup("");
+	buf = get_next_line(fd);
+	while (buf)
+	{
+		temp = res;
+		res = ft_strjoin(res, buf);
+		free(temp);
+		free(buf);
+		buf = get_next_line(fd);
+	}
+	if (!res)
+		exit (1);
+	return (res);
+}
 
 void	valid_fd(int fd)
 {
@@ -88,8 +82,8 @@ void	valid_fd(int fd)
 /*checking fd, and filename validity*/
 int	valid(char *filename)
 {
-	// char		*buf;
-	// char		*res;
+	char		*buf;
+	char		*res;
 	// char		**map;
 	int			fd;
 	// t_dimens	map_dim;
@@ -97,15 +91,16 @@ int	valid(char *filename)
 	fd = open(filename, O_RDONLY);
 	valid_fd(fd);
 	valid_filename(filename);
-	// res = initialize_buf(fd);
-	// buf = res;
-	// only_whitespace(res);
-	// res = ft_strtrim(res, "\n\t\v\f\r ");
-	// if (!res)
-	// {
-	// 	free_res(buf, res);
-	// 	exit(1);
-	// }
+	res = initialize_buf(fd);
+	buf = res;
+	only_whitespace(res);
+	res = ft_strtrim(res, "\n\t\v\f\r ");
+	if (!res)
+	{
+		free_res(buf, res);
+		exit(1);
+	}
+	printf("%s\n", res);
 	// check_dub_nl(res);
 	// map = ft_split(res, '\n');
 	// free_res(buf, res);

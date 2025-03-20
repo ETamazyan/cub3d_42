@@ -9,7 +9,7 @@ MLX_FLAGS = -L$(MLX_DIR) -lmlx -lX11 -lGL -lGLU
 
 LIB_UTILS_FLAGS = -L$(LIB_UTILS_DIR) -lft
 
-SRCS = main.c validation.c error.c parsing.c \
+SRCS = main.c validation.c error.c parsing.c trim_map.c\
        ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c
 
 INCS = cub3D.h
