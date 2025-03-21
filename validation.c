@@ -79,6 +79,22 @@ void	valid_fd(int fd)
 }
 
 
+// void separate_elements(char **map)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (map[i])
+// 	{
+
+// 	}
+// }
+// t_dimens	valid_map(char **map)
+// {}
+
+//void filling(map_dim, map)
+// {}
+
 /*checking fd, and filename validity*/
 int	valid(char *filename)
 {

@@ -10,7 +10,7 @@ MLX_FLAGS = -L$(MLX_DIR) -lmlx -lX11 -lGL -lGLU
 LIB_UTILS_FLAGS = -L$(LIB_UTILS_DIR) -lft
 
 SRCS = main.c validation.c error.c parsing.c trim_map.c\
-       ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c
+       ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c \
 
 INCS = cub3D.h
 
@@ -21,7 +21,7 @@ OBJS = $(SRCS:.c=.o)
 all: lib_utils $(NAME)
 
 lib_utils:
-	$(MAKE) -C $(LIB_UTILS_DIR)
+	@$(MAKE) -C $(LIB_UTILS_DIR)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIB_UTILS_FLAGS) $(MLX_FLAGS) -o $(NAME)
@@ -39,4 +39,4 @@ fclean: clean
 	rm -f $(NAME)
 	$(MAKE) -C $(LIB_UTILS_DIR) fclean
 
-.PHONY: all re clean fclean libft
+.PHONY: all re clean fclean lib_utils
