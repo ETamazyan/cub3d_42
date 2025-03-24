@@ -26,6 +26,11 @@ typedef struct s_pos
 	int				y;
 }					t_pos;
 
+typedef struct s_dimens
+{
+	int mi_ban;
+} t_dimens;
+
 typedef struct s_data
 {
     char			**map;
