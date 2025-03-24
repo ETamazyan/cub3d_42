@@ -14,14 +14,16 @@
 
 int main(int argc, char **argv)
 {
+	t_data	dbase;
+
 	if (argc != 2)
-		// print_error(data, "Error: Invalid amount of arguments.\n");
 		printf("not enough args\n");
+		// print_error(data, "Error: Invalid amount of arguments.\n");
 	// fd = open(argv[1], O_RDONLY);
 	// if (fd < 0)
 	// 	// print_error(data, "Error: Invalid cannot read file.\n");
 	// 	printf("reading failed");
 	//check validity then create data type
-	valid(argv[1]);
+	valid(&dbase, argv[1]);
 	return (0);
 }

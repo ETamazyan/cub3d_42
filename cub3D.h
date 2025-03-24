@@ -43,6 +43,7 @@ typedef struct s_data
     t_pos			player;
 }   t_data;
 
+
 void print_error(t_data *data, char *str);
 void is_fd_valid(t_data *data, char *path);
 void clean_data(t_data *data);
@@ -63,7 +64,8 @@ size_t	ft_startlen(const char *s1, const char *set);
 int	ft_size(int start, int end);
 char	*ft_strtrim2(char *s1, char *set);
 
-int	valid(char *filename);
+void separate_elements(t_data *dbase, char **map);
+int	valid(t_data *dbase, char *filename);
 void	only_whitespace(char *res);
 void	free_res(char *buf, char *res);
 char	*cut_front(char *old);

@@ -78,25 +78,42 @@ void	valid_fd(int fd)
 	}
 }
 
+// SO EA WE NO
+void separate_elements(t_data *dbase, char **map)
+{
+	// char **template = map; // navsyaki, heto i-n ev j-n kareli e poxel pointerov
+	int	i;
+	int j;
 
-// void separate_elements(char **map)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (map[i])
-// 	{
-
-// 	}
-// }
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			while (map[i][j] == 32 || (map[i][j] >= 9 && map[i][j] <= 12))
+				j++;
+			if (ft_strncmp(&map[i][j], "NO ", 3) == 0) // add later whites spaces as [2] character
+				dbase->north = map[i++];
+			if (ft_strncmp(&map[i][j], "SO ", 3) == 0) // add later whites spaces as [2] character
+				dbase->south = map[i++];
+			if (ft_strncmp(&map[i][j], "WE ", 3) == 0) // add later whites spaces as [2] character
+				dbase->west = map[i++];
+			if (ft_strncmp(&map[i][j], "EA ", 3) == 0) // add later whites spaces as [2] character
+				dbase->east = map[i++];
+			j++;
+		}
+		i++;
+	}
+}
 // t_dimens	valid_map(char **map)
 // {}
 
-//void filling(map_dim, map)
+//void filling(map_dim, map) 
 // {}
 
 /*checking fd, and filename validity*/
-int	valid(char *filename)
+int	valid(t_data *dbase, char *filename)
 {
 	char		*buf;
 	char		*res;
@@ -120,11 +137,11 @@ int	valid(char *filename)
 	// check_dub_nl(res);
 	map = ft_split(res, '\n');
 	free_res(buf, res);
-	for(int i = 0; map[i]; i++)
-	{	for(int j = 0; map[i][j]; j++)
-			printf("%c", map[i][j]);
-		printf("\n");}
-	// separate_elements(map);
+	// for(int i = 0; map[i]; i++)
+	// {	for(int j = 0; map[i][j]; j++)
+	// 		printf("%c", map[i][j]);
+	// 	printf("\n");}
+	separate_elements(dbase, map);
 	// map_dim = valid_map(map);
 	// filling(map_dim, map);
 	return (0);
