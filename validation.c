@@ -12,93 +12,72 @@
 
 #include "cub3D.h"
 
+static int is_line_valid(const char *line, int *counter)
+{
+	*counter += 1;
+	while (*line) {
+		if (*line != '1' && *line != ' ' && *line != '\t') {
+			return 0;
+		}
+		line++;
+	}
+	return 1; 
+}
+
 static int check_identifier_order(const char *line, int *expected_order) 
 {
-	int i = 0;
 	printf("line = %s\n", line);
+	int i = 0;
 	while (line[i] == 32 || (line[i] >= 9 && line[i] <= 12) || line[i] == '\n')
 		i++;
 	if (*expected_order == 0 && strncmp(line, "NO ", 3) == 0) {
-        *expected_order = 1;
-        return 0;
-    }
-    if (*expected_order == 1 && strncmp(line, "SO ", 3) == 0) {
-        *expected_order = 2;
-        return 0;
-    }
-    if (*expected_order == 2 && strncmp(line, "WE ", 3) == 0) {
-        *expected_order = 3;
-        return 0;
-    }
-    if (*expected_order == 3 && strncmp(line, "EA ", 3) == 0) {
-        *expected_order = 4;
-        return 0;
-    }
-    if (*expected_order == 4 && strncmp(line, "F ", 2) == 0) {
-        *expected_order = 5;
-        return 0;
-    }
-    if (*expected_order == 5 && strncmp(line, "C ", 2) == 0) {
-        *expected_order = 6;
-        return 0;
-    }
-    return 1;
+		*expected_order = 1;
+		return 0;
+	}
+	if (*expected_order == 1 && strncmp(line, "SO ", 3) == 0) {
+		*expected_order = 2;
+		return 0;
+	}
+	if (*expected_order == 2 && strncmp(line, "WE ", 3) == 0) {
+		*expected_order = 3;
+		return 0;
+	}
+	if (*expected_order == 3 && strncmp(line, "EA ", 3) == 0) {
+		*expected_order = 4;
+		return 0;
+	}
+	if (*expected_order == 4 && strncmp(line, "F ", 2) == 0) {
+		*expected_order = 5;
+		return 0;
+	}
+	if (*expected_order == 5 && strncmp(line, "C ", 2) == 0) {
+		*expected_order = 6;
+		return 0;
+	}
+	return 1;
 }
 
-static int validate_file(const char *filename)
+static int validate_file(char **map)
 {
-    FILE *file = fopen(filename, "r");
-    if (!file)
-	{
-        printf("Error opening file.\n");
-        return 1;
-    }
+	int counter = 0;
+	const char *line;
+	int expected_order;
 
-    char line[256];
-    int expected_order = 0;
-    while (fgets(line, sizeof(line), file))
+	expected_order = 0;
+	for (int i = 0; map[i] != NULL; i++)
 	{
-        if (line[0] == '\n')
-			continue;  // Skip empty lines
-        if (check_identifier_order(line, &expected_order) == 1) 
-		{
-            printf("Error: Invalid order or unknown identifier.\n");
-            fclose(file);
-            return 1;
-        }
-    }
-    fclose(file);
-    return 0;
+		line = map[i];
+		if (line[0] == '\n')
+			continue;
+		if (is_line_valid(line, &counter) && printf("c = %d\n", counter) && counter > 6)
+			break;
+		if (check_identifier_order(line, &expected_order) == 1)
+			return (printf("Error: Invalid order or \
+unknown identifier.\n"), 1);
+	}
+	return 0;
 }
 
-// void separate_elements(t_data *dbase, char **map)
-// {
-		// // char **template = map; // navsyaki, heto i-n ev j-n kareli e poxel pointerov
-		// int	i;
-		// int j;
-	    // char *exp_order[] = {"NO", "SO", "WE", "EA", "F", "C"};
-		// i = 0;
-
-		// while (map[i])
-		// {
-		// 	j = 0;
-		// 	while (map[i][j])
-		// 	{
-		// 		while (map[i][j] == 32 || (map[i][j] >= 9 && map[i][j] <= 12))
-		// 			j++;
-		// 		if (ft_strncmp(&map[i][j], "NO ", 3) == 0) // add later whites spaces as [2] character
-		// 			dbase->north = map[i++];
-		// 		if (ft_strncmp(&map[i][j], "SO ", 3) == 0) // add later whites spaces as [2] character
-		// 			dbase->south = map[i++];
-		// 		if (ft_strncmp(&map[i][j], "WE ", 3) == 0) // add later whites spaces as [2] character
-		// 			dbase->west = map[i++];
-		// 		if (ft_strncmp(&map[i][j], "EA ", 3) == 0) // add later whites spaces as [2] character
-		// 			dbase->east = map[i++];
-		// 		j++;
-		// 	}
-		// 	i++;
-		// }
-// }
 void	valid_filename(char *filename)
 {
 	size_t	len;
@@ -171,8 +150,8 @@ int	valid(t_data *dbase, char *filename)
 	// {	for(int j = 0; map[i][j]; j++)
 	// 		printf("%c", map[i][j]);
 	// 	printf("\n");}
-	if(validate_file(filename) == 1)
-		return (1);
+	if(validate_file(map) == 1)
+	return (1);
 	// separate_elements(dbase, map);
 	// map_dim = valid_map(map);
 	// filling(map_dim, map);
@@ -191,13 +170,43 @@ int	valid(t_data *dbase, char *filename)
 
 // *** ADDITIONAL FUNCTIONS ***
 
+// void separate_elements(t_data *dbase, char **map)
+// {
+		// // char **template = map; // navsyaki, heto i-n ev j-n kareli e poxel pointerov
+		// int	i;
+		// int j;
+		// char *exp_order[] = {"NO", "SO", "WE", "EA", "F", "C"};
+		// i = 0;
+
+		// CHANGE THE LOGIC
+		// while (map[i])
+		// {
+		// 	j = 0;
+		// 	while (map[i][j])
+		// 	{
+		// 		while (map[i][j] == 32 || (map[i][j] >= 9 && map[i][j] <= 12))
+		// 			j++;
+		// 		if (ft_strncmp(&map[i][j], "NO ", 3) == 0) // add later whites spaces as [2] character
+		// 			dbase->north = map[i++];
+		// 		if (ft_strncmp(&map[i][j], "SO ", 3) == 0) // add later whites spaces as [2] character
+		// 			dbase->south = map[i++];
+		// 		if (ft_strncmp(&map[i][j], "WE ", 3) == 0) // add later whites spaces as [2] character
+		// 			dbase->west = map[i++];
+		// 		if (ft_strncmp(&map[i][j], "EA ", 3) == 0) // add later whites spaces as [2] character
+		// 			dbase->east = map[i++];
+		// 		j++;
+		// 	}
+		// 	i++;
+		// }
+// }
+
 // KEEP THIS IN ADVANCE
 // void separate_elements(t_data *dbase, char **map)
 // {
 	// 	// char **template = map; // navsyaki, heto i-n ev j-n kareli e poxel pointerov
 	// 	int	i;
 	// 	int j;
-	//     // char *expected_order[] = {"NO", "SO", "WE", "EA", "F", "C"};
+	//	 // char *expected_order[] = {"NO", "SO", "WE", "EA", "F", "C"};
 	// 	i = 0;
 	// 	while (map[i])
 	// 	{
