@@ -10,9 +10,95 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "cub3D.h"
 
+static int check_identifier_order(const char *line, int *expected_order) 
+{
+	int i = 0;
+	printf("line = %s\n", line);
+	while (line[i] == 32 || (line[i] >= 9 && line[i] <= 12) || line[i] == '\n')
+		i++;
+	if (*expected_order == 0 && strncmp(line, "NO ", 3) == 0) {
+        *expected_order = 1;
+        return 0;
+    }
+    if (*expected_order == 1 && strncmp(line, "SO ", 3) == 0) {
+        *expected_order = 2;
+        return 0;
+    }
+    if (*expected_order == 2 && strncmp(line, "WE ", 3) == 0) {
+        *expected_order = 3;
+        return 0;
+    }
+    if (*expected_order == 3 && strncmp(line, "EA ", 3) == 0) {
+        *expected_order = 4;
+        return 0;
+    }
+    if (*expected_order == 4 && strncmp(line, "F ", 2) == 0) {
+        *expected_order = 5;
+        return 0;
+    }
+    if (*expected_order == 5 && strncmp(line, "C ", 2) == 0) {
+        *expected_order = 6;
+        return 0;
+    }
+    return 1;
+}
+
+static int validate_file(const char *filename)
+{
+    FILE *file = fopen(filename, "r");
+    if (!file)
+	{
+        printf("Error opening file.\n");
+        return 1;
+    }
+
+    char line[256];
+    int expected_order = 0;
+    while (fgets(line, sizeof(line), file))
+	{
+        if (line[0] == '\n')
+			continue;  // Skip empty lines
+        if (check_identifier_order(line, &expected_order) == 1) 
+		{
+            printf("Error: Invalid order or unknown identifier.\n");
+            fclose(file);
+            return 1;
+        }
+    }
+    fclose(file);
+    return 0;
+}
+
+// void separate_elements(t_data *dbase, char **map)
+// {
+		// // char **template = map; // navsyaki, heto i-n ev j-n kareli e poxel pointerov
+		// int	i;
+		// int j;
+	    // char *exp_order[] = {"NO", "SO", "WE", "EA", "F", "C"};
+		// i = 0;
+
+		// while (map[i])
+		// {
+		// 	j = 0;
+		// 	while (map[i][j])
+		// 	{
+		// 		while (map[i][j] == 32 || (map[i][j] >= 9 && map[i][j] <= 12))
+		// 			j++;
+		// 		if (ft_strncmp(&map[i][j], "NO ", 3) == 0) // add later whites spaces as [2] character
+		// 			dbase->north = map[i++];
+		// 		if (ft_strncmp(&map[i][j], "SO ", 3) == 0) // add later whites spaces as [2] character
+		// 			dbase->south = map[i++];
+		// 		if (ft_strncmp(&map[i][j], "WE ", 3) == 0) // add later whites spaces as [2] character
+		// 			dbase->west = map[i++];
+		// 		if (ft_strncmp(&map[i][j], "EA ", 3) == 0) // add later whites spaces as [2] character
+		// 			dbase->east = map[i++];
+		// 		j++;
+		// 	}
+		// 	i++;
+		// }
+// }
 void	valid_filename(char *filename)
 {
 	size_t	len;
@@ -24,6 +110,121 @@ void	valid_filename(char *filename)
 		exit(1);
 	}
 }
+
+char	*initialize_buf(int fd)
+{
+	char		*temp;
+	char		*buf;
+	char		*res;
+	
+	res = ft_strdup("");
+	buf = get_next_line(fd);
+	while (buf)
+	{
+		temp = res;
+		res = ft_strjoin(res, buf);
+		free(temp);
+		free(buf);
+		buf = get_next_line(fd);
+	}
+	if (!res)
+	exit (1);
+	return (res);
+}
+
+void	valid_fd(int fd)
+{
+	if (fd == -1)
+	{
+		printf("%s", "Error: Invalid filename!\n");
+		exit (1);
+	}
+}
+
+
+/*checking fd, and filename validity*/
+int	valid(t_data *dbase, char *filename)
+{
+	char		*buf;
+	char		*res;
+	char		**map;
+	int			fd;
+	// t_dimens	map_dim;
+	
+	fd = open(filename, O_RDONLY);
+	valid_fd(fd);
+	valid_filename(filename);
+	res = initialize_buf(fd);
+	buf = res;
+	only_whitespace(res);
+	res = ft_strtrim(res, "\n\t\v\f\r ");
+	if (!res)
+	{
+		free_res(buf, res);
+		exit(1);
+	}
+	res = cut_front(res);
+	// check_dub_nl(res);
+	map = ft_split(res, '\n');
+	free_res(buf, res);
+	// for(int i = 0; map[i]; i++)
+	// {	for(int j = 0; map[i][j]; j++)
+	// 		printf("%c", map[i][j]);
+	// 	printf("\n");}
+	if(validate_file(filename) == 1)
+		return (1);
+	// separate_elements(dbase, map);
+	// map_dim = valid_map(map);
+	// filling(map_dim, map);
+	(void)buf;
+	(void)res;
+	(void)map;
+	(void)fd;
+	(void)dbase;
+	return (0);
+}
+
+
+
+
+
+
+// *** ADDITIONAL FUNCTIONS ***
+
+// KEEP THIS IN ADVANCE
+// void separate_elements(t_data *dbase, char **map)
+// {
+	// 	// char **template = map; // navsyaki, heto i-n ev j-n kareli e poxel pointerov
+	// 	int	i;
+	// 	int j;
+	//     // char *expected_order[] = {"NO", "SO", "WE", "EA", "F", "C"};
+	// 	i = 0;
+	// 	while (map[i])
+	// 	{
+		// 		j = 0;
+		// 		while (map[i][j])
+		// 		{
+			// 			while (map[i][j] == 32 || (map[i][j] >= 9 && map[i][j] <= 12))
+			// 				j++;
+			// 			if (ft_strncmp(&map[i][j], "NO ", 3) == 0) // add later whites spaces as [2] character
+			// 				dbase->north = map[i++];
+// 			if (ft_strncmp(&map[i][j], "SO ", 3) == 0) // add later whites spaces as [2] character
+// 				dbase->south = map[i++];
+// 			if (ft_strncmp(&map[i][j], "WE ", 3) == 0) // add later whites spaces as [2] character
+// 				dbase->west = map[i++];
+// 			if (ft_strncmp(&map[i][j], "EA ", 3) == 0) // add later whites spaces as [2] character
+// 				dbase->east = map[i++];
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
+
+// t_dimens	valid_map(char **map)
+// {}
+
+//void filling(map_dim, map) 
+// {}
 
 // void	check_dub_nl(char	*buf)
 // {
@@ -47,102 +248,3 @@ void	valid_filename(char *filename)
 // 		i++;
 // 	}
 // }
-
-char	*initialize_buf(int fd)
-{
-	char		*temp;
-	char		*buf;
-	char		*res;
-
-	res = ft_strdup("");
-	buf = get_next_line(fd);
-	while (buf)
-	{
-		temp = res;
-		res = ft_strjoin(res, buf);
-		free(temp);
-		free(buf);
-		buf = get_next_line(fd);
-	}
-	if (!res)
-		exit (1);
-	return (res);
-}
-
-void	valid_fd(int fd)
-{
-	if (fd == -1)
-	{
-		printf("%s", "Error: Invalid filename!\n");
-		exit (1);
-	}
-}
-
-// SO EA WE NO
-void separate_elements(t_data *dbase, char **map)
-{
-	// char **template = map; // navsyaki, heto i-n ev j-n kareli e poxel pointerov
-	int	i;
-	int j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			while (map[i][j] == 32 || (map[i][j] >= 9 && map[i][j] <= 12))
-				j++;
-			if (ft_strncmp(&map[i][j], "NO ", 3) == 0) // add later whites spaces as [2] character
-				dbase->north = map[i++];
-			if (ft_strncmp(&map[i][j], "SO ", 3) == 0) // add later whites spaces as [2] character
-				dbase->south = map[i++];
-			if (ft_strncmp(&map[i][j], "WE ", 3) == 0) // add later whites spaces as [2] character
-				dbase->west = map[i++];
-			if (ft_strncmp(&map[i][j], "EA ", 3) == 0) // add later whites spaces as [2] character
-				dbase->east = map[i++];
-			j++;
-		}
-		i++;
-	}
-}
-// t_dimens	valid_map(char **map)
-// {}
-
-//void filling(map_dim, map) 
-// {}
-
-/*checking fd, and filename validity*/
-int	valid(t_data *dbase, char *filename)
-{
-	char		*buf;
-	char		*res;
-	char		**map;
-	int			fd;
-	// t_dimens	map_dim;
-
-	fd = open(filename, O_RDONLY);
-	valid_fd(fd);
-	valid_filename(filename);
-	res = initialize_buf(fd);
-	buf = res;
-	only_whitespace(res);
-	res = ft_strtrim(res, "\n\t\v\f\r ");
-	if (!res)
-	{
-		free_res(buf, res);
-		exit(1);
-	}
-	res = cut_front(res);
-	// check_dub_nl(res);
-	map = ft_split(res, '\n');
-	free_res(buf, res);
-	// for(int i = 0; map[i]; i++)
-	// {	for(int j = 0; map[i][j]; j++)
-	// 		printf("%c", map[i][j]);
-	// 	printf("\n");}
-	separate_elements(dbase, map);
-	// map_dim = valid_map(map);
-	// filling(map_dim, map);
-	return (0);
-}

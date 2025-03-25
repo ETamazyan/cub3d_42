@@ -20,6 +20,16 @@
 #include "./get_next_line/get_next_line.h"
 #include "libft/libft.h"
 
+
+// *****
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+
+#include <stdio.h>
+#include <string.h>
+// *****
+
 typedef struct s_pos
 {
 	int				x;
