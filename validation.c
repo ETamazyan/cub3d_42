@@ -15,67 +15,118 @@
 static int is_line_valid(const char *line, int *counter)
 {
 	*counter += 1;
-	while (*line) {
-		if (*line != '1' && *line != ' ' && *line != '\t') {
+	while (*line)
+	{
+		if (*line != '1' && *line != ' ' && *line != '\t')
 			return 0;
-		}
 		line++;
 	}
 	return 1; 
 }
 
-static int check_identifier_order(const char *line, int *expected_order) 
-{
-	printf("line = %s\n", line);
-	int i = 0;
-	while (line[i] == 32 || (line[i] >= 9 && line[i] <= 12) || line[i] == '\n')
-		i++;
-	if (*expected_order == 0 && strncmp(line, "NO ", 3) == 0) {
-		*expected_order = 1;
-		return 0;
-	}
-	if (*expected_order == 1 && strncmp(line, "SO ", 3) == 0) {
-		*expected_order = 2;
-		return 0;
-	}
-	if (*expected_order == 2 && strncmp(line, "WE ", 3) == 0) {
-		*expected_order = 3;
-		return 0;
-	}
-	if (*expected_order == 3 && strncmp(line, "EA ", 3) == 0) {
-		*expected_order = 4;
-		return 0;
-	}
-	if (*expected_order == 4 && strncmp(line, "F ", 2) == 0) {
-		*expected_order = 5;
-		return 0;
-	}
-	if (*expected_order == 5 && strncmp(line, "C ", 2) == 0) {
-		*expected_order = 6;
-		return 0;
-	}
-	return 1;
+static int is_valid_identifier(const char *line) {
+    if (strncmp(line, "NO ", 3) == 0 || strncmp(line, "SO ", 3) == 0 || strncmp(line, "WE ", 3) == 0 || strncmp(line, "EA ", 3) == 0) {
+        const char *path = line + 3;
+        if (*path == '\0') {
+            printf("Error: Empty path for texture.\n");
+            return 0;
+        }
+        while (*path != '\0') {
+            if (!ft_isalnum(*path) && *path != '/' && *path != '.') {
+                printf("Error: Invalid character in texture path: %s\n", path);
+                return 0;
+            }
+            path++;
+        }
+        return 1;
+    } else if (strncmp(line, "F ", 2) == 0 || strncmp(line, "C ", 2) == 0) {
+        const char *rgb_values = line + 2;
+        int r, g, b;
+        if (sscanf(rgb_values, "%d,%d,%d", &r, &g, &b) != 3) {
+            printf("Error: Invalid RGB values for %s: %s\n", line, rgb_values);
+            return 0;
+        }
+        if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
+            printf("Error: RGB values out of range for %s: %s\n", line, rgb_values);
+            return 0;
+        }
+        return 1;
+    }
+    return 0;
 }
 
+// Function to check the order of the identifiers
+static int check_identifier_order(const char *line, int *expected_order, int *first_f_c)
+{
+	printf("line = %s\n", line);
+	int flag = 0;
+    int i = 0;
+    while (line[i] == 32 || (line[i] >= 9 && line[i] <= 12) || line[i] == '\n')
+        i++;
+    if (*first_f_c == 0 || *first_f_c == 1) {
+        if (strncmp(line, "F ", 2) == 0)
+		{
+			*expected_order = 0;
+            *first_f_c = 1; // check later
+			flag = 1;
+            return 0;
+        }
+        if (strncmp(line, "C ", 2) == 0)
+		{
+            *expected_order = 0;
+            *first_f_c = 2; // check later
+			flag = 1;
+            return 0;
+        }
+    }
+	if (*expected_order == 0 && strncmp(line, "NO ", 3) == 0) {
+		*expected_order = 1;
+        return 0;
+    }
+	if (*expected_order == 1 && strncmp(line, "SO ", 3) == 0) {
+        *expected_order = 2;
+        return 0;
+    }
+    if (*expected_order == 2 && strncmp(line, "WE ", 3) == 0) {
+        *expected_order = 3;
+        return 0;
+    }
+    if (*expected_order == 3 && strncmp(line, "EA ", 3) == 0) {
+        *expected_order = 4;
+        return 0;
+    }
+    if (*first_f_c >= 1 && *expected_order == 4 && strncmp(line, "F ", 2) == 0) {
+        *expected_order = 5;
+        return 0;
+    }
+    if (*first_f_c >= 1 && *expected_order == 5 && strncmp(line, "C ", 2) == 0) {
+        *expected_order = 6;
+        return 0;
+    }
+(void)flag;
+    // If an identifier is encountered out of order, return 1 to indicate error
+    return 1;
+}
+
+// Function to validate the entire file
 static int validate_file(char **map)
 {
 	int counter = 0;
-	const char *line;
-	int expected_order;
-
-	expected_order = 0;
-	for (int i = 0; map[i] != NULL; i++)
+    int expected_order = 0;
+    int first_f_c = 0;
+    for (int i = 0; map[i] != NULL; i++) 
 	{
-		line = map[i];
-		if (line[0] == '\n')
-			continue;
-		if (is_line_valid(line, &counter) && printf("c = %d\n", counter) && counter > 6)
-			break;
-		if (check_identifier_order(line, &expected_order) == 1)
-			return (printf("Error: Invalid order or \
-unknown identifier.\n"), 1);
-	}
-	return 0;
+        const char *line = map[i];
+
+        if (line[0] == '\n')
+            continue;
+        if (is_line_valid(line, &counter) && !is_valid_identifier(line))
+            return (1);
+        if (check_identifier_order(line, &expected_order, &first_f_c) == 1)
+            return (printf("Error: Invalid order or unknown identifier: %s\n", line), 1);
+    }
+
+    return 0;
 }
 
 void	valid_filename(char *filename)
