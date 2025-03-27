@@ -54,14 +54,13 @@ typedef struct s_data
 }   t_data;
 
 
-void print_error(t_data *data, char *str);
-void is_fd_valid(t_data *data, char *path);
-void clean_data(t_data *data);
+void	print_error(t_data *data, char *str);
+void	clean_data(t_data *data);
 char	**fd_parse(int fd);
 
 // ******
 size_t	ft_startlen(const char *s1, const char *set);
-int	ft_check2(char const *set, char const str);
+int		ft_check2(char const *set, char const str);
 char	*check_newline2(char *join);
 char	*ft_strtrim(char const *s1, char const *set);
 size_t	ft_check(char const *set, char const str);
@@ -69,16 +68,25 @@ void	check_whitespaces(char **res);
 void	check_newline(char *join);
 void	check_whitespaces(char **res);
 char	*check_newline2(char *join);
-int	ft_check2(char const *set, char const str);
+int		ft_check2(char const *set, char const str);
 size_t	ft_startlen(const char *s1, const char *set);
-int	ft_size(int start, int end);
+int		ft_size(int start, int end);
 char	*ft_strtrim2(char *s1, char *set);
 
-void separate_elements(t_data *dbase, char **map);
-int	valid(t_data *dbase, char *filename);
+/* validation and map creation */
+int		valid(t_data *dbase, char *filename);
+void	valid_fd(int fd);
+void	valid_filename(char *filename);
+char	*initialize_buf(int fd);
 void	only_whitespace(char *res);
 void	free_res(char *buf, char *res);
+int		validate_file(char **map);
+
+// map validation
 char	*cut_front(char *old);
-void	cut_map(char **map);
+
+/* helpers */
+void	print_map(char **map);
+
 
 #endif
