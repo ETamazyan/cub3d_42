@@ -63,5 +63,7 @@ void	only_whitespace(char	*res);
 void	free_res(char *buf, char *res);
 char	*cut_front(char *old);
 void	cut_map(char **map);
+char    **ft_strdup_2d(char **s1, int index);
+void    separate_elements(char **map, t_data *map_dim);
 
 #endif

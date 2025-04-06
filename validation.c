@@ -6,7 +6,7 @@
 /*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/03/21 06:24:59 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/04/06 17:52:16 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	valid(char *filename)
 	char		*res;
 	char		**map;
 	int			fd;
-	// t_dimens	map_dim;
+	t_data	map_dim;
 
 	fd = open(filename, O_RDONLY);
 	valid_fd(fd);
@@ -104,11 +104,15 @@ int	valid(char *filename)
 	// check_dub_nl(res);
 	map = ft_split(res, '\n');
 	free_res(buf, res);
-	for(int i = 0; map[i]; i++)
-	{	for(int j = 0; map[i][j]; j++)
-			printf("%c", map[i][j]);
-		printf("\n");}
-	// separate_elements(map);
+	// for(int i = 0; map[i]; i++)
+	// {	for(int j = 0; map[i][j]; j++)
+	// 		printf("%c", map[i][j]);
+	// 	printf("\n");}
+	separate_elements(map, &map_dim);
+	printf("%s\n", map_dim.F_color);
+	printf("%s\n", map_dim.east);
+	for(int i = 0; map_dim.map[i]; i++)
+		printf("%s\n", map_dim.map[i]);
 	// map_dim = valid_map(map);
 	// filling(map_dim, map);
 	return (0);
