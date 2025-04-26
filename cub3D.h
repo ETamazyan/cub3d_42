@@ -54,7 +54,6 @@ void	valid_fd_filename(int fd, char *filename);
 // void	valid_filename(char *filename);
 char	*initialize_buf(int fd);
 void	only_whitespace(char *res);
-void	free_res(char *buf, char *res);
 int		validate_file(char **map, int counter, int i, int exp_o);
 int		check_identifier_order(const char *line, int *exp_ord, int *first_f_c);
 int		did_not_reached_map(const char *line, int *count, int order);
@@ -64,6 +63,14 @@ int		check_no_so_we_ea(const char *line, const  char *temp);
 // error.c
 void	print_error(t_data *data, char *str);
 void	clean_data(t_data *data);
+
+// valid_helpers.c
+int	is_texture(char *line);
+int	is_color(char *line);
+int	is_map_line(char *line);
+int	check_rgb(char *line);
+int check_xpm(char *line);
+
 
 
 char	**fd_parse(int fd);
@@ -91,6 +98,8 @@ char	*cut_front(char *old);
 
 /* helpers */
 void	print_map(char **map);
+void	free_str_array(char **arr);
+void	free_res(char *buf, char *res);
 
 // utils
 char    **ft_strdup_2d(char **s1, int index);

@@ -6,114 +6,13 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/04/26 20:01:41 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/26 20:14:56 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "cub3D.h"
 
-char	*initialize_buf(int fd)
-{
-	char		*temp;
-	char		*buf;
-	char		*res;
-
-	res = ft_strdup("");
-	buf = get_next_line(fd);
-	while (buf)
-	{
-		temp = res;
-		res = ft_strjoin(res, buf);
-		free(temp);
-		free(buf);
-		buf = get_next_line(fd);
-	}
-	if (!res)
-		exit (1);
-	return (res);
-}
-
-void	valid_fd_filename(int fd, char *filename)
-{
-	size_t	len;
-	
-	len = ft_strlen(filename) - 4;
-	if (fd == -1)
-	{
-		printf("%s", "Error: Invalid filename!\n");
-		exit (1);
-	}
-	if (ft_strncmp(filename + len, ".cub", 4))
-	{
-		printf("%s", "Error: Invalid file format!\n");
-		exit(1);
-	}
-}
-
-
-
-
-
-
-// ****************************************
-// ****************************************
-// ****************************************
-
-void	free_str_array(char **arr)
-{
-	int	i = 0;
-	while (arr[i])
-		free(arr[i++]);
-	free(arr);
-}
-
-
-int	is_texture(char *line)
-{
-	while (*line == ' ' || *line == '\t')
-		line++;
-	return (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) 
-		|| !ft_strncmp(line, "WE", 2) || !ft_strncmp(line, "EA", 2)); // change s
-}
-
-int	is_color(char *line)
-{
-	while (*line == ' ' || *line == '\t')
-		line++;
-	return (*line == 'F' || *line == 'C');
-}
-
-int	is_map_line(char *line)
-{
-	while (*line == ' ' || *line == '\t')
-		line++;
-	return (*line == '1' || *line == '0' || *line == '\t');
-}
-
-int	check_rgb(char *line)
-{
-	int		r;
-	int		g;
-	int		b;
-	char	*tmp;
-
-	line += 1;
-	while (*line == ' ')
-		line++;
-	r = ft_atoi(line);
-	tmp = ft_strchr(line, ',');
-	if (!tmp)
-		return (0);
-	g = ft_atoi(tmp + 1);
-	tmp = ft_strchr(tmp + 1, ',');
-	if (!tmp)
-		return (0);
-	b = ft_atoi(tmp + 1);
-	return (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255);
-}
-
-
+// 1
 int check_xpm(char *line)
 {
     int fd;
@@ -131,7 +30,7 @@ int check_xpm(char *line)
     return (1);
 }
 
-
+// 2
 // if 1 error
 int validate_identifiers(char **lines, t_data *dbase)
 {
@@ -160,6 +59,7 @@ int validate_identifiers(char **lines, t_data *dbase)
         return (1);
     return (0);
 }
+// 3
 static int check_res(char *string, char *buf)
 {
 	if (!string)
@@ -170,6 +70,7 @@ static int check_res(char *string, char *buf)
 	}
 	return (0);
 }
+// 4
 int	valid_and_parsing(t_data *dbase, char *filename)
 {
 	char		*buf;
