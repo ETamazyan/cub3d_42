@@ -6,94 +6,12 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/04/26 19:34:33 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/26 20:01:41 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "cub3D.h"
-
-// 4
-// Function to check the order of the identifiers
-int check_identifier_order(const char *line, int *exp_ord, int *first_f_c)
-{
-	printf("check_identifier_order: line = %s\n", line);
-	int i = 0;
-	while (line[i] == 32 || (line[i] >= 9 && line[i] <= 12) || line[i] == '\n')
-		i++;
-	if (*first_f_c == 0 || *first_f_c == 1)
-	{
-		if (ft_strncmp(line, "F ", 2) == 0)
-		{
-			*first_f_c += 1;
-			return (0);
-		}
-		if (ft_strncmp(line, "C ", 2) == 0)
-		{
-			*first_f_c += 1;
-			return (0);
-		}
-	}
-	if (*exp_ord == 0 && ft_strncmp(line, "NO ", 3) == 0)
-	{
-		*exp_ord = 1;
-		return (0);
-	}
-	if (*exp_ord == 1 && ft_strncmp(line, "SO ", 3) == 0)
-	{
-		*exp_ord = 2;
-		return (0);
-	}
-	if (*exp_ord == 2 && ft_strncmp(line, "WE ", 3) == 0)
-	{
-		*exp_ord = 3;
-		return (0);
-	}
-	if (*exp_ord == 3 && ft_strncmp(line, "EA ", 3) == 0)
-	{
-		*exp_ord = 4;
-		return (0);
-	}
-	if (*first_f_c >= 1 && *exp_ord == 4 && ft_strncmp(line, "F ", 2) == 0)
-	{
-		*exp_ord = 5;
-		return (0);
-	}
-	if (*first_f_c >= 1 && *exp_ord == 5 && ft_strncmp(line, "C ", 2) == 0)
-	{
-		*exp_ord = 6;
-		return (0);
-	}
-	return (1);
-}
-
-
-
-
-
-
-// void	check_dub_nl(char	*buf)
-// {
-// 	int	flag;
-// 	int	i;
-
-// 	i = 0;
-// 	flag = 0;
-// 	while (buf[i])
-// 	{
-// 		if (buf[i] != '\n')
-// 			flag = 0;
-// 		if (buf[i] == '\n' && flag == 0)
-// 			flag = 1;
-// 		else if (buf[i] == '\n' && flag == 1)
-// 		{
-// 			ft_printf("%s", "Error\nDouble new line!");
-// 			free(buf);
-// 			exit (1);
-// 		}
-// 		i++;
-// 	}
-// }
 
 char	*initialize_buf(int fd)
 {
@@ -155,8 +73,8 @@ int	is_texture(char *line)
 {
 	while (*line == ' ' || *line == '\t')
 		line++;
-	return (!strncmp(line, "NO", 2) || !strncmp(line, "SO", 2)
-		|| !strncmp(line, "WE", 2) || !strncmp(line, "EA", 2));
+	return (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) 
+		|| !ft_strncmp(line, "WE", 2) || !ft_strncmp(line, "EA", 2)); // change s
 }
 
 int	is_color(char *line)
@@ -175,7 +93,9 @@ int	is_map_line(char *line)
 
 int	check_rgb(char *line)
 {
-	int		r, g, b;
+	int		r;
+	int		g;
+	int		b;
 	char	*tmp;
 
 	line += 1;
@@ -226,26 +146,30 @@ int validate_identifiers(char **lines, t_data *dbase)
 		printf("llll = %s\n", lines[i]);
         if (is_map_line(lines[i]))
             break;
-		// printf("aaaa\n");
         if (is_texture(lines[i])) {
 			if (check_xpm(lines[i]))
 				count++;
-			// printf("bbbbbbb\n");
         }
         else if (is_color(lines[i])) {
 			if (check_rgb(lines[i]))
 			count++;
-			// printf("cccc\n");
         }
-		// printf("verj\n");
         i++;
     }
     if (count == 6)
-        return 1;
-		// printf("hasaaaav\n");
-    return 0;
+        return (1);
+    return (0);
 }
-
+static int check_res(char *string, char *buf)
+{
+	if (!string)
+	{
+		free_res(buf, string); // achqis ashxatum a mena res-i hamar check later,
+		// bervel e valid_and_parsing funckciayic
+		exit(1);
+	}
+	return (0);
+}
 int	valid_and_parsing(t_data *dbase, char *filename)
 {
 	char		*buf;
@@ -259,16 +183,11 @@ int	valid_and_parsing(t_data *dbase, char *filename)
 	buf = res;
 	only_whitespace(res);
 	res = ft_strtrim(res, "\n\t\v\f\r ");
-	if (!res)
-	{
-		free_res(buf, res);
-		exit(1);
-	}
+	check_res(res, buf);// changed here, // i think exit may cause leaks
 	res = cut_front(res);
 	map = ft_split(res, '\n');
 	free_res(buf, res);
-	// if not 1 error
-	if (!validate_identifiers(map, dbase))
+	if (!validate_identifiers(map, dbase)) 	// if not 1 error
 	{
 		free_str_array(map);
 		write(2, "Error\nInvalid map or config.\n", 30);

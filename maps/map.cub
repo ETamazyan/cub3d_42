@@ -1,3 +1,4 @@
+EA ./textures/redbrick.xpm
 
 
 F 71,19,0000021
@@ -11,7 +12,6 @@ NO 	 	./textures/bluestone.xpm
 
 		 	 	 	SO ./textures/greystone.xpm
 WE 	./textures/eagle.xpm
-EA ./textures/redbrick.xpm
 
 C 65,240,255
 
