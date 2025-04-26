@@ -54,11 +54,11 @@ void	valid_fd_filename(int fd, char *filename);
 // void	valid_filename(char *filename);
 char	*initialize_buf(int fd);
 void	only_whitespace(char *res);
-int		validate_file(char **map, int counter, int i, int exp_o);
-int		check_identifier_order(const char *line, int *exp_ord, int *first_f_c);
-int		did_not_reached_map(const char *line, int *count, int order);
-int		is_valid_identifier(const char *line);
-int		check_no_so_we_ea(const char *line, const  char *temp);
+// int		validate_file(char **map, int counter, int i, int exp_o);
+// int		check_identifier_order(const char *line, int *exp_ord, int *first_f_c);
+// int		did_not_reached_map(const char *line, int *count, int order);
+// int		is_valid_identifier(const char *line);
+// int		check_no_so_we_ea(const char *line, const  char *temp);
 
 // error.c
 void	print_error(t_data *data, char *str);
@@ -73,13 +73,13 @@ int check_xpm(char *line);
 
 
 
-char	**fd_parse(int fd);
+// char	**fd_parse(int fd);
 // ******
 size_t	ft_startlen(const char *s1, const char *set);
 int		ft_check2(char const *set, char const str);
 char	*check_newline2(char *join);
 char	*ft_strtrim(char const *s1, char const *set);
-size_t	ft_check(char const *set, char const str);
+// size_t	ft_check(char const *set, char const str);
 void	check_whitespaces(char **res);
 void	check_newline(char *join);
 void	check_whitespaces(char **res);
@@ -97,7 +97,7 @@ char	*ft_strtrim2(char *s1, char *set);
 char	*cut_front(char *old);
 
 /* helpers */
-void	print_map(char **map);
+// void	print_map(char **map);
 void	free_str_array(char **arr);
 void	free_res(char *buf, char *res);
 

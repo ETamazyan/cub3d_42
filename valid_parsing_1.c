@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/04/26 20:14:56 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/26 21:03:00 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int validate_identifiers(char **lines, t_data *dbase)
     count = 0;
     while (lines[i])
     {
-		printf("llll = %s\n", lines[i]);
         if (is_map_line(lines[i]))
             break;
         if (is_texture(lines[i])) {
