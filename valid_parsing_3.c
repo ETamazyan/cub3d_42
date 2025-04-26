@@ -6,20 +6,20 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:04:33 by etamazya          #+#    #+#             */
-/*   Updated: 2025/04/26 14:04:18 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:12:09 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
 //2
-int is_line_valid(const char *line, int *count, int order)
+int did_not_reached_map(const char *line, int *count, int order)
 {
 	*count += 1;
 	while (*line && order > 6)
 	{
 		if (*line != '1' && *line != ' ' && *line != '\t')
-			return (0);
+			return (0); // aysinqn hasel e map-in petq e stop lini
 		line++;
 	}
 	return (1);
@@ -67,7 +67,11 @@ int is_valid_identifier(const char *line)
         if (!(*temp >= 9 && *temp <= 12) && *temp != 32)
             return (printf("Error: Texture path should be seperated.\n"), 1);
         else
-            temp = temp + 1;
+		{
+			while ((*temp >= 9 && *temp <= 12) && *temp == 32)
+				temp++;
+		}
+            // temp = temp + 1;
         if (*temp == '\0')
             return (printf("Error: Empty path for texture.\n"), 1);
         if (check_no_so_we_ea(line, temp) == 1)
@@ -93,34 +97,31 @@ int is_valid_identifier(const char *line)
 	}
     else
     {
-        // aysinqn voch mi no so we ea f c chka
+        // aysinqn no so we ea f c-eric voch mek chka
         return (1);
     }
 	return (0);
 }
-//1
+// 1-st validation function ever
 // if 1 error
-int validate_file(char **map, int counter, int i)
+int validate_file(char **map, int counter, int i, int exp_o)
 {
-	int exp_o;
 	int first_f_c;
 	const char *line;
 	
-	exp_o = 0;
-	first_f_c = 0;	
+	first_f_c = 0;
 	while (map[i] != NULL) 
 	{
 		line = map[i];
-		if (line[0] == '\n')
-			continue;
-		if (is_line_valid(line, &counter, (exp_o + first_f_c)))
+		if (line[0] == '\n') // ete mek hat \n a tesnum okay a skeep a anum
+			continue ;
+		if (did_not_reached_map(line, &counter, (exp_o + first_f_c)))
 		{
 			printf("line = %s, num = %d", line, (exp_o + first_f_c));
 			if (is_valid_identifier(line) == 1)
-				return (1);		
+				return (1);
 			// if ((exp_o + first_f_c) < 6)
 			// 	printf("Error: map cannot be before identifiers\n");
-			return (1);
 		}
 		if (check_identifier_order(line, &exp_o, &first_f_c) == 1)
 			return (printf("Error: Invalid order or unknown identifier: %s\n", line), 1);

@@ -1,12 +1,24 @@
 
-SO ./assets/so.xpm
-EA ./assets/ea.xpm
-WE./assets/we.xpm
-NO ./assets/no.xpm
+
+F 71,19,0000021
 
 
-F 32,32,32
-C 0,25,51
+
+NO 	 	./textures/bluestone.xpm
+
+
+
+
+		 	 	 	SO ./textures/greystone.xpm
+WE 	./textures/eagle.xpm
+EA ./textures/redbrick.xpm
+
+C 65,240,255
+
+
+
+
+
 
 
 
@@ -104,15 +116,6 @@ C 0,25,51
                         11101010111110111011111010111111101010001
                         10001010100000100000001010100000100010101
                         11111111111111111111111111111111111111111
-
-
-
-
-
-
-
-
-
 
 
 

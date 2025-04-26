@@ -55,11 +55,11 @@ void	valid_fd_filename(int fd, char *filename);
 char	*initialize_buf(int fd);
 void	only_whitespace(char *res);
 void	free_res(char *buf, char *res);
-int		validate_file(char **map, int counter, int i);
-int check_identifier_order(const char *line, int *exp_ord, int *first_f_c);
-int is_line_valid(const char *line, int *count, int order);
-int is_valid_identifier(const char *line);
-int check_no_so_we_ea(const char *line, const  char *temp);
+int		validate_file(char **map, int counter, int i, int exp_o);
+int		check_identifier_order(const char *line, int *exp_ord, int *first_f_c);
+int		did_not_reached_map(const char *line, int *count, int order);
+int		is_valid_identifier(const char *line);
+int		check_no_so_we_ea(const char *line, const  char *temp);
 
 // error.c
 void	print_error(t_data *data, char *str);
