@@ -9,9 +9,9 @@ MLX_FLAGS = -L$(MLX_DIR) -lmlx -lX11 -lGL -lGLU
 
 LIB_UTILS_FLAGS = -L$(LIB_UTILS_DIR) -lft
 
-SRCS = main.c validation.c error.c parsing.c trim_map.c\
+SRCS = main.c valid_parsing_1.c error.c valid_parsing_2.c trim_map.c\
        ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c\
-	   utils.c indexing_map.c
+	   utils.c indexing_map.c valid_helpers.c valid_parsing_3.c
 
 INCS = cub3D.h
 
@@ -31,8 +31,8 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIB_UTILS_FLAGS) $(MLX_FLAGS) -o $(NAME)
 
 $(OBJS_DIR)%.o: %.c $(HEADERS) Makefile
-		@mkdir -p $(OBJS_DIR)
-		$(CC) $(CFLAGS) -c $< -o $@
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 re: fclean all
 
@@ -47,6 +47,10 @@ fclean: clean
 
 .PHONY: all re clean fclean libft
 
+
+
+
+# ********************** MANE ************************
 # NAME = game
 # CC = cc
 # CFLAGS = -Wall -Wextra -Werror -Iminilibx-linux

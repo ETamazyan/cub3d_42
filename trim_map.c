@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trim_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 06:13:34 by maavalya          #+#    #+#             */
-/*   Updated: 2025/03/21 06:23:00 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/04/26 12:33:57 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,7 @@ static int	check_sep(char c, char *charset)
 	return (0);
 }
 
-void	free_res(char *buf, char *res)
-{
-	free(buf);
-	free(res);
-}
+
 
 char	*cut_front(char *old)
 {
@@ -53,7 +49,7 @@ char	*cut_front(char *old)
 	return (new);
 }
 
-void	only_whitespace(char	*res)
+void	only_whitespace(char *res)
 {
 	int	i;
 

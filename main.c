@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:03:10 by etamazya          #+#    #+#             */
-/*   Updated: 2025/03/13 15:10:59 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/04/26 13:51:54 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 
 int main(int argc, char **argv)
 {
+	t_data	dbase;
+
 	if (argc != 2)
-		// print_error(data, "Error: Invalid amount of arguments.\n");
-		printf("not enough args\n");
+		return (printf("Error: Invalid amount of arguments.\n"), 1);
+	// print_error(data, "Error: Invalid amount of arguments.\n");
 	// fd = open(argv[1], O_RDONLY);
 	// if (fd < 0)
 	// 	// print_error(data, "Error: Invalid cannot read file.\n");
 	// 	printf("reading failed");
 	//check validity then create data type
-	valid(argv[1]);
+	if (valid_and_parsing(&dbase, argv[1]) == 1)
+		return (1);
 	return (0);
 }
