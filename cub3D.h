@@ -54,6 +54,7 @@ void	valid_fd_filename(int fd, char *filename);
 // void	valid_filename(char *filename);
 char	*initialize_buf(int fd);
 void	only_whitespace(char *res);
+int validate_whole_file(char **lines, t_data *dbase); // if 1 error
 // int		validate_file(char **map, int counter, int i, int exp_o);
 // int		check_identifier_order(const char *line, int *exp_ord, int *first_f_c);
 // int		did_not_reached_map(const char *line, int *count, int order);
@@ -95,6 +96,7 @@ char	*ft_strtrim2(char *s1, char *set);
 
 // map validation
 char	*cut_front(char *old);
+int is_map_valid(char **lines, t_data *dbase);
 
 /* helpers */
 // void	print_map(char **map);

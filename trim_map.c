@@ -6,12 +6,13 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 06:13:34 by maavalya          #+#    #+#             */
-/*   Updated: 2025/04/26 21:15:03 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/26 21:32:59 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+// 1
 static int	check_sep(char c, char *charset)
 {
 	int	i;
@@ -25,7 +26,7 @@ static int	check_sep(char c, char *charset)
 	}
 	return (0);
 }
-// 6
+// 2 // 6-rd
 char	*cut_front(char *old)
 {
 	char	*new;
@@ -47,7 +48,7 @@ char	*cut_front(char *old)
 	return (new);
 }
 
-// 4
+// 3 //4-rd
 void	only_whitespace(char *res)
 {
 	int	i;

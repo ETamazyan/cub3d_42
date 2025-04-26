@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/04/26 21:15:39 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:10:48 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,32 @@
 int check_xpm(char *line)
 {
     int fd;
+	size_t len;
+	
     while (*line && *line != ' ')
         line++;
     while (*line == ' ')
         line++;
-    size_t len = ft_strlen(line);
+    len = ft_strlen(line);
     if (len < 4 || strcmp(line + len - 4, ".xpm") != 0) // change laterrrr strcmp
         return 0;
     fd = open(line, O_RDONLY);
     if (fd < 0)
-        return 1; // qani vor menq der chunenq valid xpm, still should be 1
+        return (1); // qani vor menq der chunenq valid xpm, still should be 1
     close(fd);
     return (1);
 }
 
+int is_map_valid(char **lines, t_data *dbase)
+{
+	// validate map here
+	(void)lines;
+	(void)dbase;
+	return (1);
+}
+
 // 2 // 8-rd
-// if 1 error
-int validate_identifiers(char **lines, t_data *dbase)
+int validate_whole_file(char **lines, t_data *dbase) // if 1 error
 {
     int i;
     int count;
@@ -40,24 +49,25 @@ int validate_identifiers(char **lines, t_data *dbase)
     (void)dbase;
     i = 0;
     count = 0;
-    while (lines[i])
+    while (*lines)
     {
-        if (is_map_line(lines[i]))
+        if (is_map_line(*lines))
             break;
-        if (is_texture(lines[i])) {
-			if (check_xpm(lines[i]))
+        if (is_texture(*lines)) {
+			if (check_xpm(*lines))
 				count++;
         }
-        else if (is_color(lines[i])) {
-			if (check_rgb(lines[i]))
+        else if (is_color(*lines)) {
+			if (check_rgb(*lines))
 			count++;
         }
-        i++;
+		lines++;
     }
     if (count == 6)
-        return (1);
+		is_map_valid(lines, dbase);
     return (0);
 }
+
 // 5
 static int check_res(char *string, char *buf)
 {
@@ -69,6 +79,8 @@ static int check_res(char *string, char *buf)
 	}
 	return (0);
 }
+
+
 // 4
 int	valid_and_parsing(t_data *dbase, char *filename)
 {
@@ -83,15 +95,16 @@ int	valid_and_parsing(t_data *dbase, char *filename)
 	buf = res;
 	only_whitespace(res);
 	res = ft_strtrim(res, "\n\t\v\f\r ");
-	check_res(res, buf);// changed here, // i think exit may cause leaks
+	check_res(res, buf); // changed here, // i think exit may cause leaks
 	res = cut_front(res);
 	map = ft_split(res, '\n');
 	free_res(buf, res);
-	if (!validate_identifiers(map, dbase)) 	// if not 1 error
+	if (!validate_whole_file(map, dbase)) 	// if not 1 error
 	{
 		free_str_array(map);
 		write(2, "Error\nInvalid map or config.\n", 30);
 		exit(1);
 	}
+	printf("map_line = %s\n", *map);
 	return (0);
 }
