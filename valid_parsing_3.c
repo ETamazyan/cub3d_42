@@ -6,13 +6,13 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:04:33 by etamazya          #+#    #+#             */
-/*   Updated: 2025/04/26 20:26:32 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/26 21:14:15 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-// 1
+// 3
 char	*initialize_buf(int fd)
 {
 	char		*temp;

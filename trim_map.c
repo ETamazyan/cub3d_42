@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 06:13:34 by maavalya          #+#    #+#             */
-/*   Updated: 2025/04/26 12:33:57 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/26 21:15:03 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ static int	check_sep(char c, char *charset)
 	}
 	return (0);
 }
-
-
-
+// 6
 char	*cut_front(char *old)
 {
 	char	*new;
@@ -49,6 +47,7 @@ char	*cut_front(char *old)
 	return (new);
 }
 
+// 4
 void	only_whitespace(char *res)
 {
 	int	i;

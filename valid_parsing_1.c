@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/04/26 21:03:00 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/26 21:15:39 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int check_xpm(char *line)
     return (1);
 }
 
-// 2
+// 2 // 8-rd
 // if 1 error
 int validate_identifiers(char **lines, t_data *dbase)
 {
@@ -58,7 +58,7 @@ int validate_identifiers(char **lines, t_data *dbase)
         return (1);
     return (0);
 }
-// 3
+// 5
 static int check_res(char *string, char *buf)
 {
 	if (!string)
