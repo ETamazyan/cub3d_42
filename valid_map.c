@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 13:32:06 by etamazya          #+#    #+#             */
-/*   Updated: 2025/04/27 20:05:59 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/27 20:51:21 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int check_disordered_wall(char **map, int j, int i)
 			if ((j > (int)ft_strlen(map[i + 1]) - 1 \
 			|| j > (int)ft_strlen(map[i - 1]) - 1) 
 				&& map[i][j] != '1' && check(map[i][j]) == 0)
-				return(printf("Error\n Wrong map at row %d, \
+				return (printf("Error\n Wrong map at row %d, \
 column %d, - %d\n", i, j, map[i][j]), 0); 
 			if (check(map[i][j]) == 1 || map[i][j] == '1')
 				j++;
@@ -33,7 +33,7 @@ column %d, - %d\n", i, j, map[i][j]), 0);
 					 && check(map[i - 1][j]) == 0)
 				j++;
 			else
-				return(printf("Error\n Wrong map at row %d, \
+				return (printf("Error\n Wrong map at row %d, \
 column %d, - %c\n", i, j, map[i][j]), 0); 
 		}
 		i++;
@@ -93,7 +93,7 @@ int check_door(char **map)
 int is_map_valid(char **lines, t_data *dbase) // ete 0 error
 {
 	for (int i = 0; lines[i]; i++)
-	printf("clone[i] = %s.\n", lines[i]);
+		printf("clone[i] = %s.\n", lines[i]);
 	//  *** bun validacia ***
 	if (!check_chars(lines) || !check_walls(lines) || !check_player(lines)\
 	 || !check_disordered_wall(lines, 1, 1) || !check_door(lines))

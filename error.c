@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:00:45 by elen_t13          #+#    #+#             */
-/*   Updated: 2025/03/13 15:00:48 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/04/27 22:36:00 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void clean_data(t_data *data)
 	//	 free(data->north);
 	//	 free(data->west);
 	//	 free(data->east);
-		free(data->south); // just to keep open
+	if (data->xpm_json.no_key)
+		free(data->xpm_json.no_key); // just to keep open
 	//	 // free(data->player);
 	}
 }

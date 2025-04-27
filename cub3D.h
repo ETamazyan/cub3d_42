@@ -32,20 +32,46 @@
 
 typedef struct s_pos
 {
+	char			*direction;
 	int				x;
 	int				y;
 }					t_pos;
 
+typedef struct s_rgb
+{
+	int				ceiling;
+	int				floor;
+	int				cR;
+	int				cG;
+	int				cB;
+	int				fR;
+	int				fG;
+	int				fB;
+}					t_rgb;
+
+typedef struct s_xpm
+{
+	char		*no_key;
+	char		*no_value;
+	char		*so_key;
+	char		*so_value;
+	char		*we_key;
+	char		*we_value;
+	char		*ea_key;
+	char		*ea_value;
+}				t_xpm;
+
 typedef struct s_data
 {
     char			**map;
-	char			*north;
-	char			*west;
-	char			*east;
-	char			*south;
-	char			*F_color;
-	char			*C_color;
-    t_pos           player;
+	// char			*north;
+	// char			*west;
+	// char			*east;
+	// char			*south;
+	t_xpm			xpm_json;
+	t_pos			player;
+	t_rgb			rgb_lst;
+
 }   t_data;
 
 /* validation and map creation */
@@ -54,7 +80,7 @@ void	valid_fd_filename(int fd, char *filename);
 // void	valid_filename(char *filename);
 char	*initialize_buf(int fd);
 void	only_whitespace(char *res);
-int validate_whole_file(char **lines, t_data *dbase); // if 1 error
+int valid_whole_file_keep_data(char **lines, t_data *dbase, int i, int count); // if 1 error
 
 // error.c
 void	print_error(t_data *data, char *str);
@@ -65,7 +91,7 @@ int	is_texture(char *line);
 int	is_color(char *line);
 int	is_map_line(char *line);
 int	check_rgb(char *line);
-int check_xpm(char *line);
+int check_keep_xpm(t_data *dbase, char *line);
 
 
 

@@ -6,66 +6,116 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/04/27 19:56:34 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/27 22:39:27 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+char *ft_strncpy_malloc(const char *src, int n)
+{
+	int i = 0;
+	char *dest = (char *)malloc(n + 1);
+
+	i = 0;
+	dest = (char *)malloc(n + 1);
+	if (!dest)
+		return NULL;
+	while (i < n && src[i] != '\0')
+	{
+		// printf("-----> src[i] = %c, %d\n", src[i], n);
+		dest[i] = src[i];
+		i++;
+	}
+	while (i < n)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
+}
+
+
+void copy_key(t_data *dbase, char *line)
+{
+	int i;
+	char *value;
+
+	i = 0;
+	while (line[i] && (line[i] != ' ' && line[i] != '\t'))
+		i++;
+	value = ft_strncpy_malloc(line, i);
+	if (strcmp(value, "no") == 0)
+		dbase->xpm_json.no_key = ft_strdup(value);
+	else if (strcmp(value, "so") == 0)
+		dbase->xpm_json.so_key = ft_strdup(value);
+	else if (strcmp(value, "we") == 0)
+		dbase->xpm_json.we_key = ft_strdup(value);
+	else if (strcmp(value, "ea") == 0)
+		dbase->xpm_json.ea_key = ft_strdup(value);
+	while (*line && (*line != ' ' || *line != ' '))
+		line++;
+	// while (*line && (*line != ' ' && *line != '\t'))
+	// 	line++;
+	free(value);
+}
 // 1
-int check_xpm(char *line)
+int	check_keep_xpm(t_data *dbase, char *line)
 {
 	int fd;
 	size_t len;
 
-	while (*line && *line != ' ')
+	dbase->xpm_json.no_key = NULL;
+	dbase->xpm_json.so_key = NULL;
+	dbase->xpm_json.we_key = NULL;
+	dbase->xpm_json.ea_key = NULL;
+	while (*line == ' ' || *line == '\t')
 		line++;
-	while (*line == ' ')
+	if (*line && (*line != ' ' || *line != ' '))
+		copy_key(dbase, line);	
+	printf("haziiiv = %s\n", dbase->xpm_json.no_key);
+	while (*line == ' ' || *line == '\t')
 		line++;
+	printf("line = %s\n", line);
 	len = ft_strlen(line);
-	if (len < 4 || strcmp(line + len - 4, ".xpm") != 0) // change laterrrr strcmp
-		return 0;
-	fd = open(line, O_RDONLY);
-	if (fd < 0)
-		return (1); // qani vor menq der chunenq valid xpm, still should be 1
-	close(fd);
+	if (len < 4 || strcmp(line + len - 4, ".xpm") != 0) //change laterrr strcmp
+		return (0);
+	(void)dbase;
+	(void)fd;
 	return (1);
-	}
+}
 
 // 2 // 8-rd
-int validate_whole_file(char **lines, t_data *dbase) // if 1 error
+// ays funkcian patasxanatu e nayev tvyalnery pahelu hamar
+// if 1 error
+int valid_whole_file_keep_data(char **lines, t_data *dbase, int i, int count) 
 {
-	int i;
-	int count;
-
-	(void)dbase;
-	i = 0;
-	count = 0;
 	while (*lines)
 	{
 		if (is_map_line(*lines))
-			break;
+			break ;
 		if (is_texture(*lines)) {
-			if (check_xpm(*lines))
+			if (check_keep_xpm(dbase, *lines))
 				count++;
 		}
-		else if (is_color(*lines)) {
+		else if (is_color(*lines)) 
 			if (check_rgb(*lines))
-			count++;
-		}
+				count++;
 		lines++;
 	}
 	if (count == 6)
 		return (is_map_valid(lines, dbase));
+	(void)i;
 	return (0);
 }
+
 
 // 5
 static int check_res(char *string, char *buf)
 {
 	if (!string)
 	{
-		free_res(buf, string); // achqis ashxatum a menak res-i hamar check later,
+		free_res(buf, string);//achqis ashxatum a menak res-i hamar check later,
 		// bervel e valid_and_parsing funckciayic
 		exit(1);
 	}
@@ -91,7 +141,7 @@ int	valid_and_parsing(t_data *dbase, char *filename)
 	res = cut_front(res);
 	map = ft_split(res, '\n');
 	free_res(buf, res);
-	if (!validate_whole_file(map, dbase)) 	// if not 1 error
+	if (!valid_whole_file_keep_data(map, dbase, 0, 0)) 	// if not 1 error
 	{
 		free_str_array(map);
 		write(2, "Error\nInvalid map or config.\n", 30);
