@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 13:32:06 by etamazya          #+#    #+#             */
-/*   Updated: 2025/04/27 20:02:55 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/27 20:05:59 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int check_player(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' || map[i][j] == 'W')
+			if (map[i][j] == 'N' || map[i][j] == 'S' \
+				|| map[i][j] == 'E' || map[i][j] == 'W')
 				count++;
 			j++;
 		}
@@ -65,26 +66,26 @@ int check_player(char **map)
 
 int check_door(char **map)
 {
-    int i;
-    int j;
+	int i;
+	int j;
 
 	i = 1;
-    while (map[i + 1])
-    {
-        j = 1;
-        while (map[i][j + 1])
-        {
-            if (map[i][j] == 'D'
-                && !(map[i][j - 1] == '1' && map[i][j + 1] == '1')
-                && !(map[i - 1][j] == '1' && map[i + 1][j] == '1'))
-            {
-                printf("Door has wrong position at row %d, column %d\n", i, j);
-                return (0);
-            }
-            j++;
-        }
-        i++;
-    }
+	while (map[i + 1])
+	{
+		j = 1;
+		while (map[i][j + 1])
+		{
+			if (map[i][j] == 'D'
+				&& !(map[i][j - 1] == '1' && map[i][j + 1] == '1')
+				&& !(map[i - 1][j] == '1' && map[i + 1][j] == '1'))
+			{
+				printf("Door has wrong position at row %d, column %d\n", i, j);
+				return (0);
+			}
+			j++;
+		}
+		i++;
+	}
 	return (1);
 }
 
@@ -100,86 +101,3 @@ int is_map_valid(char **lines, t_data *dbase) // ete 0 error
 	(void)dbase;
 	return (1);
 }
-
-// **************************
-// **************************
-// ********just keep*********
-// **************************
-// **************************
-
-
-// char **copy_lines(char **lines)
-// {
-// 	char **clone;
-// 	int count;
-// 	int i;
-// 	int j;
-	
-// 	i = 0;
-// 	j = i;
-// 	count = 0;
-// 	clone = (char **)malloc(sizeof(char *) * (count + 1));
-// 	if (!clone)
-// 		return NULL;
-// 	while (i < count)
-// 	{
-// 		clone[i] = strdup(lines[i]);
-// 		if (!clone[i]) 
-// 		{
-// 			while (j < i)
-// 			{
-// 				free(clone[j]);
-// 				j++;	
-// 			}
-// 			free(clone);
-// 			return (NULL);
-// 		}
-// 		i++;
-// 	}
-// 	clone[count] = NULL;
-// 	return (clone);
-// }
-
-// int	check_walls(char **map)
-// {
-// 	int i;
-// 	int j;
-
-// 	i = 0;
-// 	while (map[i])
-// 	{
-// 		j = 0;
-// 		while (map[i][j])
-// 		{
-// 			j++;
-// 		}
-// 	i++;
-// 	}
-// 	int		j;
-
-// 	j = 0;
-// 	while (map->data[0][j] || map->data[map->raws - 1][j])
-// 	{
-// 		if (map->data[0][j] != '1'
-// 				|| map->data[map->raws - 1][j] != '1')
-// 			exit(write(2, "Invalid map\n", 12));
-// 		j++;
-// 	}
-// 	check_sidewalls(map);
-// 	(void)map;
-// 	return (1);
-// }
-
-// void	check_sidewalls(char **map)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < map->raws)
-// 	{
-// 		if (map->data[i][0] != '1'
-// 				|| map->data[i][map->cols - 1] != '1')
-// 			exit(write(2, "Invalid map\n", 12));
-// 		i++;
-// 	}
-// }
