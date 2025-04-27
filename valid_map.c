@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 13:32:06 by etamazya          #+#    #+#             */
-/*   Updated: 2025/04/27 18:46:06 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/27 19:20:31 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,34 @@ int	check(char s)
 	return (0);
 }
 
+int check_side_walls(char **map, int i, int j)
+{
+    while (map[i])
+    {
+        j = 0;
+        while (map[i][j] && check(map[i][j]) == 1)
+            j++;
+        if (map[i][j] != '1')
+            return (printf("Error\n Wrong map at row %d\n", i), 0);
+        i++;
+    }
+    i = 0;
+    while (map[i])
+    {
+        j = 0;
+        while (map[i][j])
+            j++;
+        j--;
+        while (check(map[i][j]) == 1 && j >= 0)
+            j--;
+        if (map[i][j] != '1')
+            return (printf("Error\n Wrong map at row %d\n", i), 0);
+        i++;
+    }
+	return (1);
+}
+
+
 int check_walls(char **map)
 {
 	int j;
@@ -27,10 +55,10 @@ int check_walls(char **map)
 
 	i = 0;
 	j = 0;
-	while (map[i] && map[i][j] && map[i][j] != '\n' && (map[i][j] == '1' || check(map[i][j]) == 1))
+	while (map[i] && (map[i][j] == '1' || check(map[i][j]) == 1))
 		j++;
 	if (map[i][j] && map[i][j] != '\0')
-		return (printf("Wrong map at row %d\n", i), 0);
+		return (printf("Error\nWrong map at row %d\n", i), 0);
 	while (map[i])
 		i++;
 	i--;
@@ -38,41 +66,12 @@ int check_walls(char **map)
 	while (map[i] && (map[i][j] == '1' || check(map[i][j]) == 1))
 		j++;
 	if (map[i][j] != '\0')
-		return (printf("Wrong map at row %d\n", i), 0);
+		return (printf("Error\nWrong map at row %d\n", i), 0);
+	if (check_side_walls(map, 0, 0) == 0)
+		return (0);
 	return (1);
 }
 
-char **copy_lines(char **lines)
-{
-	char **clone;
-	int count;
-	int i;
-	int j;
-	
-	i = 0;
-	j = i;
-	count = 0;
-	clone = (char **)malloc(sizeof(char *) * (count + 1));
-	if (!clone)
-		return NULL;
-	while (i < count)
-	{
-		clone[i] = strdup(lines[i]);
-		if (!clone[i]) 
-		{
-			while (j < i)
-			{
-				free(clone[j]);
-				j++;	
-			}
-			free(clone);
-			return (NULL);
-		}
-		i++;
-	}
-	clone[count] = NULL;
-	return (clone);
-}
 
 static int check_chars(char **map)
 {
@@ -107,25 +106,40 @@ void clean_map(char **map)
 	free(map);
 }
 
+int check_player(char **map)
+{
+    int count = 0;
+    int i = 0;
+    int j;
+
+    while (map[i])
+    {
+        j = 0;
+        while (map[i][j])
+        {
+            if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' || map[i][j] == 'W')
+                count++;
+            j++;
+        }
+        i++;
+    }
+    if (count != 1)
+		return (printf("Error\nSomething wrong with player\n"), 0);
+	return (1);
+}
+
+
 // ete sxal exit// kap chuni inch e veradardznum
 int is_map_valid(char **lines, t_data *dbase) // ete 0 error
 {
-	// char **cl_map;
-	
-	// cl_map = copy_lines(lines);
-	// if (!cl_map)
-	// 	return 0;
 	for (int i = 0; lines[i]; i++)
 	printf("clone[i] = %s.\n", lines[i]);
 	//  *** bun validacia ***
-	if (!check_chars(lines) || !check_walls(lines))
+	if (!check_chars(lines) || !check_walls(lines) || !check_player(lines))
 		return (printf("Errror\n"), 1);
-	// *************************
-	// chmoranalu hamar togh mna
-	// if (cl_map)
-	// 	clean_map(cl_map);
-	(void)dbase; // vor compile lini
-	printf("aaaaaaaaaaaaaaaaaa\n");
+	(void)dbase;
+	printf("aaaaaaaaaaaaaa\n"); // just hasav stegh
+	// change later
 	return (1);
 	return (0); // error
 }
@@ -135,6 +149,39 @@ int is_map_valid(char **lines, t_data *dbase) // ete 0 error
 // ********just keep*********
 // **************************
 // **************************
+
+
+// char **copy_lines(char **lines)
+// {
+// 	char **clone;
+// 	int count;
+// 	int i;
+// 	int j;
+	
+// 	i = 0;
+// 	j = i;
+// 	count = 0;
+// 	clone = (char **)malloc(sizeof(char *) * (count + 1));
+// 	if (!clone)
+// 		return NULL;
+// 	while (i < count)
+// 	{
+// 		clone[i] = strdup(lines[i]);
+// 		if (!clone[i]) 
+// 		{
+// 			while (j < i)
+// 			{
+// 				free(clone[j]);
+// 				j++;	
+// 			}
+// 			free(clone);
+// 			return (NULL);
+// 		}
+// 		i++;
+// 	}
+// 	clone[count] = NULL;
+// 	return (clone);
+// }
 
 // int	check_walls(char **map)
 // {
