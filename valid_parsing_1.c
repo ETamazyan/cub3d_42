@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/04/27 16:33:52 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/27 19:56:34 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,49 +15,49 @@
 // 1
 int check_xpm(char *line)
 {
-    int fd;
+	int fd;
 	size_t len;
-	
-    while (*line && *line != ' ')
-        line++;
-    while (*line == ' ')
-        line++;
-    len = ft_strlen(line);
-    if (len < 4 || strcmp(line + len - 4, ".xpm") != 0) // change laterrrr strcmp
-        return 0;
-    fd = open(line, O_RDONLY);
-    if (fd < 0)
-        return (1); // qani vor menq der chunenq valid xpm, still should be 1
-    close(fd);
-    return (1);
-}
+
+	while (*line && *line != ' ')
+		line++;
+	while (*line == ' ')
+		line++;
+	len = ft_strlen(line);
+	if (len < 4 || strcmp(line + len - 4, ".xpm") != 0) // change laterrrr strcmp
+		return 0;
+	fd = open(line, O_RDONLY);
+	if (fd < 0)
+		return (1); // qani vor menq der chunenq valid xpm, still should be 1
+	close(fd);
+	return (1);
+	}
 
 // 2 // 8-rd
 int validate_whole_file(char **lines, t_data *dbase) // if 1 error
 {
-    int i;
-    int count;
+	int i;
+	int count;
 
-    (void)dbase;
-    i = 0;
-    count = 0;
-    while (*lines)
-    {
-        if (is_map_line(*lines))
-            break;
-        if (is_texture(*lines)) {
+	(void)dbase;
+	i = 0;
+	count = 0;
+	while (*lines)
+	{
+		if (is_map_line(*lines))
+			break;
+		if (is_texture(*lines)) {
 			if (check_xpm(*lines))
 				count++;
-        }
-        else if (is_color(*lines)) {
+		}
+		else if (is_color(*lines)) {
 			if (check_rgb(*lines))
 			count++;
-        }
+		}
 		lines++;
-    }
-    if (count == 6)
+	}
+	if (count == 6)
 		return (is_map_valid(lines, dbase));
-    return (0);
+	return (0);
 }
 
 // 5

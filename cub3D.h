@@ -101,5 +101,14 @@ void	free_res(char *buf, char *res);
 // utils
 char    **ft_strdup_2d(char **s1, int index);
 
+// checkers
+int	check(char s);
+int check_disordered_wall(char **map, int j, int i);
+int check_side_walls(char **map, int i, int j);
+int check_walls(char **map);
+int check_chars(char **map);
+void clean_map(char **map);
+int check_player(char **map);
+
 
 #endif
