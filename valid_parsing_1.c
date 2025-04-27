@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/04/26 22:10:48 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/27 16:33:52 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,6 @@ int check_xpm(char *line)
         return (1); // qani vor menq der chunenq valid xpm, still should be 1
     close(fd);
     return (1);
-}
-
-int is_map_valid(char **lines, t_data *dbase)
-{
-	// validate map here
-	(void)lines;
-	(void)dbase;
-	return (1);
 }
 
 // 2 // 8-rd
@@ -64,7 +56,7 @@ int validate_whole_file(char **lines, t_data *dbase) // if 1 error
 		lines++;
     }
     if (count == 6)
-		is_map_valid(lines, dbase);
+		return (is_map_valid(lines, dbase));
     return (0);
 }
 
@@ -73,7 +65,7 @@ static int check_res(char *string, char *buf)
 {
 	if (!string)
 	{
-		free_res(buf, string); // achqis ashxatum a mena res-i hamar check later,
+		free_res(buf, string); // achqis ashxatum a menak res-i hamar check later,
 		// bervel e valid_and_parsing funckciayic
 		exit(1);
 	}
