@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/04/28 10:16:30 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/28 10:24:43 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void copy_key(t_data *dbase, char *line)
 		dbase->xpm_json.ea_key = ft_strdup(value);
 		dbase->xpm_json.ea_value = ft_strdup(line);	
 	}
-	value = NULL;
 	free(value);
+	value = NULL;
 }
 // 1
 int	check_keep_xpm(t_data *dbase, char *line)
