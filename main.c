@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:03:10 by etamazya          #+#    #+#             */
-/*   Updated: 2025/04/28 10:55:16 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/28 12:12:48 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ void clean_data(t_data *data)
 	data->player.direction = NULL;
 	data->player.x = 0;
 	data->player.y = 0;
-	data->rgb_lst.ceiling = 0;
-	data->rgb_lst.floor = 0;
 	data->rgb_lst.cR = 0;
 	data->rgb_lst.cG = 0;
 	data->rgb_lst.cB = 0;
@@ -69,8 +67,6 @@ void init_dbase(t_data *dbase)
 	dbase->player.direction = NULL;
 	dbase->player.x = -1;
 	dbase->player.y = -1;
-	dbase->rgb_lst.ceiling = -1;
-	dbase->rgb_lst.floor = -1;
 	dbase->rgb_lst.cR = -1;
 	dbase->rgb_lst.cG = -1;
 	dbase->rgb_lst.cB = -1;

@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/04/28 11:26:56 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/28 12:21:12 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,17 @@ int valid_whole_file_keep_data(char **lines, t_data *dbase, int i, int count)
 		{
 			if (check_keep_xpm(dbase, *lines))
 				count++;
+			else
+				return (1);
 		}
-		else if (is_color(*lines)) 
-			if (check_rgb(dbase, *lines))
+		else if (is_color(*lines))
+		{
+			
+			if (keep_check_rgb(dbase, *lines))
 				count++;
+			else
+				return (1);
+		}
 		lines++;
 	}
 	if (count == 6)
