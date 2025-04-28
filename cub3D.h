@@ -112,7 +112,7 @@ void	check_rgb(t_data *dbase, int r, int g, int b);
 
 // map validation
 char	*cut_front(char *old);
-int is_map_valid(char **lines, t_data *dbase);
+int keep_valid_map(char **lines, t_data *dbase);
 void init_dbase(t_data *dbase);
 
 /* helpers */
@@ -132,6 +132,6 @@ int check_walls(char **map);
 int check_chars(char **map);
 void clean_map(char **map);
 int check_player(char **map);
-
+int check_door(char **map);
 
 #endif

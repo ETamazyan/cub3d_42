@@ -6,12 +6,13 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/04/28 12:21:12 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/28 12:39:37 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+// 5
 void copy_key(t_data *dbase, char *line)
 {
 	int i;
@@ -91,7 +92,7 @@ int valid_whole_file_keep_data(char **lines, t_data *dbase, int i, int count)
 		lines++;
 	}
 	if (count == 6)
-		return (is_map_valid(lines, dbase));
+		return (keep_valid_map(lines, dbase));
 	(void)i;
 	return (0);
 }
