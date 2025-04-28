@@ -117,6 +117,7 @@ void init_dbase(t_data *dbase);
 // void	print_map(char **map);
 void	free_str_array(char **arr);
 void	free_res(char *buf, char *res);
+char *ft_strncpy_malloc(const char *src, int n);
 
 // utils
 char    **ft_strdup_2d(char **s1, int index);

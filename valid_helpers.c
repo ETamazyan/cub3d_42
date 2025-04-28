@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 12:33:03 by etamazya          #+#    #+#             */
-/*   Updated: 2025/04/26 20:43:40 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/28 10:16:40 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,27 @@ int	check_rgb(char *line)
 		return (0);
 	b = ft_atoi(tmp + 1);
 	return (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255);
+}
+
+//5
+char *ft_strncpy_malloc(const char *src, int n)
+{
+	int i = 0;
+	char *dest = (char *)malloc(n + 1);
+
+	i = 0;
+	dest = (char *)malloc(n + 1);
+	if (!dest)
+		return NULL;
+	while (i < n && src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	while (i < n)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
 }

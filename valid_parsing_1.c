@@ -6,35 +6,11 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/04/28 10:12:34 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/28 10:16:30 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-char *ft_strncpy_malloc(const char *src, int n)
-{
-	int i = 0;
-	char *dest = (char *)malloc(n + 1);
-
-	i = 0;
-	dest = (char *)malloc(n + 1);
-	if (!dest)
-		return NULL;
-	while (i < n && src[i] != '\0')
-	{
-		// printf("-----> src[i] = %c, %d\n", src[i], n);
-		dest[i] = src[i];
-		i++;
-	}
-	while (i < n)
-	{
-		dest[i] = '\0';
-		i++;
-	}
-	return (dest);
-}
-
 
 void copy_key(t_data *dbase, char *line)
 {
