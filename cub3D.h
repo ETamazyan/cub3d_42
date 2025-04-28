@@ -22,12 +22,9 @@
 
 
 // *****
-#include <stdio.h>
 #include <string.h>
-#include <stdbool.h>
+// #include <stdbool.h>
 
-#include <stdio.h>
-#include <string.h>
 // *****
 
 typedef struct s_pos
@@ -93,8 +90,6 @@ int	is_map_line(char *line);
 int	check_rgb(char *line);
 int check_keep_xpm(t_data *dbase, char *line);
 
-
-
 // char	**fd_parse(int fd);
 // ******
 size_t	ft_startlen(const char *s1, const char *set);
@@ -111,13 +106,12 @@ size_t	ft_startlen(const char *s1, const char *set);
 int		ft_size(int start, int end);
 char	*ft_strtrim2(char *s1, char *set);
 
-
 //error.c
-
 
 // map validation
 char	*cut_front(char *old);
 int is_map_valid(char **lines, t_data *dbase);
+void init_dbase(t_data *dbase);
 
 /* helpers */
 // void	print_map(char **map);

@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/04/27 22:39:27 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/28 10:12:34 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,43 +45,47 @@ void copy_key(t_data *dbase, char *line)
 	while (line[i] && (line[i] != ' ' && line[i] != '\t'))
 		i++;
 	value = ft_strncpy_malloc(line, i);
-	if (strcmp(value, "no") == 0)
-		dbase->xpm_json.no_key = ft_strdup(value);
-	else if (strcmp(value, "so") == 0)
-		dbase->xpm_json.so_key = ft_strdup(value);
-	else if (strcmp(value, "we") == 0)
-		dbase->xpm_json.we_key = ft_strdup(value);
-	else if (strcmp(value, "ea") == 0)
-		dbase->xpm_json.ea_key = ft_strdup(value);
-	while (*line && (*line != ' ' || *line != ' '))
+	while (*line && (*line != ' ' && *line != '\t'))
 		line++;
-	// while (*line && (*line != ' ' && *line != '\t'))
-	// 	line++;
+	while (*line == ' ' || *line == '\t')
+		line++;
+	if (strcmp(value, "NO") == 0)
+	{
+		dbase->xpm_json.no_key = ft_strdup("NO");
+		dbase->xpm_json.no_value = ft_strdup(line);		
+	}
+	else if (strcmp(value, "SO") == 0)
+	{
+		dbase->xpm_json.so_key = ft_strdup(value);
+		dbase->xpm_json.so_value = ft_strdup(line);	
+	}
+	else if (strcmp(value, "WE") == 0)
+	{
+		dbase->xpm_json.we_key = ft_strdup(value);
+		dbase->xpm_json.we_value = ft_strdup(line);	
+	}
+	else if (strcmp(value, "EA") == 0)
+	{
+		dbase->xpm_json.ea_key = ft_strdup(value);
+		dbase->xpm_json.ea_value = ft_strdup(line);	
+	}
+	value = NULL;
 	free(value);
 }
 // 1
 int	check_keep_xpm(t_data *dbase, char *line)
 {
-	int fd;
+	// int fd;
 	size_t len;
-
-	dbase->xpm_json.no_key = NULL;
-	dbase->xpm_json.so_key = NULL;
-	dbase->xpm_json.we_key = NULL;
-	dbase->xpm_json.ea_key = NULL;
-	while (*line == ' ' || *line == '\t')
-		line++;
-	if (*line && (*line != ' ' || *line != ' '))
-		copy_key(dbase, line);	
-	printf("haziiiv = %s\n", dbase->xpm_json.no_key);
-	while (*line == ' ' || *line == '\t')
-		line++;
-	printf("line = %s\n", line);
+	
 	len = ft_strlen(line);
 	if (len < 4 || strcmp(line + len - 4, ".xpm") != 0) //change laterrr strcmp
 		return (0);
-	(void)dbase;
-	(void)fd;
+	while (*line == ' ' || *line == '\t')
+		line++;
+	if (*line && (*line != ' ' || *line != ' '))
+		copy_key(dbase, line);
+	printf("liiiine = %s_\n", line);
 	return (1);
 }
 
