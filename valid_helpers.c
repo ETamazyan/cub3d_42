@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 12:33:03 by etamazya          #+#    #+#             */
-/*   Updated: 2025/04/28 10:16:40 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/28 11:25:29 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,38 @@ int	is_map_line(char *line)
 }
 
 //4
-int	check_rgb(char *line)
+int	check_rgb(t_data *dbase, char *line)
 {
-	int		r;
-	int		g;
-	int		b;
+	// char	c;
 	char	*tmp;
 
-	line += 1;
-	while (*line == ' ')
+	while (*line == ' ' || *line == '\t')
 		line++;
-	r = ft_atoi(line);
+	if (*line == 'C' || *line == 'F')
+		dbase->rgb_lst.c = *line;
+	else
+		return (0);
+	line += 1;
+	while (*line == ' ' || *line == '\t')
+		line++;
+	dbase->rgb_lst.r = ft_atoi(line);
 	tmp = ft_strchr(line, ',');
 	if (!tmp)
 		return (0);
-	g = ft_atoi(tmp + 1);
+	dbase->rgb_lst.g = ft_atoi(tmp + 1);
 	tmp = ft_strchr(tmp + 1, ',');
 	if (!tmp)
 		return (0);
-	b = ft_atoi(tmp + 1);
-	return (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255);
+	dbase->rgb_lst.b = ft_atoi(tmp + 1);
+	// call function check rgb return exact that rgb
+	if (!(dbase->rgb_lst.r >= 0 && dbase->rgb_lst.r <= 255) ||\
+	!(dbase->rgb_lst.g >= 0 && dbase->rgb_lst.g <= 255) || \
+	!(dbase->rgb_lst.b >= 0 && dbase->rgb_lst.b <= 255))
+	{
+		printf("Error\nrgb values a not in range at this line: '%s'\n", line);
+		exit (1);
+	}
+	return (1); // this is success spot
 }
 
 //5

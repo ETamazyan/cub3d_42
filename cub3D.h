@@ -36,14 +36,12 @@ typedef struct s_pos
 
 typedef struct s_rgb
 {
-	int				ceiling;
-	int				floor;
-	int				cR;
-	int				cG;
-	int				cB;
-	int				fR;
-	int				fG;
-	int				fB;
+	// int				ceiling;
+	// int				floor;
+	char			c;
+	int				r;
+	int				g;
+	int				b;
 }					t_rgb;
 
 typedef struct s_xpm
@@ -87,7 +85,7 @@ void	clean_data(t_data *data);
 int	is_texture(char *line);
 int	is_color(char *line);
 int	is_map_line(char *line);
-int	check_rgb(char *line);
+int	check_rgb(t_data *dbase, char *line);
 int check_keep_xpm(t_data *dbase, char *line);
 
 // char	**fd_parse(int fd);

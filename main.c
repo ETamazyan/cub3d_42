@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:03:10 by etamazya          #+#    #+#             */
-/*   Updated: 2025/04/28 10:23:53 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/04/28 10:55:16 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,16 @@ void init_dbase(t_data *dbase)
 	dbase->xpm_json.ea_key = NULL;
 	dbase->xpm_json.ea_value = NULL;
 	dbase->player.direction = NULL;
-	dbase->player.x = 0;
-	dbase->player.y = 0;
-	dbase->rgb_lst.ceiling = 0;
-	dbase->rgb_lst.floor = 0;
-	dbase->rgb_lst.cR = 0;
-	dbase->rgb_lst.cG = 0;
-	dbase->rgb_lst.cB = 0;
-	dbase->rgb_lst.fR = 0;
-	dbase->rgb_lst.fG = 0;
-	dbase->rgb_lst.fB = 0;
+	dbase->player.x = -1;
+	dbase->player.y = -1;
+	dbase->rgb_lst.ceiling = -1;
+	dbase->rgb_lst.floor = -1;
+	dbase->rgb_lst.cR = -1;
+	dbase->rgb_lst.cG = -1;
+	dbase->rgb_lst.cB = -1;
+	dbase->rgb_lst.fR = -1;
+	dbase->rgb_lst.fG = -1;
+	dbase->rgb_lst.fB = -1;
 }
 
 
