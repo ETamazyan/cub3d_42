@@ -6,7 +6,7 @@
 /*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:04:34 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/02 18:58:46 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/02 19:36:34 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,43 @@
 #include <stdbool.h>
 #include <math.h>
 #include <string.h>
+//shortening the code
 
+typedef struct s_pixel
+{
+    int x;
+    int y;
+    int color;
+}               t_pixel;
+
+typedef struct s_draw
+{
+    int dx;
+    int dy;
+    int size;
+    int color;
+}               t_draw;
+
+typedef struct s_minimap
+{
+    int scaled_block;
+    int offset_x;
+    int offset_y;
+    int rows;
+    int cols;
+    int minimap_width;
+    int minimap_height;
+}               t_minimap;
+
+typedef struct s_tex
+{
+    int tex_x;
+    int tex_y;
+    int start_y;
+    int end_y;
+    float height;
+}               t_tex;
+//
 typedef struct s_player
 {
     float x;
@@ -147,7 +183,7 @@ typedef struct s_data
 
 void put_pixel(int x, int y, int color, t_game *game);
 void clear_image(t_game *game);
-void draw_square(int x, int y, int size, int color, t_game *game);
+void draw_square(t_draw draw, t_game *game);
 void draw_map(t_game *game);
 void draw_minimap(t_game *game);
 float distance(float x, float y);

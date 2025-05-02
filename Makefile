@@ -12,7 +12,7 @@ LIB_UTILS_FLAGS = -L$(LIB_UTILS_DIR) -lft
 SRCS = main.c valid_parsing_1.c error.c valid_parsing_2.c trim_map.c\
        ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c\
 	   utils.c indexing_map.c valid_helpers.c valid_parsing_3.c clean.c \
-	   valid_checker.c valid_map.c map_checkers.c valid_rgb.c anim1.c anim2.c
+	   valid_checker.c valid_map.c map_checkers.c valid_rgb.c anim1.c anim2.c draw_clear.c
 #anim_start.c missing_function.c
 
 INCS = cub3D.h
