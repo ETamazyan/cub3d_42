@@ -6,7 +6,7 @@
 /*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 20:18:25 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/02 20:29:36 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/02 20:48:20 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	draw_line1(t_player *player, t_game *game, t_rays *rays, int i)
 	int			tex_y;
 	int			color;
 
-	coords.dist = fixed_dist(player->x, player->y,
-			rays->ray_x, rays->ray_y, game);
+	coords.dist = fixed_dist(player, rays, game);
 	coords.height = (BLOCK / coords.dist) * (WIDTH / 2);
 	coords.start_y = (HEIGHT - coords.height) / 2;
 	coords.end_y = coords.start_y + coords.height;

@@ -6,7 +6,7 @@
 /*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:04:34 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/02 20:27:11 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/02 20:47:31 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ void draw_square(t_draw draw, t_game *game);
 void draw_map(t_game *game);
 void draw_minimap(t_game *game);
 float distance(float x, float y);
-float fixed_dist(float x1, float y1, float x2, float y2, t_game *game);
+float fixed_dist(t_player *player, t_rays *rays, t_game *game);
 bool touch(float px, float py, t_game *game);
 void init_game(t_game *game, t_data *data);
 void draw_line(t_player *player, t_game *game, float angle, int i);
