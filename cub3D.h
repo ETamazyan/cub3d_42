@@ -1,31 +1,111 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                              :+:      :+:    :+:   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etamazya <el.tamazyan03@gmail.com>         +#+  +:+       +#+        */
+/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:04:34 by etamazya          #+#    #+#             */
-/*   Updated: 2025/03/04 21:00:51 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:58:46 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include <unistd.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include "./get_next_line/get_next_line.h"
+# include "libft/libft.h"
+# include "mlx.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <stdbool.h>
+# include <math.h>
+# include <string.h>
+# define WIDTH 1280
+# define HEIGHT 720
+# define BLOCK 64
+# define DEBUG 0
+
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+# define LEFT 65361
+# define RIGHT 65363
+# define ESC 17
+#define MINIMAP_SCALE 0.2
+#define MINIMAP_PADDING 10
+#define PLAYER_SIZE 4
+
+# define PI 3.14159265359
+
+#include "mlx.h"
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <fcntl.h>
-#include "./get_next_line/get_next_line.h"
-#include "libft/libft.h"
-
-
-// *****
+#include <stdbool.h>
+#include <math.h>
 #include <string.h>
-// #include <stdbool.h>
 
-// *****
+typedef struct s_player
+{
+    float x;
+    float y;
+    float angle;
+
+    bool key_up;
+    bool key_down;
+    bool key_left;
+    bool key_right;
+
+    bool left_rotate;
+    bool right_rotate;
+}   t_player;
+
+typedef struct s_texture {
+    void *img;
+    int *data;
+    int width;
+    int height;
+    int bpp;
+    int size_line;
+    int endian;
+} t_texture;
+
+typedef struct s_game
+{
+    void *mlx;
+    void *win;
+    void *img;
+    t_texture wall_texture;
+
+    char *data;
+    int bpp;
+    int size_line;
+    int endian;
+    t_player player;
+
+    char **map;
+} t_game;
+
+
+
+/* New type for minimap rendering */
+typedef struct s_new_type
+{
+    int x;
+    int y;
+    int draw_x;
+    int draw_y;
+    int row_len;
+    int scaled_block;
+    int offset_x;
+    int offset_y;
+} t_new_type;
 
 typedef struct s_pos
 {
@@ -59,20 +139,39 @@ typedef struct s_xpm
 typedef struct s_data
 {
     char			**map;
-	// char			*north;
-	// char			*west;
-	// char			*east;
-	// char			*south;
 	t_xpm			xpm_json;
 	t_pos			player;
 	t_rgb			rgb_lst;
-
 }   t_data;
+
+
+void put_pixel(int x, int y, int color, t_game *game);
+void clear_image(t_game *game);
+void draw_square(int x, int y, int size, int color, t_game *game);
+void draw_map(t_game *game);
+void draw_minimap(t_game *game);
+float distance(float x, float y);
+float fixed_dist(float x1, float y1, float x2, float y2, t_game *game);
+bool touch(float px, float py, t_game *game);
+void init_game(t_game *game, t_data *data);
+void draw_line(t_player *player, t_game *game, float angle, int i);
+int draw_loop(t_game *game);
+int start_anim(t_data *data);
+
+void init_player(t_player *player);
+int key_release(int keycode, t_player *player);
+int key_press(int keycode, t_player *player, t_game *game);
+// void move_player(t_player *player);
+void move_player(t_player *player, t_game *game);
+void clear_image(t_game *game);
+
+int exit_game(t_game *game);
+int mouse_move(int x, int y, t_game *game);
+
 
 /* validation and map creation */
 int		valid_and_parsing(t_data *dbase, char *filename);
 void	valid_fd_filename(int fd, char *filename);
-// void	valid_filename(char *filename);
 char	*initialize_buf(int fd);
 void	only_whitespace(char *res);
 int valid_whole_file_keep_data(char **lines, t_data *dbase, int i, int count); // if 1 error
@@ -87,13 +186,11 @@ int	is_color(char *line);
 int	is_map_line(char *line);
 int check_keep_xpm(t_data *dbase, char *line);
 
-// char	**fd_parse(int fd);
-// ******
+// helper functions
 size_t	ft_startlen(const char *s1, const char *set);
 int		ft_check2(char const *set, char const str);
 char	*check_newline2(char *join);
 char	*ft_strtrim(char const *s1, char const *set);
-// size_t	ft_check(char const *set, char const str);
 void	check_whitespaces(char **res);
 void	check_newline(char *join);
 void	check_whitespaces(char **res);
@@ -108,15 +205,12 @@ int		keep_check_rgb(t_data *db, char *line);
 int		keep_rgb(int *r, int *g, int *b, char *line);
 void	check_rgb(t_data *dbase, int r, int g, int b);
 
-//error.c
-
 // map validation
 char	*cut_front(char *old);
 int keep_valid_map(char **lines, t_data *dbase);
 void init_dbase(t_data *dbase);
 
 /* helpers */
-// void	print_map(char **map);
 void	free_str_array(char **arr);
 void	free_res(char *buf, char *res);
 char *ft_strncpy_malloc(const char *src, int n);
