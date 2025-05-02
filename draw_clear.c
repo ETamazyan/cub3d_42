@@ -6,7 +6,7 @@
 /*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 19:22:32 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/02 19:38:56 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/02 19:53:00 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,81 +44,88 @@ void	clear_image(t_game *game)
 
 void	draw_square(t_draw	draw, t_game *game)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = 0;
 	while (y < draw.size)
 	{
-        x = 0;
-        while (x < draw.size)
-        {
-            put_pixel(x + draw.dx, y + draw.dy, draw.color, game);
-            x++;
-        }
-        y++;
-    }
+		x = 0;
+		while (x < draw.size)
+		{
+			put_pixel(x + draw.dx, y + draw.dy, draw.color, game);
+			x++;
+		}
+		y++;
+	}
 }
 
-void    draw_map(t_game *game)
+void	draw_map(t_game *game)
 {
-    int y;
-    int x;
-	t_draw draw;
+	int		y;
+	int		x;
+	t_draw	draw;
+
 	draw.size = BLOCK;
 	draw.color = 0x57e422;
-    y = 0;
-    while (game->map[y])
-    {
-        x = 0;
-        while (game->map[y][x])
-        {
-            if (game->map[y][x] == '1')
-            {
+	y = 0;
+	while (game->map[y])
+	{
+		x = 0;
+		while (game->map[y][x])
+		{
+			if (game->map[y][x] == '1')
+			{
 				draw.dx = x * BLOCK;
 				draw.dy = y * BLOCK;
 				draw.size = BLOCK;
 				draw_square(draw, game);
 			}
+			x++;
+		}
+		y++;
+	}
+}
+
+void	draw_minimap1(t_game *game, t_minimap *mm)
+{
+	int	y;
+	int	x;
+
+	mm->scaled_block = BLOCK * MINIMAP_SCALE;
+	mm->offset_x = WIDTH - MINIMAP_PADDING;
+	mm->offset_y = MINIMAP_PADDING;
+	mm->rows = 0;
+	mm->cols = 0;
+    while (game->map[mm->rows])
+    {
+		if ((int)strlen(game->map[mm->rows]) > mm->cols)
+			mm->cols = strlen(game->map[mm->rows]);
+		mm->rows++;
+	}
+	mm->minimap_width = mm->cols * mm->scaled_block;
+	mm->minimap_height = mm->rows * mm->scaled_block;
+	y = 0;
+    while (y < mm->minimap_height)
+    {
+        x = 0;
+        while (x < mm->minimap_width)
+        {
+            put_pixel(mm->offset_x - mm->minimap_width + x, mm->offset_y + y, 0x222222, game);
             x++;
         }
         y++;
     }
 }
 
-void draw_minimap(t_game *game)
+void	draw_minimap(t_game *game)
 {
-    t_minimap mm;
-	t_draw draw;
-    int y, x;
+	t_minimap	mm;
+	t_draw		draw;
+	int			y;
+	int			x;
 
-    mm.scaled_block = BLOCK * MINIMAP_SCALE;
-    mm.offset_x = WIDTH - MINIMAP_PADDING;
-    mm.offset_y = MINIMAP_PADDING;
-    mm.rows = 0;
-    mm.cols = 0;
-    while (game->map[mm.rows])
-    {
-        int len = strlen(game->map[mm.rows]);
-        if (len > mm.cols)
-            mm.cols = len;
-        mm.rows++;
-    }
-    mm.minimap_width = mm.cols * mm.scaled_block;
-    mm.minimap_height = mm.rows * mm.scaled_block;
-
-    y = 0;
-    while (y < mm.minimap_height)
-    {
-        x = 0;
-        while (x < mm.minimap_width)
-        {
-            put_pixel(mm.offset_x - mm.minimap_width + x, mm.offset_y + y, 0x222222, game);
-            x++;
-        }
-        y++;
-    }
-
+	draw_minimap1(game, &mm);
     y = 0;
     while (y < mm.rows)
     {
