@@ -6,7 +6,7 @@
 /*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 19:21:38 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/02 19:39:40 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/02 20:18:13 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,57 +62,6 @@ void init_game(t_game *game, t_data *data)
                                                         &game->wall_texture.size_line, &game->wall_texture.endian);
 }
 
-void draw_line(t_player *player, t_game *game, float angle, int i)
-{
-    float ray_x;
-    float ray_y;
-    float cos_a;
-    float sin_a;
-
-    ray_x = player->x;
-    ray_y = player->y;
-    cos_a = cos(angle);
-    sin_a = sin(angle);
-
-    while (!touch(ray_x, ray_y, game))
-    {
-        if (DEBUG)
-            put_pixel(ray_x, ray_y, 0x57e422, game);
-        ray_x += cos_a;
-        ray_y += sin_a;
-    }
-
-    if (!DEBUG)
-    {
-        float dist;
-        float height;
-        int start_y;
-        int end_y;
-        int tex_x;
-
-        dist = fixed_dist(player->x, player->y, ray_x, ray_y, game);
-        height = (BLOCK / dist) * (WIDTH / 2);
-        start_y = (HEIGHT - height) / 2;
-        end_y = start_y + height;
-
-        if (fabsf(fmodf(ray_x, BLOCK)) < fabsf(fmodf(ray_y, BLOCK)))
-            tex_x = (int)fmodf(ray_x, BLOCK);
-        else
-            tex_x = (int)fmodf(ray_y, BLOCK);
-
-        int y;
-        y = start_y;
-        while (y < end_y)
-        {
-            int tex_y;
-            int color;
-            tex_y = (y - start_y) * game->wall_texture.height / (end_y - start_y);
-            color = game->wall_texture.data[tex_y * game->wall_texture.width + tex_x];
-            put_pixel(i, y, color, game);
-            y++;
-        }
-    }
-}
 
 int draw_loop(t_game *game)
 {

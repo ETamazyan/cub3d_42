@@ -6,7 +6,7 @@
 /*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:04:34 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/02 19:36:34 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/02 20:27:11 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,23 @@
 #include <math.h>
 #include <string.h>
 //shortening the code
+
+typedef struct s_rays
+{
+	float ray_x;
+	float ray_y;
+	float cos_a;
+	float sin_a;
+} t_rays;
+
+typedef struct s_coords
+{
+	float dist;
+	float height;
+	int start_y;
+	int end_y;
+	int tex_x;
+}	t_coords;
 
 typedef struct s_pixel
 {
