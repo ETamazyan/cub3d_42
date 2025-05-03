@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   anim1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 19:21:38 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/02 20:53:41 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/03 09:50:10 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ bool	touch(float px, float py, t_game *game)
 
 void	init_game(t_game *game, t_data *data)
 {
+	// printf("aaaaaaaaaaa %s\n", data->xpm_json.no_value);
 	init_player(&game->player);
 	game->map = data->map;
 	game->mlx = mlx_init();
@@ -52,11 +53,11 @@ void	init_game(t_game *game, t_data *data)
 			&game->size_line, &game->endian);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	game->wall_texture.img = mlx_xpm_file_to_image(game->mlx,
-			"/home/Cub3d/cub3d_42/src/no.xpm",
+			data->xpm_json.no_value,
 			&game->wall_texture.width, &game->wall_texture.height);
 	if (!game->wall_texture.img)
 	{
-		printf("Failed to load texture\n");
+		printf("Error\nFailed to load texture\n");
 		exit(1);
 	}
 	game->wall_texture.data = (int *)mlx_get_data_addr

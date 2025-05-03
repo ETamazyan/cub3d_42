@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:04:34 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/02 20:47:31 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/03 09:31:31 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include "./get_next_line/get_next_line.h"
 # include "libft/libft.h"
-# include "mlx.h"
+# include "./minilibx-linux/mlx.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
@@ -43,7 +43,7 @@
 
 # define PI 3.14159265359
 
-#include "mlx.h"
+// #include "mlx.h"
 
 #include <stdio.h>
 #include <stdlib.h>
