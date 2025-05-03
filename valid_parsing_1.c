@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/04/28 12:39:37 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/03 11:19:45 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,8 @@ int	valid_and_parsing(t_data *dbase, char *filename)
 		write(2, "Error\nInvalid map or config.\n", 30);
 		exit(1);
 	}
+	printf("bbbbb key = %s, val = %s\n", dbase->xpm_json.ea_key, dbase->xpm_json.ea_value);
+
 	printf("map_line = %s\n", *map);
 	return (0);
 }

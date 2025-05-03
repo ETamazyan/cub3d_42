@@ -6,7 +6,7 @@
 /*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 19:21:38 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/02 20:53:41 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/03 17:42:41 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ bool	touch(float px, float py, t_game *game)
 
 void	init_game(t_game *game, t_data *data)
 {
+	// added
+	// int width, height;
+	//end_added
 	init_player(&game->player);
 	game->map = data->map;
 	game->mlx = mlx_init();
@@ -51,12 +54,46 @@ void	init_game(t_game *game, t_data *data)
 	game->data = mlx_get_data_addr(game->img, &game->bpp,
 			&game->size_line, &game->endian);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+// 	game->north.img = mlx_xpm_file_to_image(game->mlx,
+//         data->xpm_json.no_value, &game->north.width, &game->north.height);
+// game->south.img = mlx_xpm_file_to_image(game->mlx,
+//         data->xpm_json.so_value, &game->south.width, &game->south.height);
+// game->east.img = mlx_xpm_file_to_image(game->mlx,
+//         data->xpm_json.ea_value, &game->east.width, &game->east.height);
+// 		game->west.img = mlx_xpm_file_to_image(game->mlx,
+// 			data->xpm_json.we_value, &game->west.width, &game->west.height);
+			
+// 			// Get data addresses for each
+// 			printf("Loading NO: %s\n", data->xpm_json.no_value);
+// 			game->north.img = mlx_xpm_file_to_image(game->mlx,
+// 				data->xpm_json.no_value, &game->north.width, &game->north.height);
+			
+// 			printf("Loading SO: %s\n", data->xpm_json.so_value);
+// 			game->south.img = mlx_xpm_file_to_image(game->mlx,
+// 				data->xpm_json.so_value, &game->south.width, &game->south.height);
+			
+// 			printf("Loading EA: %s\n", data->xpm_json.ea_value);
+// 			game->east.img = mlx_xpm_file_to_image(game->mlx,
+// 				data->xpm_json.ea_value, &game->east.width, &game->east.height);
+			
+// 			printf("Loading WE: %s\n", data->xpm_json.we_value);
+// 			game->west.img = mlx_xpm_file_to_image(game->mlx,
+// 				data->xpm_json.we_value, &game->west.width, &game->west.height);
+			
 	game->wall_texture.img = mlx_xpm_file_to_image(game->mlx,
-			"/home/Cub3d/cub3d_42/src/no.xpm",
+			data->xpm_json.no_value,
 			&game->wall_texture.width, &game->wall_texture.height);
+	//added
+	// game->img_1 = mlx_xpm_file_to_image(game->mlx,
+	// 	"textures/CloseDoor.xpm", &width, &height);	
+	// 	// printf("aaa = %s\n", game->img_1);
+	// 	printf("aaa = %s\n", (char *)game->img_1);
+
+		// if (!cub->cd.img || width != 64 || height != 64) // still dunno why
+		// end_here
 	if (!game->wall_texture.img)
 	{
-		printf("Failed to load texture\n");
+		printf("Error\nFailed to load texture\n");
 		exit(1);
 	}
 	game->wall_texture.data = (int *)mlx_get_data_addr

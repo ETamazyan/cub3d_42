@@ -6,7 +6,7 @@
 /*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 20:55:49 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/02 20:55:57 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/03 17:53:23 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,31 @@ int key_release(int keycode, t_player *player)
 
 int is_walkable(float x, float y, t_game *game)
 {
-    int tile_x = (int)(x / BLOCK);
-    int tile_y = (int)(y / BLOCK);
+    int radius = 10;  // Radius of player (adjust as needed)
 
-    if (tile_y < 0 || game->map[tile_y] == NULL)
-        return 0;
+    int points[4][2] = {
+        {(int)((x - radius) / BLOCK), (int)((y - radius) / BLOCK)},
+        {(int)((x + radius) / BLOCK), (int)((y - radius) / BLOCK)},
+        {(int)((x - radius) / BLOCK), (int)((y + radius) / BLOCK)},
+        {(int)((x + radius) / BLOCK), (int)((y + radius) / BLOCK)}
+    };
 
-    int row_length = strlen(game->map[tile_y]);
-    if (tile_x < 0 || tile_x >= row_length)
-        return 0;
+    for (int i = 0; i < 4; i++)
+    {
+        int tile_x = points[i][0];
+        int tile_y = points[i][1];
 
-    return game->map[tile_y][tile_x] != '1';
+        if (tile_y < 0 || game->map[tile_y] == NULL)
+            return 0;
+
+        int row_length = strlen(game->map[tile_y]);
+        if (tile_x < 0 || tile_x >= row_length)
+            return 0;
+
+        if (game->map[tile_y][tile_x] == '1')
+            return 0;
+    }
+    return 1;
 }
 
 

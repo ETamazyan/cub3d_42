@@ -31,7 +31,7 @@ lib_utils:
 	$(MAKE) -C $(LIB_UTILS_DIR)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIB_UTILS_FLAGS) $(MLX_FLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIB_UTILS_FLAGS) $(MLX_FLAGS) -o $(NAME) -lm
 
 $(OBJS_DIR)%.o: %.c $(HEADERS) Makefile
 	@mkdir -p $(dir $@)

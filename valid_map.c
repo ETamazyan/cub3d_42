@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 13:32:06 by etamazya          #+#    #+#             */
-/*   Updated: 2025/04/28 13:09:35 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/03 11:22:28 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,11 @@ int keep_valid_map(char **lines, t_data *dbase) // ete 0 error
 {
 	//  *** bun validacia ***
 	if (!check_chars(lines) || !check_walls(lines) || !check_player(lines)\
-	 || !check_disordered_wall(lines, 1, 1) || !check_door(lines))
-		return (printf("Errror\n"), 1); // change later to exit
+	|| !check_disordered_wall(lines, 1, 1) || !check_door(lines))
+	{
+		printf("Errror\n");
+		exit(1); // correct this later		
+	}
 	copy_map(dbase, lines, 0, 0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:03:10 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/02 18:01:47 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/03 17:37:15 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int main(int argc, char **argv)
 		return (printf("Error: Invalid amount of arguments.\n"), 1);
 	if (valid_and_parsing(&dbase, argv[1]) == 1)
 		return (1);
-	start_anim(&dbase);
+	printf("No textures: %s\n", dbase.xpm_json.no_value);
+
+ 	start_anim(&dbase);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:04:34 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/03 17:13:54 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/03 17:41:54 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include "./get_next_line/get_next_line.h"
 # include "libft/libft.h"
-# include "mlx.h"
+# include "./minilibx-linux/mlx.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
@@ -43,7 +43,7 @@
 
 # define PI 3.14159265359
 
-#include "mlx.h"
+// #include "mlx.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -131,11 +131,18 @@ typedef struct s_texture {
 
 typedef struct s_game
 {
+    // //added for door
+    // void	*img_1;
+    // // end_here
     void *mlx;
     void *win;
     void *img;
     t_texture wall_texture;
-
+	t_texture north;
+	t_texture south;
+	t_texture east;
+	t_texture west;
+	
     char *data;
     int bpp;
     int size_line;
