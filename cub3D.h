@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:04:34 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/03 09:31:31 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/03 12:38:33 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,9 @@ typedef struct s_texture {
 
 typedef struct s_game
 {
+    // //added for door
+    // void	*img_1;
+    // // end_here
     void *mlx;
     void *win;
     void *img;

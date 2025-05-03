@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 19:21:38 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/03 09:50:10 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/03 12:39:31 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ bool	touch(float px, float py, t_game *game)
 
 void	init_game(t_game *game, t_data *data)
 {
-	// printf("aaaaaaaaaaa %s\n", data->xpm_json.no_value);
+	// added
+	// int width, height;
+	//end_added
 	init_player(&game->player);
 	game->map = data->map;
 	game->mlx = mlx_init();
@@ -55,6 +57,14 @@ void	init_game(t_game *game, t_data *data)
 	game->wall_texture.img = mlx_xpm_file_to_image(game->mlx,
 			data->xpm_json.no_value,
 			&game->wall_texture.width, &game->wall_texture.height);
+	//added
+	// game->img_1 = mlx_xpm_file_to_image(game->mlx,
+	// 	"textures/CloseDoor.xpm", &width, &height);	
+	// 	// printf("aaa = %s\n", game->img_1);
+	// 	printf("aaa = %s\n", (char *)game->img_1);
+
+		// if (!cub->cd.img || width != 64 || height != 64) // still dunno why
+		// end_here
 	if (!game->wall_texture.img)
 	{
 		printf("Error\nFailed to load texture\n");
