@@ -25,8 +25,8 @@
 # include <stdbool.h>
 # include <math.h>
 # include <string.h>
-# define WIDTH 2000
-# define HEIGHT 2000
+// # define WIDTH 2000
+// # define HEIGHT 2000
 # define BLOCK 64
 # define DEBUG 0
 
@@ -36,7 +36,7 @@
 # define D 100
 # define LEFT 65361
 # define RIGHT 65363
-# define ESC 1
+# define ESC 65307
 #define MINIMAP_SCALE 0.2
 #define MINIMAP_PADDING 10
 #define PLAYER_SIZE 4
@@ -159,7 +159,8 @@ typedef struct s_game
     int size_line;
     int endian;
     t_player player;
-
+    int screen_width;
+    int screen_height;
     char **map;
 } t_game;
 

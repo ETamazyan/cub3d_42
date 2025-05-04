@@ -18,7 +18,7 @@ void	draw_minimap1(t_game *game, t_minimap *mm)
 	int	x;
 
 	mm->scaled_block = BLOCK * MINIMAP_SCALE;
-	mm->offset_x = WIDTH - MINIMAP_PADDING;
+	mm->offset_x = game->screen_width - MINIMAP_PADDING;
 	mm->offset_y = MINIMAP_PADDING;
 	mm->rows = 0;
 	mm->cols = 0;

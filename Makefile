@@ -14,7 +14,6 @@ SRCS = main.c valid_parsing_1.c error.c valid_parsing_2.c trim_map.c\
 	   utils.c indexing_map.c valid_helpers.c valid_parsing_3.c clean.c \
 	   valid_checker.c valid_map.c map_checkers.c valid_rgb.c \
 	   anim1.c anim2.c draw_clear.c draw_minimap.c draw_line.c draw_loop.c
-#anim_start.c missing_function.c
 
 INCS = cub3D.h
 
@@ -49,35 +48,3 @@ fclean: clean
 	$(MAKE) -C $(LIB_UTILS_DIR) fclean
 
 .PHONY: all re clean fclean libft
-
-
-
-
-# ********************** MANE ************************
-# NAME = game
-# CC = cc
-# CFLAGS = -Wall -Wextra -Werror -Iminilibx-linux
-# SRC = src/main.c src/player.c
-# OBJ = $(SRC:.c=.o)
-
-# LFLAGS = -Lminilibx-linux -lmlx -lXext -lX11 -lm -lz
-
-# all: mlx $(NAME)
-
-# mlx:
-# 	git clone https://github.com/42Paris/minilibx-linux.git || true
-# 	make -C minilibx-linux
-
-# $(NAME): $(OBJ)
-# 	$(CC) $(OBJ) -o $(NAME) $(LFLAGS)
-
-# %.o: %.c
-# 	$(CC) $(CFLAGS) -c $< -o $@
-
-# clean:
-# 	rm -f $(OBJ)
-
-# fclean: clean
-# 	rm -f $(NAME)
-
-# re: fclean all

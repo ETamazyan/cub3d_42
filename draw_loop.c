@@ -39,9 +39,9 @@ int	draw_loop(t_game *game)
 	if (DEBUG)
 		draw = draw_loop1(game, player);
 	start_angle = player->angle - M_PI / 6;
-	step = (M_PI / 3) / WIDTH;
+	step = (M_PI / 3) / game->screen_width;
 	i = 0;
-	while (i < WIDTH)
+	while (i < game->screen_width)
 	{
 		draw_line(player, game, start_angle, i);
 		start_angle += step;
