@@ -12,14 +12,17 @@
 
 #include "cub3D.h"
 
-void	draw_loop1(t_game *game, t_player *player, t_draw draw)
+t_draw	draw_loop1(t_game *game, t_player *player)
 {
+	t_draw	draw;
+
 	draw.dx = player->x;
 	draw.dy = player->y;
 	draw.size = 10;
 	draw.color = 0x00FF00;
 	draw_square(draw, game);
 	draw_map(game);
+	return (draw);
 }
 
 int	draw_loop(t_game *game)
@@ -34,7 +37,7 @@ int	draw_loop(t_game *game)
 	move_player(player, game);
 	clear_image(game);
 	if (DEBUG)
-		draw_loop1(game, player, draw);
+		draw = draw_loop1(game, player);
 	start_angle = player->angle - M_PI / 6;
 	step = (M_PI / 3) / WIDTH;
 	i = 0;

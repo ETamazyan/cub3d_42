@@ -12,76 +12,45 @@
 
 #include "cub3D.h"
 
-// void	draw_line1(t_player *player, t_game *game, t_rays *rays, int i)
-// {
-// 	t_coords	coords;
-// 	int			y;
-// 	int			tex_y;
-// 	int			color;
-// 	t_texture	*tex;  // <== POINTER to the selected texture
-
-// 	coords.dist = fixed_dist(player, rays, game);
-// 	coords.height = (BLOCK / coords.dist) * (WIDTH / 2);
-// 	coords.start_y = (HEIGHT - coords.height) / 2;
-// 	coords.end_y = coords.start_y + coords.height;
-
-// 	// Determine which wall (N, S, E, W) was hit
-// 	if (fabsf(fmodf(rays->ray_x, BLOCK)) < fabsf(fmodf(rays->ray_y, BLOCK)))
-// 	{
-// 		coords.tex_x = (int)fmodf(rays->ray_x, BLOCK);
-// 		// Hit was horizontal: NORTH or SOUTH
-// 		if (rays->ray_y > player->y)
-// 			tex = &game->south; // Facing down (S)
-// 		else
-// 			tex = &game->north; // Facing up (N)
-// 	}
-// 	else
-// 	{
-// 		coords.tex_x = (int)fmodf(rays->ray_y, BLOCK);
-// 		// Hit was vertical: EAST or WEST
-// 		if (rays->ray_x > player->x)
-// 			tex = &game->east; // Facing right (E)
-// 		else
-// 			tex = &game->west; // Facing left (W)
-// 	}
-
-// 	y = coords.start_y;
-// 	while (y < coords.end_y)
-// 	{
-// 		tex_y = (y - coords.start_y) * tex->height / (coords.end_y - coords.start_y);
-// 		color = tex->data[tex_y * tex->width + coords.tex_x];
-// 		put_pixel(i, y, color, game);
-// 		y++;
-// 	}
-// }
-
-
 void	draw_line1(t_player *player, t_game *game, t_rays *rays, int i)
 {
 	t_coords	coords;
 	int			y;
 	int			tex_y;
 	int			color;
+	t_texture	*tex;
 
 	coords.dist = fixed_dist(player, rays, game);
 	coords.height = (BLOCK / coords.dist) * (WIDTH / 2);
 	coords.start_y = (HEIGHT - coords.height) / 2;
 	coords.end_y = coords.start_y + coords.height;
 	if (fabsf(fmodf(rays->ray_x, BLOCK)) < fabsf(fmodf(rays->ray_y, BLOCK)))
+	{
 		coords.tex_x = (int)fmodf(rays->ray_x, BLOCK);
+		if (rays->ray_y > player->y)
+			tex = &game->south;
+		else
+			tex = &game->north;
+	}
 	else
+	{
 		coords.tex_x = (int)fmodf(rays->ray_y, BLOCK);
+		if (rays->ray_x > player->x)
+			tex = &game->east;
+		else
+			tex = &game->west;
+	}
+
 	y = coords.start_y;
 	while (y < coords.end_y)
 	{
-		tex_y = (y - coords.start_y) * game->wall_texture.height
-			/ (coords.end_y - coords.start_y);
-		color = game->wall_texture.data[tex_y * game->wall_texture.width
-			+ coords.tex_x];
+		tex_y = (y - coords.start_y) * tex->height / (coords.end_y - coords.start_y);
+		color = tex->data[tex_y * tex->width + coords.tex_x];
 		put_pixel(i, y, color, game);
 		y++;
 	}
 }
+
 
 void	draw_line(t_player *player, t_game *game, float angle, int i)
 {
@@ -94,7 +63,7 @@ void	draw_line(t_player *player, t_game *game, float angle, int i)
 	while (!touch(rays.ray_x, rays.ray_y, game))
 	{
 		if (DEBUG)
-			put_pixel(rays.ray_x, rays.ray_y, 0x57e422, game);
+			put_pixel(rays.ray_x, rays.ray_y, 0xFFFFFF, game);
 		rays.ray_x += rays.cos_a;
 		rays.ray_y += rays.sin_a;
 	}

@@ -25,8 +25,8 @@
 # include <stdbool.h>
 # include <math.h>
 # include <string.h>
-# define WIDTH 1280
-# define HEIGHT 720
+# define WIDTH 2000
+# define HEIGHT 2000
 # define BLOCK 64
 # define DEBUG 0
 
@@ -36,7 +36,7 @@
 # define D 100
 # define LEFT 65361
 # define RIGHT 65363
-# define ESC 17
+# define ESC 1
 #define MINIMAP_SCALE 0.2
 #define MINIMAP_PADDING 10
 #define PLAYER_SIZE 4
@@ -129,6 +129,17 @@ typedef struct s_texture {
     int endian;
 } t_texture;
 
+typedef struct s_rgb
+{
+	int				cR;
+	int				fR;
+	int				cG;
+	int				fG;
+	int				cB;
+	int				fB;
+}					t_rgb;
+
+
 typedef struct s_game
 {
     // //added for door
@@ -142,7 +153,7 @@ typedef struct s_game
 	t_texture south;
 	t_texture east;
 	t_texture west;
-	
+    t_rgb	rgb_lst;
     char *data;
     int bpp;
     int size_line;
@@ -173,16 +184,6 @@ typedef struct s_pos
 	int				x;
 	int				y;
 }					t_pos;
-
-typedef struct s_rgb
-{
-	int				cR;
-	int				fR;
-	int				cG;
-	int				fG;
-	int				cB;
-	int				fB;
-}					t_rgb;
 
 typedef struct s_xpm
 {
@@ -218,7 +219,7 @@ void draw_line(t_player *player, t_game *game, float angle, int i);
 int draw_loop(t_game *game);
 int start_anim(t_data *data);
 
-void init_player(t_player *player);
+void init_player(t_player *player, t_game *game);
 int key_release(int keycode, t_player *player);
 int key_press(int keycode, t_player *player, t_game *game);
 // void move_player(t_player *player);

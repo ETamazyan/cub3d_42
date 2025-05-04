@@ -95,3 +95,101 @@ void	draw_minimap(t_game *game)
 		i++;
 	}
 }
+
+#include "cub3D.h"
+#define MINIMAP_SCALE 0.2
+#define MINIMAP_TILE (BLOCK * MINIMAP_SCALE)
+
+void	draw_line2d(int x0, int y0, int x1, int y1, int color, t_game *game)
+{
+	int dx = abs(x1 - x0);
+	int dy = -abs(y1 - y0);
+	int sx = x0 < x1 ? 1 : -1;
+	int sy = y0 < y1 ? 1 : -1;
+	int err = dx + dy; // error value e_xy
+
+	while (1)
+	{
+		put_pixel(x0, y0, color, game);
+		if (x0 == x1 && y0 == y1)
+			break;
+		int e2 = 2 * err;
+		if (e2 >= dy)
+		{
+			err += dy;
+			x0 += sx;
+		}
+		if (e2 <= dx)
+		{
+			err += dx;
+			y0 += sy;
+		}
+	}
+}
+
+
+// #define MINIMAP_MAX_WIDTH  (WIDTH / 3)   // Max 1/3 of screen width
+// #define MINIMAP_MAX_HEIGHT (HEIGHT / 3)  // Max 1/3 of screen height
+
+// void	draw_minimap(t_game *game)
+// {
+// 	t_draw	draw;
+// 	int		x, y;
+// 	int		map_rows = 0;
+// 	int		map_cols = 0;
+
+// 	// Get map dimensions
+// 	while (game->map[map_rows])
+// 	{
+// 		int len = strlen(game->map[map_rows]);
+// 		if (len > map_cols)
+// 			map_cols = len;
+// 		map_rows++;
+// 	}
+
+// 	// Calculate max tile size to fit within the defined bounds
+// 	float tile_w = (float)MINIMAP_MAX_WIDTH / map_cols;
+// 	float tile_h = (float)MINIMAP_MAX_HEIGHT / map_rows;
+// 	float tile_size = fmin(tile_w, tile_h);
+	
+// 	int offset_x = WIDTH - (int)(map_cols * tile_size) - 20;
+// 	int offset_y = 20;
+
+// 	// Draw map tiles
+// 	for (y = 0; y < map_rows; y++)
+// 	{
+// 		for (x = 0; x < (int)strlen(game->map[y]); x++)
+// 		{
+// 			if (game->map[y][x] == ' ')
+// 				continue;
+
+// 			draw.dx = offset_x + x * tile_size;
+// 			draw.dy = offset_y + y * tile_size;
+// 			draw.size = tile_size;
+
+// 			if (game->map[y][x] == '1')
+// 				draw.color = 0x228B22;
+// 			else
+// 				draw.color = 0x000000;
+
+// 			draw_square(draw, game);
+// 		}
+// 	}
+
+// 	// Draw player
+// 	draw.size = 4;
+// 	draw.color = 0xFF0000;
+// 	draw.dx = offset_x + (game->player.x / BLOCK) * tile_size - draw.size / 2;
+// 	draw.dy = offset_y + (game->player.y / BLOCK) * tile_size - draw.size / 2;
+// 	draw_square(draw, game);
+
+// 	// Direction line
+// 	int		line_len = 10;
+// 	float	dir_x = cos(game->player.angle);
+// 	float	dir_y = sin(game->player.angle);
+// 	int		x1 = offset_x + (game->player.x / BLOCK) * tile_size;
+// 	int		y1 = offset_y + (game->player.y / BLOCK) * tile_size;
+// 	int		x2 = x1 + dir_x * line_len;
+// 	int		y2 = y1 + dir_y * line_len;
+// 	draw_line2d(x1, y1, x2, y2, 0xFF0000, game);
+// }

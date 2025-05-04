@@ -21,17 +21,40 @@ int exit_game(t_game *game)
     mlx_destroy_window(game->mlx, game->win);
     
 
-    exit(0); // Close the program cleanly
-    return 0;
+    exit(0);
+}
+
+void player_position(char **map, t_player *player)
+{
+    for (int y = 0; map[y]; y++)
+    {
+        for (int x = 0; map[y][x]; x++)
+        {
+            if (map[y][x] == 'N' || map[y][x] == 'S' || map[y][x] == 'E' || map[y][x] == 'W')
+            {
+                // Center the player in the block
+                player->x = x * BLOCK + BLOCK / 2;
+                player->y = y * BLOCK + BLOCK / 2;
+
+                if (map[y][x] == 'N')
+                    player->angle = 3 * PI / 2; // 270 degrees
+                else if (map[y][x] == 'S')
+                    player->angle = PI / 2;     // 90 degrees
+                else if (map[y][x] == 'E')
+                    player->angle = 0;          // 0 degrees
+                else if (map[y][x] == 'W')
+                    player->angle = PI;         // 180 degrees
+
+                return;
+            }
+        }
+    }
 }
 
 
-void init_player(t_player *player)
+void init_player(t_player *player, t_game *game)
 {
-    player->x = WIDTH / 2;
-    player->y = HEIGHT / 2;
-    player->angle = PI / 2;
-
+    player_position(game->map, player);
     player->key_up = false;
     player->key_down = false;
     player->key_right = false;
@@ -77,8 +100,6 @@ int key_release(int keycode, t_player *player)
         player->right_rotate = false;
     return 0;
 }
-
-#include <string.h> // for strlen
 
 int is_walkable(float x, float y, t_game *game)
 {

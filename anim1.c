@@ -46,23 +46,37 @@ void	init_game(t_game *game, t_data *data)
 	// added
 	// int width, height;
 	//end_added
-	init_player(&game->player);
 	game->map = data->map;
+	init_player(&game->player, game);
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Game");
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->data = mlx_get_data_addr(game->img, &game->bpp,
 			&game->size_line, &game->endian);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
-// 	game->north.img = mlx_xpm_file_to_image(game->mlx,
-//         data->xpm_json.no_value, &game->north.width, &game->north.height);
-// game->south.img = mlx_xpm_file_to_image(game->mlx,
-//         data->xpm_json.so_value, &game->south.width, &game->south.height);
-// game->east.img = mlx_xpm_file_to_image(game->mlx,
-//         data->xpm_json.ea_value, &game->east.width, &game->east.height);
-// 		game->west.img = mlx_xpm_file_to_image(game->mlx,
-// 			data->xpm_json.we_value, &game->west.width, &game->west.height);
-			
+	game->north.img = mlx_xpm_file_to_image(game->mlx,
+        data->xpm_json.no_value, &game->north.width, &game->north.height);
+game->south.img = mlx_xpm_file_to_image(game->mlx,
+        data->xpm_json.so_value, &game->south.width, &game->south.height);
+game->east.img = mlx_xpm_file_to_image(game->mlx,
+        data->xpm_json.ea_value, &game->east.width, &game->east.height);
+		game->west.img = mlx_xpm_file_to_image(game->mlx,
+			data->xpm_json.we_value, &game->west.width, &game->west.height);
+	
+
+	game->north.data = (int *)mlx_get_data_addr
+		(game->north.img, &game->north.bpp,
+			&game->north.size_line, &game->north.endian);
+	game->east.data = (int *)mlx_get_data_addr
+		(game->east.img, &game->east.bpp,
+			&game->east.size_line, &game->east.endian);
+	game->west.data = (int *)mlx_get_data_addr
+		(game->west.img, &game->west.bpp,
+			&game->west.size_line, &game->west.endian);
+		game->south.data = (int *)mlx_get_data_addr
+		(game->south.img, &game->south.bpp,
+			&game->south.size_line, &game->south.endian);
+	game->rgb_lst = data->rgb_lst;
 // 			// Get data addresses for each
 // 			printf("Loading NO: %s\n", data->xpm_json.no_value);
 // 			game->north.img = mlx_xpm_file_to_image(game->mlx,
@@ -80,25 +94,25 @@ void	init_game(t_game *game, t_data *data)
 // 			game->west.img = mlx_xpm_file_to_image(game->mlx,
 // 				data->xpm_json.we_value, &game->west.width, &game->west.height);
 			
-	game->wall_texture.img = mlx_xpm_file_to_image(game->mlx,
-			data->xpm_json.no_value,
-			&game->wall_texture.width, &game->wall_texture.height);
-	//added
-	// game->img_1 = mlx_xpm_file_to_image(game->mlx,
-	// 	"textures/CloseDoor.xpm", &width, &height);	
-	// 	// printf("aaa = %s\n", game->img_1);
-	// 	printf("aaa = %s\n", (char *)game->img_1);
+	// game->wall_texture.img = mlx_xpm_file_to_image(game->mlx,
+	// 		data->xpm_json.no_value,
+	// 		&game->wall_texture.width, &game->wall_texture.height);
+	// //added
+	// // game->img_1 = mlx_xpm_file_to_image(game->mlx,
+	// // 	"textures/CloseDoor.xpm", &width, &height);	
+	// // 	// printf("aaa = %s\n", game->img_1);
+	// // 	printf("aaa = %s\n", (char *)game->img_1);
 
-		// if (!cub->cd.img || width != 64 || height != 64) // still dunno why
-		// end_here
-	if (!game->wall_texture.img)
-	{
-		printf("Error\nFailed to load texture\n");
-		exit(1);
-	}
-	game->wall_texture.data = (int *)mlx_get_data_addr
-		(game->wall_texture.img, &game->wall_texture.bpp,
-			&game->wall_texture.size_line, &game->wall_texture.endian);
+	// 	// if (!cub->cd.img || width != 64 || height != 64) // still dunno why
+	// 	// end_here
+	// if (!game->wall_texture.img)
+	// {
+	// 	printf("Error\nFailed to load texture\n");
+	// 	exit(1);
+	// }
+	// game->wall_texture.data = (int *)mlx_get_data_addr
+	// 	(game->wall_texture.img, &game->wall_texture.bpp,
+	// 		&game->wall_texture.size_line, &game->wall_texture.endian);
 }
 
 int	start_anim(t_data *dbase)
