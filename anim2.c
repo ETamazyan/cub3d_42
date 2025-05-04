@@ -6,21 +6,53 @@
 /*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 20:55:49 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/03 17:53:23 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/04 18:43:58 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 int exit_game(t_game *game)
 {
-    // Free any allocated resources (textures, map, etc.)
-    if (game->img)
-        mlx_destroy_image(game->mlx, game->img);
-    
-    // Close the window
-    mlx_destroy_window(game->mlx, game->win);
-    
+    if (game) {
+        // Free textures
+        if (game->north.img) {
+			free(game->north.data);
+            mlx_destroy_image(game->mlx, game->north.img);
+        }
+        if (game->south.img) {
+			free(game->south.data);
+            mlx_destroy_image(game->mlx, game->south.img);
+        }
+        if (game->east.img) {
+			free(game->east.data);
+            mlx_destroy_image(game->mlx, game->east.img);
+        }
+        if (game->west.img) {
+			free(game->west.data);
+            mlx_destroy_image(game->mlx, game->west.img);
+        }
+        free(game->data);
+        // Free dynamically allocated map if any
+        if (game->map) {
+            for (int i = 0; game->map[i] != NULL; i++) {
+                free(game->map[i]);  // Free each row
+            }
+            free(game->map);  // Free the array of rows
+        }
 
+        // Destroy the main image
+        if (game->img) {
+            mlx_destroy_image(game->mlx, game->img);
+        }
+
+        // Close the window
+        if (game->win) {
+            mlx_destroy_window(game->mlx, game->win);
+        }
+    }
+
+
+    // Exit the program
     exit(0);
 }
 
@@ -134,7 +166,7 @@ int is_walkable(float x, float y, t_game *game)
 
 void move_player(t_player *player, t_game *game)
 {
-    int speed = 5;
+    int speed = 1.5;
     float angle_speed = 0.03;
     float cos_angle = cos(player->angle);
     float sin_angle = sin(player->angle);

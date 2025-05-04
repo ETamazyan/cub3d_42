@@ -6,7 +6,7 @@
 /*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:04:34 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/03 17:41:54 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/04 18:31:42 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <string.h>
 // # define WIDTH 2000
 // # define HEIGHT 2000
-# define BLOCK 64
+# define BLOCK 32
 # define DEBUG 0
 
 # define W 119
@@ -228,6 +228,7 @@ void move_player(t_player *player, t_game *game);
 void clear_image(t_game *game);
 
 int exit_game(t_game *game);
+void handle_error(t_game *game, const char *message); // Print exit message
 int mouse_move(int x, int y, t_game *game);
 
 
