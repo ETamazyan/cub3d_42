@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:04:34 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/05 14:43:51 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:27:12 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,7 +236,7 @@ void	only_whitespace(char *res);
 int valid_whole_file_keep_data(char **lines, t_data *dbase, int count); // if 1 error
 
 // error.c
-void	print_error(t_data *data, char *str);
+void print_err_exit(t_data *data, char *msg);
 void	clean_data(t_data *data);
 
 // valid_helpers.c

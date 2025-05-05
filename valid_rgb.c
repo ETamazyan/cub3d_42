@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:09:00 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/05 15:01:49 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:30:39 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,8 @@ void check_rgb(t_data *dbase, int r, int g, int b)
 
 int	keep_check_rgb(t_data *db, char *line)
 {
-	printf("keep check rgb\n");
 	while (*line == ' ' || *line == '\t')
 		line++;
-	printf("liiiiiiiiiiiii = %s\n", line);
 	if (*line == 'C')
 	{
 		if(!keep_rgb(&db->rgb_lst.cR, &db->rgb_lst.cG, &db->rgb_lst.cB, line))
@@ -68,6 +66,5 @@ int	keep_check_rgb(t_data *db, char *line)
 	}
 	else
 		return (0);
-	printf("__________________________________\n");
 	return (1); // this is success spot
 }
