@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/05 18:40:00 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/05 19:59:37 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,22 @@ void	check_design_instance(t_data *dbase)
 		!dbase->rgb_lst.fB || !dbase->rgb_lst.fG || !dbase->rgb_lst.fR ||\
 		!dbase->xpm_json.ea_value || !dbase->xpm_json.no_value ||\
 		!dbase->xpm_json.so_value || !dbase->xpm_json.we_value)
-		print_err_exit(dbase, "Error while allocating rgb or xpm value\n");
+		print_err_exit(dbase, "Error\nWhile allocating rgb or xpm value\n");
 }
 
 void clean_dbl_chr_ptr(char **lines)
 {
-    int	i;
+	int	i;
 	
-    if (lines == NULL)
-        return;
+	if (lines == NULL)
+		return;
 	i = 0;
-    while (lines[i] != NULL)
-    {
-        free(lines[i]);
+	while (lines[i] != NULL)
+	{
+		free(lines[i]);
 		i++;
 	}
-    free(lines);
+	free(lines);
 }
 
 // 2 // 8-rd

@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 19:32:27 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/05 18:55:54 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/05 20:05:35 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int check_walls(char **map)
 		j++;
 	if (map[i][j] && map[i][j] != '\0')
 		return (printf("Error\nInvalid char or wall missing \
-in the first row\n", i), 0);
+in the first row = %d\n", i), 0);
 	while (map[i])
 		i++;
 	i--;

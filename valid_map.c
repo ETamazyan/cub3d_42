@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 13:32:06 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/05 18:48:45 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/05 20:04:12 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void	copy_map(t_data *dbase, char **lines, int i, int j)
 	count = i;
 	dbase->map = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!dbase->map)
-		return; // failed allocation error message
+	{
+		clean_dbl_chr_ptr(lines);
+		print_err_exit(dbase, "Error\nWhile alocating\n");
+	}
 	i = 0;
 	while (lines[i])
 	{
@@ -31,8 +34,7 @@ void	copy_map(t_data *dbase, char **lines, int i, int j)
 		{
 			for (int k = 0; k < j; k++)
 				free(dbase->map[k]);
-			free(dbase->map);
-			return;
+			print_err_exit(dbase, "Error\nWhile allocating\n");
 		}
 		j++;
 		i++;
