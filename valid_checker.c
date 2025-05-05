@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 20:12:24 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/05 19:02:07 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/05 19:02:54 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ disordered characters at row %d, column %d, - %d\n", i, j, map[i][j]), 0);
 					 && check(map[i - 1][j]) == 0)
 				j++;
 			else
-			return (printf("Error: Invalid map character at row %d, column %d \
+			return (printf("Error\nInvalid map character at row %d, column %d \
 (character: %c)\n", i, j, map[i][j]), 0);		}
 		i++;
 	}
