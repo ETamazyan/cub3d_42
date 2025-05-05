@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/05 21:36:16 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/05 22:16:32 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,17 @@ void clean_dbl_chr_ptr(char **lines)
 {
 	int	i;
 	
+	i = 0;
 	if (!lines || lines == NULL)
 		return;
-	i = 0;
 	while (lines[i] != NULL)
 	{
 		free(lines[i]);
+		lines[i] = NULL;
 		i++;
 	}
 	free(lines);
+	lines = NULL;
 }
 
 // 2 // 8-rd

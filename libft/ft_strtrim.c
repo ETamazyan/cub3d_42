@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 15:59:52 by maavalya          #+#    #+#             */
-/*   Updated: 2025/03/21 06:07:35 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/05 22:42:37 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,12 @@ char	*ft_strtrim(char const *s1, char const *set)
 		else
 			break ;
 	}
+	
 	res = (char *)malloc(sizeof(char) * len + 1);
 	if (!res)
 		return (NULL);
 	ft_strlcpy(res, (char *)s1, len + 1);
+	free((char *)s1);
 	return (res);
 }
 

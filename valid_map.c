@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 13:32:06 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/05 21:27:53 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/05 22:15:17 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	copy_map(t_data *dbase, char **lines, int i, int j)
 // ete sxal exit// kap chuni inch e veradardznum// datarkel d_base-y
 int keep_valid_map(char **lines, t_data *dbase) // ete 0 error
 {
+	// for (int i = 0; lines[i]; i++)
+	// 	printf("aaaaaaaaaaaaa = %s\n", lines[i]);
 	if (!check_chars(lines) || !check_walls(lines) || !check_player(lines)\
 	|| !check_disordered_wall(lines, 1, 1) || !check_door(lines))
 	{
