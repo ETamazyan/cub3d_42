@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:04:34 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/04 18:31:42 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/05 14:43:51 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <stdbool.h>
 # include <math.h>
 # include <string.h>
-// # define WIDTH 2000
+// # define WIDTH 2000   
 // # define HEIGHT 2000
 # define BLOCK 32
 # define DEBUG 0
@@ -188,20 +188,16 @@ typedef struct s_pos
 
 typedef struct s_xpm
 {
-	char		*no_key;
 	char		*no_value;
-	char		*so_key;
 	char		*so_value;
-	char		*we_key;
 	char		*we_value;
-	char		*ea_key;
 	char		*ea_value;
 }				t_xpm;
 
 typedef struct s_data
 {
     char			**map;
-	t_xpm			xpm_json;
+    t_xpm			xpm_json;
 	t_pos			player;
 	t_rgb			rgb_lst;
 }   t_data;
@@ -237,7 +233,7 @@ int		valid_and_parsing(t_data *dbase, char *filename);
 void	valid_fd_filename(int fd, char *filename);
 char	*initialize_buf(int fd);
 void	only_whitespace(char *res);
-int valid_whole_file_keep_data(char **lines, t_data *dbase, int i, int count); // if 1 error
+int valid_whole_file_keep_data(char **lines, t_data *dbase, int count); // if 1 error
 
 // error.c
 void	print_error(t_data *data, char *str);

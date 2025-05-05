@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   anim2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 20:55:49 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/04 18:43:58 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/05 14:06:11 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
 int exit_game(t_game *game)
 {
     if (game) {
@@ -76,7 +77,6 @@ void player_position(char **map, t_player *player)
                     player->angle = 0;          // 0 degrees
                 else if (map[y][x] == 'W')
                     player->angle = PI;         // 180 degrees
-
                 return;
             }
         }
@@ -166,7 +166,7 @@ int is_walkable(float x, float y, t_game *game)
 
 void move_player(t_player *player, t_game *game)
 {
-    int speed = 1.5;
+    float speed = 1.5; // int -> float // compile error
     float angle_speed = 0.03;
     float cos_angle = cos(player->angle);
     float sin_angle = sin(player->angle);

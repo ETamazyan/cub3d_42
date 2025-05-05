@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:03:10 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/03 17:37:15 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/05 14:45:11 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,13 @@ void clean_data(t_data *data)
 		free(data->map);
 		data->map = NULL;
 	}
-	free(data->xpm_json.no_key);
 	free(data->xpm_json.no_value);
-	free(data->xpm_json.so_key);
 	free(data->xpm_json.so_value);
-	free(data->xpm_json.we_key);
 	free(data->xpm_json.we_value);
-	free(data->xpm_json.ea_key);
 	free(data->xpm_json.ea_value);
-	data->xpm_json.no_key = NULL;
 	data->xpm_json.no_value = NULL;
-	data->xpm_json.so_key = NULL;
 	data->xpm_json.so_value = NULL;
-	data->xpm_json.we_key = NULL;
 	data->xpm_json.we_value = NULL;
-	data->xpm_json.ea_key = NULL;
 	data->xpm_json.ea_value = NULL;
 	free(data->player.direction);
 	data->player.direction = NULL;
@@ -56,13 +48,9 @@ void clean_data(t_data *data)
 void init_dbase(t_data *dbase)
 {
 	dbase->map = NULL;
-	dbase->xpm_json.no_key = NULL;
 	dbase->xpm_json.no_value = NULL;
-	dbase->xpm_json.so_key = NULL;
 	dbase->xpm_json.so_value = NULL;
-	dbase->xpm_json.we_key = NULL;
 	dbase->xpm_json.we_value = NULL;
-	dbase->xpm_json.ea_key = NULL;
 	dbase->xpm_json.ea_value = NULL;
 	dbase->player.direction = NULL;
 	dbase->player.x = -1;
@@ -85,8 +73,11 @@ int main(int argc, char **argv)
 		return (printf("Error: Invalid amount of arguments.\n"), 1);
 	if (valid_and_parsing(&dbase, argv[1]) == 1)
 		return (1);
-	printf("No textures: %s\n", dbase.xpm_json.no_value);
-
- 	start_anim(&dbase);
+	// for(int i = 0; dbase.map[i]; i++)
+	// 	printf("mainum map[i] = %s\n", dbase.map[i]);
+	// printf("textures: %s\t,%s\t,%s\t,%s\t\n", dbase.xpm_json.no_value, dbase.xpm_json.so_value,dbase.xpm_json.we_value,dbase.xpm_json.ea_value);
+ 	// printf("rgb_c = %d,%d,%d\n", dbase.rgb_lst.cB, dbase.rgb_lst.cR, dbase.rgb_lst.cG);
+ 	// printf("rgb_f = %d,%d,%d\n", dbase.rgb_lst.fB, dbase.rgb_lst.fR, dbase.rgb_lst.fG);	
+	// start_anim(&dbase);
 	return (0);
 }
