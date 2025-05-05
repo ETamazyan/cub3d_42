@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 19:32:27 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/05 20:05:35 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/05 21:21:16 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,8 @@ in the first row = %d\n", i), 0);
 	if (map[i][j] != '\0')
 		return (printf("Error\nWrong map at row %d\n", i), 0);
 	if (check_side_walls(map, 0, 0) == 0)
-		return (0);
-	else
-		return (printf("Error: The side walls are not correctly closed\n"), 0);
-	return (1);
+		return (printf("Error\nThe side walls are not correctly closed\n"), 0);
+	return (1); // okay
 }
 
 //4

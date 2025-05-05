@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/05 21:08:29 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/05 21:36:16 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ void copy_key(t_data *dbase, char *line)
 		dbase->xpm_json.we_value = ft_strdup(line);
 	else if (ft_strncmp(value, "EA", 2) == 0)
 		dbase->xpm_json.ea_value = ft_strdup(line);
+	// printf("ppppp -------%p\n", value);
+	// printf("ppp - %p\n", dbase->xpm_json.no_value);
+	// printf("ppp - %p\n", dbase->xpm_json.so_value);
+	// printf("ppp - %p\n", dbase->xpm_json.we_value);
+	// printf("ppp - %p\n", dbase->xpm_json.ea_value);
 	free(value);
 	value = NULL;
 }
@@ -68,7 +73,7 @@ void clean_dbl_chr_ptr(char **lines)
 {
 	int	i;
 	
-	if (lines == NULL)
+	if (!lines || lines == NULL)
 		return;
 	i = 0;
 	while (lines[i] != NULL)
