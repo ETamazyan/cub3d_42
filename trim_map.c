@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 06:13:34 by maavalya          #+#    #+#             */
-/*   Updated: 2025/04/26 21:32:59 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/05 21:08:12 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*cut_front(char *old)
 }
 
 // 3 //4-rd
-void	only_whitespace(char *res)
+void	only_whitespace(t_data *dbase, char *res)
 {
 	int	i;
 
@@ -61,6 +61,5 @@ void	only_whitespace(char *res)
 		i++;
 	}
 	free(res);
-	printf("Error\nOnly whitespaces in map");
-	exit(1);
+	print_err_exit(dbase, "Error\nOnly whitespaces in map");
 }

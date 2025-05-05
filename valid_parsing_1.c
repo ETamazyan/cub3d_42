@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/05 19:59:37 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/05 21:08:29 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,14 +132,14 @@ int	valid_and_parsing(t_data *dbase, char *filename)
 	int			fd;
 
 	fd = open(filename, O_RDONLY);
-	valid_fd_filename(fd, filename);
+	valid_fd_filename(dbase, fd, filename);
 	res = initialize_buf(fd);
 	buf = res;
-	only_whitespace(res);
+	only_whitespace(dbase, res);
 	res = ft_strtrim(res, "\n\t\v\f\r ");
 	check_res(dbase, res, buf); // changed here, // i think exit may cause leaks
 	res = cut_front(res);
-	fd_inf = ft_split(res, '\n');
+	fd_inf = ft_split(res, '\n'); // check split
 	free_res(buf, res);
 	if (!fd_inf || !*fd_inf)
 		print_err_exit(dbase, "Error\nWhile allocating\n");
