@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 19:32:27 by etamazya          #+#    #+#             */
-/*   Updated: 2025/04/27 19:58:03 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/05 18:55:54 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int check_walls(char **map)
 	while (map[i] && (map[i][j] == '1' || check(map[i][j]) == 1))
 		j++;
 	if (map[i][j] && map[i][j] != '\0')
-		return (printf("Error\nWrong map at row %d\n", i), 0);
+		return (printf("Error\nInvalid char or wall missing \
+in the first row\n", i), 0);
 	while (map[i])
 		i++;
 	i--;
@@ -70,6 +71,8 @@ int check_walls(char **map)
 		return (printf("Error\nWrong map at row %d\n", i), 0);
 	if (check_side_walls(map, 0, 0) == 0)
 		return (0);
+	else
+		return (printf("Error: The side walls are not correctly closed\n"), 0);
 	return (1);
 }
 
@@ -95,9 +98,10 @@ column %d\n", map[i][j], i, j), 0);
 		}
 		i++;
 	}
-	return (1); // Valid
+	return (1);
 }
 //5
+// inch lav a es funkcian kanchac chi
 void clean_map(char **map)
 {
 	int i;

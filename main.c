@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:03:10 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/05 16:40:14 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:46:21 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,21 @@ void clean_data(t_data *data)
 		free(data->map);
 		data->map = NULL;
 	}
-	free(data->xpm_json.no_value);
-	free(data->xpm_json.so_value);
-	free(data->xpm_json.we_value);
-	free(data->xpm_json.ea_value);
+	if (data->xpm_json.no_value)
+		free(data->xpm_json.no_value);
+	if (data->xpm_json.so_value)
+		free(data->xpm_json.so_value);
+	if (data->xpm_json.we_value)
+		free(data->xpm_json.we_value);
+	if (data->xpm_json.ea_value)
+		free(data->xpm_json.ea_value);
 	data->xpm_json.no_value = NULL;
 	data->xpm_json.so_value = NULL;
 	data->xpm_json.we_value = NULL;
 	data->xpm_json.ea_value = NULL;
-	free(data->player.direction);
+	if (data->player.direction)
+		free(data->player.direction);
 	data->player.direction = NULL;
-	data->player.x = 0;
-	data->player.y = 0;
-	data->rgb_lst.cR = 0;
-	data->rgb_lst.cG = 0;
-	data->rgb_lst.cB = 0;
-	data->rgb_lst.fR = 0;
-	data->rgb_lst.fG = 0;
-	data->rgb_lst.fB = 0;
 }
 
 void init_dbase(t_data *dbase)
@@ -72,12 +69,12 @@ int main(int argc, char **argv)
 	if (argc != 2)
 		return (printf("Error: Invalid amount of arguments.\n"), 1);
 	if (valid_and_parsing(&dbase, argv[1]) == 1)
-		return (1);
+		return (clean_data(&dbase), 1);
 	for(int i = 0; dbase.map[i]; i++)
-		printf("mainum map[i] = %s\n", dbase.map[i]);
-	printf("textures: %s,\t%s,\t%s,\t%s\t\n", dbase.xpm_json.no_value, dbase.xpm_json.so_value,dbase.xpm_json.we_value,dbase.xpm_json.ea_value);
- 	printf("rgb_c = %d,%d,%d\n", dbase.rgb_lst.cB, dbase.rgb_lst.cR, dbase.rgb_lst.cG);
- 	printf("rgb_f = %d,%d,%d\n", dbase.rgb_lst.fB, dbase.rgb_lst.fR, dbase.rgb_lst.fG);	
-	start_anim(&dbase);
+	// 	printf("mainum map[i] = %s\n", dbase.map[i]);
+	// printf("textures: %s,\t%s,\t%s,\t%s\t\n", dbase.xpm_json.no_value, dbase.xpm_json.so_value,dbase.xpm_json.we_value,dbase.xpm_json.ea_value);
+ 	// printf("rgb_c = %d,%d,%d\n", dbase.rgb_lst.cB, dbase.rgb_lst.cR, dbase.rgb_lst.cG);
+ 	// printf("rgb_f = %d,%d,%d\n", dbase.rgb_lst.fB, dbase.rgb_lst.fR, dbase.rgb_lst.fG);	
+	// start_anim(&dbase);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/05 16:30:04 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/05 18:40:00 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,20 @@ void copy_key(t_data *dbase, char *line)
 	while (line[i] && (line[i] != ' ' && line[i] != '\t'))
 		i++;
 	value = ft_strncpy_malloc(line, i);
+	if (!value)
+		return ;
 	while (*line && (*line != ' ' && *line != '\t'))
 		line++;
 	while (*line == ' ' || *line == '\t')
 		line++;
 	if (ft_strncmp(value, "NO", 2) == 0)
-	{
 		dbase->xpm_json.no_value = ft_strdup(line);
-	}
 	else if (ft_strncmp(value, "SO", 2) == 0)
-	{
 		dbase->xpm_json.so_value = ft_strdup(line);
-	}
 	else if (ft_strncmp(value, "WE", 2) == 0)
-	{
 		dbase->xpm_json.we_value = ft_strdup(line);
-	}
 	else if (ft_strncmp(value, "EA", 2) == 0)
-	{
 		dbase->xpm_json.ea_value = ft_strdup(line);
-	}
 	free(value);
 	value = NULL;
 }
@@ -70,6 +64,21 @@ void	check_design_instance(t_data *dbase)
 		print_err_exit(dbase, "Error while allocating rgb or xpm value\n");
 }
 
+void clean_dbl_chr_ptr(char **lines)
+{
+    int	i;
+	
+    if (lines == NULL)
+        return;
+	i = 0;
+    while (lines[i] != NULL)
+    {
+        free(lines[i]);
+		i++;
+	}
+    free(lines);
+}
+
 // 2 // 8-rd
 // ays funkcian patasxanatu e nayev tvyalnery pahelu hamar
 // if 1 error
@@ -79,37 +88,36 @@ int valid_whole_file_keep_data(char **lines, t_data *dbase, int count)
 	{
 		if (is_map_line(*lines))
 			break ;
-		if (is_texture(*lines))
+		else if (is_texture(*lines)) // change to else if
 		{
-			if (check_keep_xpm(dbase, *lines))
+			if (check_keep_xpm(dbase, *lines)) // add here exit
 				count++;
 			else
-				return (1);
+				break ;
 		}
 		else if (is_color(*lines))
 		{
-			
-			if (keep_check_rgb(dbase, *lines))
+			if (keep_check_rgb(dbase, *lines)) // add here exit
 				count++;
 			else
-				return (1);
+				break ;
 		}
 		lines++;
 	}
-	check_design_instance(dbase); //added
+	check_design_instance(dbase); //added exit
 	if (count == 6)
-		return (keep_valid_map(lines, dbase));
+		return (keep_valid_map(lines, dbase)); // add here exit
 	return (0);
 }
 
 
 // 5
-static int check_res(char *string, char *buf)
+int check_res(t_data *dbase, char *string, char *buf)
 {
 	if (!string)
 	{
 		free_res(buf, string);
-		exit(1);
+		print_err_exit(dbase, "Error\nWhile allocating.\n");
 	}
 	return (0);
 }
@@ -129,17 +137,14 @@ int	valid_and_parsing(t_data *dbase, char *filename)
 	buf = res;
 	only_whitespace(res);
 	res = ft_strtrim(res, "\n\t\v\f\r ");
-	check_res(res, buf); // changed here, // i think exit may cause leaks
+	check_res(dbase, res, buf); // changed here, // i think exit may cause leaks
 	res = cut_front(res);
 	fd_inf = ft_split(res, '\n');
-	// if (!fd_inf || !*fd_inf)
-	// 	exit(1);
 	free_res(buf, res);
-	if (!valid_whole_file_keep_data(fd_inf, dbase, 0)) 	// if not 1 error
-	{
-		free_str_array(fd_inf);
-		write(2, "Error\nInvalid map or config.\n", 30);
-		exit(1);
-	}
+	if (!fd_inf || !*fd_inf)
+		print_err_exit(dbase, "Error\nWhile allocating\n");
+	valid_whole_file_keep_data(fd_inf, dbase, 0);
+	// if (!valid_whole_file_keep_data(fd_inf, dbase, 0)) 	// if not 1 error
+	// 	print_err_exit(dbase, "Error\nInvalid map or config.\n"); // make this to exit itself
 	return (0);
 }

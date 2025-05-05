@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:04:34 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/05 16:27:12 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/05 18:06:52 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,8 @@ int key_press(int keycode, t_player *player, t_game *game);
 // void move_player(t_player *player);
 void move_player(t_player *player, t_game *game);
 void clear_image(t_game *game);
+void clean_dbl_chr_ptr(char **lines);
+
 
 int exit_game(t_game *game);
 void handle_error(t_game *game, const char *message); // Print exit message
@@ -258,6 +260,8 @@ int		ft_check2(char const *set, char const str);
 size_t	ft_startlen(const char *s1, const char *set);
 int		ft_size(int start, int end);
 char	*ft_strtrim2(char *s1, char *set);
+int check_res(t_data *t_dbase, char *string, char *buf);
+
 
 // rgb validation parsing
 int		keep_check_rgb(t_data *db, char *line);
