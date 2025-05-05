@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_parsing_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/03 11:19:45 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:00:45 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,21 @@ void copy_key(t_data *dbase, char *line)
 		line++;
 	while (*line == ' ' || *line == '\t')
 		line++;
-	if (strcmp(value, "NO") == 0)
+	if (ft_strncmp(value, "NO", 2) == 0)
 	{
-		dbase->xpm_json.no_key = ft_strdup("NO");
-		dbase->xpm_json.no_value = ft_strdup(line);		
+		dbase->xpm_json.no_value = ft_strdup(line);
 	}
-	else if (strcmp(value, "SO") == 0)
+	else if (ft_strncmp(value, "SO", 2) == 0)
 	{
-		dbase->xpm_json.so_key = ft_strdup(value);
-		dbase->xpm_json.so_value = ft_strdup(line);	
+		dbase->xpm_json.so_value = ft_strdup(line);
 	}
-	else if (strcmp(value, "WE") == 0)
+	else if (ft_strncmp(value, "WE", 2) == 0)
 	{
-		dbase->xpm_json.we_key = ft_strdup(value);
-		dbase->xpm_json.we_value = ft_strdup(line);	
+		dbase->xpm_json.we_value = ft_strdup(line);
 	}
-	else if (strcmp(value, "EA") == 0)
+	else if (ft_strncmp(value, "EA", 2) == 0)
 	{
-		dbase->xpm_json.ea_key = ft_strdup(value);
-		dbase->xpm_json.ea_value = ft_strdup(line);	
+		dbase->xpm_json.ea_value = ft_strdup(line);
 	}
 	free(value);
 	value = NULL;
@@ -56,7 +52,7 @@ int	check_keep_xpm(t_data *dbase, char *line)
 	size_t len;
 	
 	len = ft_strlen(line);
-	if (len < 4 || strcmp(line + len - 4, ".xpm") != 0) //change laterrr strcmp
+	if (len < 4 || ft_strncmp(line + len - 4, ".xpm", 4) != 0)
 		return (0);
 	while (*line == ' ' || *line == '\t')
 		line++;
@@ -64,6 +60,16 @@ int	check_keep_xpm(t_data *dbase, char *line)
 		copy_key(dbase, line);
 	return (1);
 }
+
+void	check_design_instance(t_data *dbase)
+{
+	if (!dbase->rgb_lst.cB || !dbase->rgb_lst.cG || !dbase->rgb_lst.cR ||\
+		!dbase->rgb_lst.fB || !dbase->rgb_lst.fG || !dbase->rgb_lst.fR ||\
+		!dbase->xpm_json.ea_value || !dbase->xpm_json.no_value ||\
+		!dbase->xpm_json.so_value || !dbase->xpm_json.we_value)
+		print_err_exit(dbase, "Error while allocating rgb or xpm value\n");
+}
+
 
 // 2 // 8-rd
 // ays funkcian patasxanatu e nayev tvyalnery pahelu hamar
@@ -91,6 +97,7 @@ int valid_whole_file_keep_data(char **lines, t_data *dbase, int i, int count)
 		}
 		lines++;
 	}
+	check_design_instance(dbase); //added
 	if (count == 6)
 		return (keep_valid_map(lines, dbase));
 	(void)i;
@@ -103,8 +110,7 @@ static int check_res(char *string, char *buf)
 {
 	if (!string)
 	{
-		free_res(buf, string);//achqis ashxatum a menak res-i hamar check later,
-		// bervel e valid_and_parsing funckciayic
+		free_res(buf, string);
 		exit(1);
 	}
 	return (0);
@@ -135,8 +141,5 @@ int	valid_and_parsing(t_data *dbase, char *filename)
 		write(2, "Error\nInvalid map or config.\n", 30);
 		exit(1);
 	}
-	printf("bbbbb key = %s, val = %s\n", dbase->xpm_json.ea_key, dbase->xpm_json.ea_value);
-
-	printf("map_line = %s\n", *map);
 	return (0);
 }

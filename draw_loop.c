@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 20:33:42 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/02 20:37:42 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/04 18:20:05 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,7 @@ int	draw_loop(t_game *game)
 	}
 	draw_minimap(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+
 	return (0);
+	(void)draw;
 }

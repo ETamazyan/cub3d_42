@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:04:34 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/03 17:41:54 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/04 19:31:31 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,13 +187,13 @@ typedef struct s_pos
 
 typedef struct s_xpm
 {
-	char		*no_key;
+	// char		*no_key;
 	char		*no_value;
-	char		*so_key;
+	// char		*so_key;
 	char		*so_value;
-	char		*we_key;
+	// char		*we_key;
 	char		*we_value;
-	char		*ea_key;
+	// char		*ea_key;
 	char		*ea_value;
 }				t_xpm;
 
@@ -238,7 +238,7 @@ void	only_whitespace(char *res);
 int valid_whole_file_keep_data(char **lines, t_data *dbase, int i, int count); // if 1 error
 
 // error.c
-void	print_error(t_data *data, char *str);
+void	print_err_exit(t_data *data, char *str);
 void	clean_data(t_data *data);
 
 // valid_helpers.c
