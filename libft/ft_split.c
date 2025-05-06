@@ -6,26 +6,11 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 14:47:02 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/05 22:06:07 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/06 16:57:58 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static void clear_res(char **res)
-{
-	int	i;
-	
-	if (!res || res == NULL)
-		return;
-	i = 0;
-	while (res[i] != NULL)
-	{
-		free(res[i]);
-		i++;
-	}
-	free(res);
-}
 
 static int	count_strings(char *str, char c)
 {
@@ -101,10 +86,11 @@ char	**ft_split(char const *s, char c)
 		if (*s != '\0' && flag == 1 && *s != c)
 		{
 			res[i] = ft_word((char *)s, c);
-			if (!res[i])
-			{
-				clear_res(res);		
-			}
+			// if (!res[i])
+			// {
+			// 	clear_res(res);
+			// 	return (NULL);	
+			// }
 			flag = 0;
 			i++;
 		}

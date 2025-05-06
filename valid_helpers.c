@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 12:33:03 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/05 22:20:57 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:59:10 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,5 @@ char *ft_strncpy_malloc(const char *src, int n)
 		dest[i] = '\0';
 		i++;
 	}
-	printf("--- add = %p, str = %s,\n", dest, dest);
 	return (dest);
 }

@@ -6,33 +6,56 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:04:33 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/05 21:05:26 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:40:47 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
 // 1 // 3-rd
-char	*initialize_buf(int fd)
-{
-	char		*temp;
-	char		*buf;
-	char		*res;
+// char	*initialize_buf(int fd)
+// {
+// 	char		*temp;
+// 	char		*buf;
+// 	char		*res;
 
-	res = ft_strdup("");
-	buf = get_next_line(fd);
-	while (buf)
-	{
-		temp = res;
-		res = ft_strjoin(res, buf);
-		free(temp);
-		free(buf);
-		buf = get_next_line(fd);
-	}
-	if (!res)
-		exit (1);
-	return (res);
+// 	res = ft_strdup("");
+// 	buf = get_next_line(fd);
+// 	while (buf)
+// 	{
+// 		temp = res;
+// 		res = ft_strjoin(res, buf);
+// 		free(temp);
+// 		free(buf);
+// 		buf = get_next_line(fd);
+// 	}
+// 	if (!res)
+// 		exit (1);
+// 	return (res);
+// }
+char *initialize_buf(int fd)
+{
+    char *temp;
+    char *buf;
+    char *res;
+
+    res = ft_strdup("");
+    if (!res)
+        return (NULL);
+    buf = get_next_line(fd);
+    while (buf)
+    {
+        temp = res;
+        res = ft_strjoin(res, buf);
+        free(temp);
+        free(buf);
+        if (!res)
+            return (NULL);
+        buf = get_next_line(fd);
+    }
+    return (res);
 }
+
 //2
 void	valid_fd_filename(t_data *dbase, int fd, char *filename)
 {
@@ -42,7 +65,10 @@ void	valid_fd_filename(t_data *dbase, int fd, char *filename)
 	if (fd == -1)
 		print_err_exit(dbase, "Error\nInvalid filename!\n");
 	if (ft_strncmp(filename + len, ".cub", 4))
+	{
+		close(fd);	
 		print_err_exit(dbase, "Error\nInvalid file format!\n");
+	}
 }
 
 //3

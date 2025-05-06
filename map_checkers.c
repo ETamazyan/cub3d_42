@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 19:32:27 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/05 21:21:16 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/06 19:20:36 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,12 @@ column %d\n", map[i][j], i, j), 0);
 }
 //5
 // inch lav a es funkcian kanchac chi
-void clean_map(char **map)
-{
-	int i;
+// void clean_map(char **map)
+// {
+// 	int i;
 	
-	i = 0;
-	while (map[i])
-		free(map[i]);
-	free(map);
-}
+// 	i = 0;
+// 	while (map[i])
+// 		free(map[i]);
+// 	free(map);
+// }

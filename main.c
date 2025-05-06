@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:03:10 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/05 22:08:49 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/06 16:13:23 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int main(int argc, char **argv)
 		return (printf("Error: Invalid amount of arguments.\n"), 1);
 	if (valid_and_parsing(&dbase, argv[1]) == 1)
 		return (clean_data(&dbase), 1);
-	clean_data(&dbase);
+	// clean_data(&dbase);
 	// for(int i = 0; dbase.map[i]; i++)
 	// 	printf("mainum map[i] = %s\n", dbase.map[i]);
 	// printf("textures: %s,\t%s,\t%s,\t%s\t\n", dbase.xpm_json.no_value, dbase.xpm_json.so_value,dbase.xpm_json.we_value,dbase.xpm_json.ea_value);

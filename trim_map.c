@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 06:13:34 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/05 21:08:12 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/06 19:20:45 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ char	*cut_front(char *old)
 		new[j] = old[i + j];
 		j++;
 	}
-	free(old);
+	// if (old)
+	// 	free(old);
 	new[j] = '\0';
 	return (new);
 }
@@ -60,6 +61,5 @@ void	only_whitespace(t_data *dbase, char *res)
 			return ;
 		i++;
 	}
-	free(res);
 	print_err_exit(dbase, "Error\nOnly whitespaces in map");
 }
