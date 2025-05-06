@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/06 19:25:59 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/06 19:38:47 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,70 +117,33 @@ int check_res(t_data *dbase, char *string, char *buf)
 
 
 // 4
-// int	valid_and_parsing(t_data *dbase, char *filename)
-// {
-// 	char		*buf;
-// 	char		*res;
-// 	char		**fd_inf;
-// 	int			fd;
-
-// 	fd = open(filename, O_RDONLY);
-// 	valid_fd_filename(dbase, fd, filename);
-// 	res = initialize_buf(fd);
-// 	buf = res;
-// 	only_whitespace(dbase, res);
-// 	res = ft_strtrim(res, "\n\t\v\f\r ");
-// 	check_res(dbase, res, buf); // changed here, // i think exit may cause leaks
-// 	res = cut_front(res);
-// 	fd_inf = ft_split(res, '\n'); // check split
-// 	// printf("%p, %p, %p\n", buf, res, filename);
-// 	free_res(buf, res);
-// 	if (!fd_inf)
-// 		print_err_exit(dbase, "Error\nWhile allocating\n");
-// 	// shoud mbe from below
-// 	if (valid_whole_file_keep_data(fd_inf, dbase, 0) == 0)
-// 	{
-// 			close(fd); // check this later
-// 			clean_dbl_chr_ptr(fd_inf);
-// 			print_err_exit(dbase, ""); // make this to exit itself
-// 	}
-// 	close(fd); // check this later
-// 	return (0);
-// }
-
-int valid_and_parsing(t_data *dbase, char *filename)
+int	valid_and_parsing(t_data *dbase, char *filename)
 {
-    char *buf = NULL;
-    char *res = NULL;
-    char **fd_inf = NULL;
-    int fd;
+	char		*buf;
+	char		*res;
+	char		**fd_inf;
+	int			fd;
 
-    fd = open(filename, O_RDONLY);
-    valid_fd_filename(dbase, fd, filename);
-    
-    buf = initialize_buf(fd);
-    if (!buf)
-        print_err_exit(dbase, "Error\nMemory allocation failed\n");
-    
-    only_whitespace(dbase, buf);
-    
-    res = ft_strtrim(buf, "\n\t\v\f\r ");
-    // free(buf); // We're done with original buf
-    if (!res)
-        print_err_exit(dbase, "Error\nMemory allocation failed\n");
-    
-    res = cut_front(res);
-    fd_inf = ft_split(res, '\n');
-    // free(res); // We're done with res after splitting
-    if (!fd_inf)
-        print_err_exit(dbase, "Error\nWhile allocating\n");
-    
-    if (valid_whole_file_keep_data(fd_inf, dbase, 0) == 0)
-    {
-        close(fd);
-        clean_dbl_chr_ptr(fd_inf);
-        print_err_exit(dbase, "");
-    }
-    close(fd);
-    return (0);
+	fd = open(filename, O_RDONLY);
+	valid_fd_filename(dbase, fd, filename);
+	res = initialize_buf(fd);
+	buf = res;
+	only_whitespace(dbase, res);
+	res = ft_strtrim(res, "\n\t\v\f\r ");
+	check_res(dbase, res, buf); // changed here, // i think exit may cause leaks
+	res = cut_front(res);
+	fd_inf = ft_split(res, '\n'); // check split
+	// printf("%p, %p, %p\n", buf, res, filename);
+	// free_res(buf, res);
+	if (!fd_inf)
+		print_err_exit(dbase, "Error\nWhile allocating\n");
+	// shoud mbe from below
+	if (valid_whole_file_keep_data(fd_inf, dbase, 0) == 0)
+	{
+			close(fd); // check this later
+			clean_dbl_chr_ptr(fd_inf);
+			print_err_exit(dbase, ""); // make this to exit itself
+	}
+	close(fd); // check this later
+	return (0);
 }
