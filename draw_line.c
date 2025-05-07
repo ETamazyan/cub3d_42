@@ -6,7 +6,7 @@
 /*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 20:18:25 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/03 17:42:17 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/07 18:11:51 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,21 @@ void draw_line1(t_player *player, t_game *game, t_rays *rays, int i) {
     t_texture   *tex;
 
     /* Calculate ray distance and wall height */
-    coords.dist = fixed_dist(player, rays, game);
-    if (coords.dist <= 0.1) {
-        coords.dist = 0.1; // Prevent division by zero
-    }
-    
-    /* Calculate wall height */
-    coords.height = (BLOCK / coords.dist) * (game->screen_width / 2);
+	coords.dist = fixed_dist(player, rays, game);
+	if (coords.dist <= 0.1) coords.dist = 0.1;
+	float ray_angle = atan2f(rays->sin_a, rays->cos_a);
+
+	// Apply fisheye correction
+	float angle_diff = ray_angle - player->angle;
+
+// Normalize between -PI and +PI
+while (angle_diff > M_PI) angle_diff -= 2 * M_PI;
+while (angle_diff < -M_PI) angle_diff += 2 * M_PI;
+
+	
+	// Calculate wall height
+	coords.height = (BLOCK / coords.dist) * (game->screen_height / 2);
+	
     coords.start_y = (game->screen_height - coords.height) / 2;
     if (coords.start_y < 0) coords.start_y = 0;
     
@@ -65,12 +73,7 @@ void draw_line1(t_player *player, t_game *game, t_rays *rays, int i) {
     }
 
     /* Determine which texture to use based on wall orientation */
-    if (rays->ray_x == 0 && rays->ray_y == 0) {
-        printf("Warning: Invalid ray position at column %d\n", i);
-        return;
-    }
-
-    /* Determine which texture to use based on wall orientation */
+    // (Include the existing logic here...)
     if (fabsf(fmodf(rays->ray_x, BLOCK)) < fabsf(fmodf(rays->ray_y, BLOCK))) {
         coords.tex_x = (int)fmodf(rays->ray_x, BLOCK);
         if (rays->ray_y > player->y)
@@ -103,25 +106,97 @@ void draw_line1(t_player *player, t_game *game, t_rays *rays, int i) {
     /* Draw textured wall column */
     y = coords.start_y;
     while (y < coords.end_y) {
-        /* Calculate texture y-coordinate with bounds checking */
-        if (coords.end_y == coords.start_y) {
-            tex_y = 0;
-        } else {
-            tex_y = ((y - coords.start_y) * tex->height) / (coords.end_y - coords.start_y);
-        }
-        
-        /* Ensure tex_y is within bounds */
-        if (tex_y < 0) tex_y = 0;
-        if (tex_y >= tex->height) tex_y = tex->height - 1;
-        
-        /* Use safe texture access */
+        tex_y = ((y - coords.start_y) * tex->height) / coords.height; // Adjusted for wall height
         color = get_texture_color(tex, coords.tex_x, tex_y);
-        
-        /* Draw pixel */
         put_pixel(i, y, color, game);
         y++;
     }
 }
+// void draw_line1(t_player *player, t_game *game, t_rays *rays, int i) {
+//     t_coords    coords;
+//     int         y;
+//     int         tex_y;
+//     int         color;
+//     t_texture   *tex;
+
+//     /* Calculate ray distance and wall height */
+//     coords.dist = fixed_dist(player, rays, game);
+//     if (coords.dist <= 0.1) {
+//         coords.dist = 0.1; // Prevent division by zero
+//     }
+    
+//     /* Calculate wall height */
+//     coords.height = (BLOCK / coords.dist) * (game->screen_width / 2);
+//     coords.start_y = (game->screen_height - coords.height) / 2;
+//     if (coords.start_y < 0) coords.start_y = 0;
+    
+//     coords.end_y = coords.start_y + coords.height;
+//     if (coords.end_y >= game->screen_height) coords.end_y = game->screen_height - 1;
+
+//     /* Check if i is within screen bounds */
+//     if (i < 0 || i >= game->screen_width) {
+//         printf("Warning: Attempted to draw column outside screen bounds: %d\n", i);
+//         return;
+//     }
+
+//     /* Determine which texture to use based on wall orientation */
+//     if (rays->ray_x == 0 && rays->ray_y == 0) {
+//         printf("Warning: Invalid ray position at column %d\n", i);
+//         return;
+//     }
+
+//     /* Determine which texture to use based on wall orientation */
+//     if (fabsf(fmodf(rays->ray_x, BLOCK)) < fabsf(fmodf(rays->ray_y, BLOCK))) {
+//         coords.tex_x = (int)fmodf(rays->ray_x, BLOCK);
+//         if (rays->ray_y > player->y)
+//             tex = &game->south;
+//         else
+//             tex = &game->north;
+//     } else {
+//         coords.tex_x = (int)fmodf(rays->ray_y, BLOCK);
+//         if (rays->ray_x > player->x)
+//             tex = &game->east;
+//         else
+//             tex = &game->west;
+//     }
+
+//     /* Validate texture */
+//     if (!tex || !tex->data) {
+//         printf("Warning: Invalid texture for column %d\n", i);
+//         /* Draw solid color column instead */
+//         for (y = coords.start_y; y < coords.end_y; y++) {
+//             put_pixel(i, y, 0xFF0000, game); // Red for error
+//         }
+//         return;
+//     }
+
+//     /* Ensure tex_x is within bounds */
+//     coords.tex_x = (coords.tex_x + tex->width) % tex->width;
+//     if (coords.tex_x < 0) coords.tex_x = 0;
+//     if (coords.tex_x >= tex->width) coords.tex_x = tex->width - 1;
+
+//     /* Draw textured wall column */
+//     y = coords.start_y;
+//     while (y < coords.end_y) {
+//         /* Calculate texture y-coordinate with bounds checking */
+//         if (coords.end_y == coords.start_y) {
+//             tex_y = 0;
+//         } else {
+//             tex_y = ((y - coords.start_y) * tex->height) / (coords.end_y - coords.start_y);
+//         }
+        
+//         /* Ensure tex_y is within bounds */
+//         if (tex_y < 0) tex_y = 0;
+//         if (tex_y >= tex->height) tex_y = tex->height - 1;
+        
+//         /* Use safe texture access */
+//         color = get_texture_color(tex, coords.tex_x, tex_y);
+        
+//         /* Draw pixel */
+//         put_pixel(i, y, color, game);
+//         y++;
+//     }
+// }
 
 void draw_line(t_player *player, t_game *game, float angle, int i) {
     t_rays  rays;

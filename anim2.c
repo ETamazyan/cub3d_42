@@ -3,36 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   anim2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 20:55:49 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/05 14:06:11 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/07 17:42:11 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-int exit_game(t_game *game)
-{
+int exit_game(t_game *game) {
     if (game) {
         // Free textures
         if (game->north.img) {
-			free(game->north.data);
+            // if (game->north.data) {
+            //     free(game->north.data);
+            // }
             mlx_destroy_image(game->mlx, game->north.img);
         }
         if (game->south.img) {
-			free(game->south.data);
+            // if (game->south.data) {
+            //     free(game->south.data);
+            // }
             mlx_destroy_image(game->mlx, game->south.img);
         }
         if (game->east.img) {
-			free(game->east.data);
+            // if (game->east.data) {
+            //     free(game->east.data);
+            // }
             mlx_destroy_image(game->mlx, game->east.img);
         }
         if (game->west.img) {
-			free(game->west.data);
+            // if (game->west.data) {
+            //     free(game->west.data);
+            // }
             mlx_destroy_image(game->mlx, game->west.img);
         }
-        free(game->data);
+
         // Free dynamically allocated map if any
         if (game->map) {
             for (int i = 0; game->map[i] != NULL; i++) {
@@ -51,7 +57,6 @@ int exit_game(t_game *game)
             mlx_destroy_window(game->mlx, game->win);
         }
     }
-
 
     // Exit the program
     exit(0);
