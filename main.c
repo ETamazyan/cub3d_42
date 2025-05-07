@@ -6,25 +6,15 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:03:10 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/07 17:50:39 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/07 18:09:32 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void clean_data(t_data *data)
+void	clean_data(t_data *data)
 {
-	if (data->map)
-	{
-		int i = 0;
-		while (data->map[i])
-		{
-			free(data->map[i]);
-			i++;
-		}
-		free(data->map);
-		data->map = NULL;
-	}
+	free_string_array(data->map);
 	if (data->xpm_json.no_value)
 		free(data->xpm_json.no_value);
 	if (data->xpm_json.so_value)
@@ -36,7 +26,8 @@ void clean_data(t_data *data)
 	if (data->player.direction)
 		free(data->player.direction);
 }
-void init_dbase(t_data *dbase)
+
+void	init_dbase(t_data *dbase)
 {
 	dbase->map = NULL;
 	dbase->xpm_json.no_value = NULL;
@@ -54,11 +45,11 @@ void init_dbase(t_data *dbase)
 	dbase->rgb_lst.fB = -1;
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_data	dbase;
 
-	init_dbase(&dbase); 
+	init_dbase(&dbase);
 	if (argc != 2)
 		return (printf("Error: Invalid amount of arguments.\n"), 1);
 	if (valid_and_parsing(&dbase, argv[1]) == 1)

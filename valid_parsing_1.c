@@ -6,27 +6,27 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/07 17:46:44 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/07 18:19:59 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void copy_key(t_data *dbase, char *line) // causes 4 byte leak
+void	copy_key(t_data *dbase, char *line) // causes 4 byte leak
 {
-	int i;
-	char *value;
+	int		i;
+	char	*value;
 
 	i = 0;
-	while (line[i] && (line[i] != ' ' && line[i] != '\t' && line[i] != '\v' &&\
-		line[i] != '\f' &&  line[i] != '\r'))
+	while (line[i] && (line[i] != ' ' && line[i] != '\t' && line[i] != '\v' \
+&& line[i] != '\f' && line[i] != '\r'))
 		i++;
 	value = ft_strdup(line);
 	if (!value)
 		return ;
 	line += i;
 	while (*line == ' ' || *line == '\t')
-			line++;
+		line++;
 	if (ft_strncmp(value, "NO", 2) == 0)
 		dbase->xpm_json.no_value = ft_strdup(line);
 	else if (ft_strncmp(value, "SO", 2) == 0)
@@ -41,37 +41,38 @@ void copy_key(t_data *dbase, char *line) // causes 4 byte leak
 
 int	check_keep_xpm(t_data *dbase, char *line)
 {
-	size_t len;
-	
+	size_t	len;
+
 	len = ft_strlen(line);
 	if (len < 4 || ft_strncmp(line + len - 4, ".xpm", 4) != 0)
 		return (printf("Error\nTexture path should end with .xpm\n"), 0);
 	while (check_sep(*line, "\t\v\f\r "))
 		line++;
-	if (*line && (*line != ' ' || *line != '\t' || *line != '\v' ||\
-		*line != '\f' ||  *line != '\r'))
+	if (*line && (*line != ' ' || *line != '\t' || *line != '\v' || \
+*line != '\f' || *line != '\r'))
 		copy_key(dbase, line);
 	return (1);
 }
+
 int	check_design_instance(t_data *dbase)
 {
-	if (!dbase->rgb_lst.cB || !dbase->rgb_lst.cG || !dbase->rgb_lst.cR ||\
-		!dbase->rgb_lst.fB || !dbase->rgb_lst.fG || !dbase->rgb_lst.fR ||\
-		!dbase->xpm_json.ea_value || !dbase->xpm_json.no_value ||\
-		!dbase->xpm_json.so_value || !dbase->xpm_json.we_value)
-			return (1);
+	if (!dbase->rgb_lst.cB || !dbase->rgb_lst.cG || !dbase->rgb_lst.cR || \
+!dbase->rgb_lst.fB || !dbase->rgb_lst.fG || !dbase->rgb_lst.fR || \
+!dbase->xpm_json.ea_value || !dbase->xpm_json.no_value || \
+!dbase->xpm_json.so_value || !dbase->xpm_json.we_value)
+		return (1);
 	return (0);
 }
 
-int valid_whole_file_keep_data(char **lines, t_data *dbase, int count) 
+int	valid_whole_file_keep_data(char **lines, t_data *dbase, int count)
 {
 	while (*lines)
 	{
 		if (is_map_line(*lines))
-			break;
+			break ;
 		else if (is_texture(*lines))
 		{
-			if (check_keep_xpm(dbase, *lines) == 1) // check this one, too
+			if (check_keep_xpm(dbase, *lines) == 1)
 				count++;
 			else
 				break ;
@@ -88,35 +89,10 @@ int valid_whole_file_keep_data(char **lines, t_data *dbase, int count)
 	if (check_design_instance(dbase) == 1)
 		return (1);
 	if (count == 6)
-		return(keep_valid_map(lines, dbase));
+		return (keep_valid_map(lines, dbase));
 	return (0);
 }
 
-int check_res(t_data *dbase, char *string, char *buf)
-{
-	if (!string)
-	{
-		if (buf)
-			free(buf);
-		print_err_exit(dbase, "Error\nWhile allocating.\n");
-	}
-	return (0);
-}
-void free_string_array(char **array)
-{
-	int	i;
-    if (array == NULL) {
-        return;
-    }
-	i = 0;
-    while (array[i] != NULL)
-	{
-        free(array[i]);
-		i++;
-	}
-
-    free(array);
-}
 int	valid_and_parsing(t_data *dbase, char *filename)
 {
 	char		*buf;
@@ -139,9 +115,9 @@ int	valid_and_parsing(t_data *dbase, char *filename)
 	}
 	if (valid_whole_file_keep_data(fd_inf, dbase, 0) == 1)
 	{
-			free(res);
-			free_string_array(fd_inf);
-			print_err_exit(dbase, "");
+		free(res);
+		free_string_array(fd_inf);
+		print_err_exit(dbase, "");
 	}
 	return (free_string_array(fd_inf), free(res), 0);
 }

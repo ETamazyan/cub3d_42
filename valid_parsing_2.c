@@ -6,15 +6,12 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 14:45:22 by etamazya          #+#    #+#             */
-/*   Updated: 2025/04/26 21:33:26 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/07 18:21:07 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-// obrabotivat this one
-// need
-// 1
 int	ft_check2(char const *set, char const str)
 {
 	int	i;
@@ -28,7 +25,7 @@ int	ft_check2(char const *set, char const str)
 	}
 	return (0);
 }
-// 2
+
 size_t	ft_startlen(const char *s1, const char *set)
 {
 	int	i;
@@ -40,7 +37,7 @@ size_t	ft_startlen(const char *s1, const char *set)
 		i--;
 	return (i);
 }
-// 3
+
 int	ft_size(int start, int end)
 {
 	int	size;
@@ -49,7 +46,7 @@ int	ft_size(int start, int end)
 	size = end - start;
 	return (size);
 }
-// 4
+
 char	*ft_strtrim2(char *s1, char *set)
 {
 	char	*res;
@@ -74,4 +71,15 @@ char	*ft_strtrim2(char *s1, char *set)
 	}
 	res[i] = '\0';
 	return (res);
+}
+
+int	check_res(t_data *dbase, char *string, char *buf)
+{
+	if (!string)
+	{
+		if (buf)
+			free(buf);
+		print_err_exit(dbase, "Error\nWhile allocating.\n");
+	}
+	return (0);
 }

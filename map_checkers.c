@@ -6,13 +6,12 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 19:32:27 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/07 17:33:38 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/07 18:51:52 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-//1
 int	check(char s)
 {
 	if (s == ' ' || s == '\t' || s == '\r'
@@ -20,8 +19,8 @@ int	check(char s)
 		return (1);
 	return (0);
 }
-//2
-int check_side_walls(char **map, int i, int j)
+
+int	check_side_walls(char **map, int i, int j)
 {
 	while (map[i])
 	{
@@ -48,11 +47,10 @@ int check_side_walls(char **map, int i, int j)
 	return (1);
 }
 
-//3
-int check_walls(char **map)
+int	check_walls(char **map)
 {
-	int j;
-	int i;
+	int	j;
+	int	i;
 
 	i = 0;
 	j = 0;
@@ -74,24 +72,23 @@ in the first row = %d\n", i), 0);
 	return (1);
 }
 
-//4
-int check_chars(char **map)
+int	check_chars(char **map)
 {
-	int i;
-	int j;
-	
+	int	i;
+	int	j;
+
 	i = 0;
 	while (map[i])
 	{
 		j = 0;
 		while (map[i][j])
 		{
-			if (!(map[i][j] == '1' || map[i][j] == '0' ||
-				  map[i][j] == 'N' || map[i][j] == 'S' ||
-				  map[i][j] == 'W' || map[i][j] == 'E' ||
-				  map[i][j] == 'D' || map[i][j] == ' ' ||
-				  map[i][j] == '\t' || map[i][j] == '\n'))
-				  return (printf("Error\nInvalid character '%c' at line %d, \
+			if (!(map[i][j] == '1' || map[i][j] == '0' || \
+map[i][j] == 'N' || map[i][j] == 'S' || \
+map[i][j] == 'W' || map[i][j] == 'E' || \
+map[i][j] == 'D' || map[i][j] == ' ' || \
+map[i][j] == '\t' || map[i][j] == '\n'))
+				return (printf("Error\nInvalid character '%c' at line %d, \
 column %d\n", map[i][j], i, j), 0);
 			j++;
 		}

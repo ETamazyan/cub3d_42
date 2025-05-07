@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 13:32:06 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/07 17:36:47 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/07 18:59:00 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	copy_map(t_data *dbase, char **lines, int i, int j)
 {
-	int k;
+	int	k;
 	int	count;
 
 	while (lines[i])
@@ -40,13 +40,11 @@ void	copy_map(t_data *dbase, char **lines, int i, int j)
 	dbase->map[count] = NULL;
 }
 
-int keep_valid_map(char **lines, t_data *dbase) // ete 0 error
+int	keep_valid_map(char **lines, t_data *dbase) // ete 0 error
 {
-	if (!check_chars(lines) || !check_walls(lines) || !check_player(lines)\
-	|| !check_disordered_wall(lines, 1, 1) || !check_door(lines))
+	if (!check_chars(lines) || !check_walls(lines) || !check_player(lines) \
+|| !check_disordered_wall(lines, 1, 1) || !check_door(lines))
 		return (1);
-	// for(int i = 0; lines[i]; i++)
-	// printf("line[i] = %s\n", lines[i]);
 	copy_map(dbase, lines, 0, 0);
 	return (0);
 }
