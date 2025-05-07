@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 13:32:06 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/06 19:26:09 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:52:26 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	copy_map(t_data *dbase, char **lines, int i, int j)
 	dbase->map = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!dbase->map)
 	{
-		clean_dbl_chr_ptr(lines);
+		// clean_dbl_chr_ptr(lines);
 		print_err_exit(dbase, "Error\nWhile alocating\n");
 	}
 	i = 0;
@@ -47,8 +47,7 @@ void	copy_map(t_data *dbase, char **lines, int i, int j)
 // ete sxal exit// kap chuni inch e veradardznum// datarkel d_base-y
 int keep_valid_map(char **lines, t_data *dbase) // ete 0 error
 {
-	// for (int i = 0; lines[i]; i++)
-	// 	printf("aaaaaaaaaaaaa = %s\n", lines[i]);
+	while(*lines)
 	if (!check_chars(lines) || !check_walls(lines) || !check_player(lines)\
 	|| !check_disordered_wall(lines, 1, 1) || !check_door(lines))
 	{

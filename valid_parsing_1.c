@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/06 19:38:47 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:51:05 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,6 @@ void copy_key(t_data *dbase, char *line)
 		dbase->xpm_json.we_value = ft_strdup(line);
 	else if (ft_strncmp(value, "EA", 2) == 0)
 		dbase->xpm_json.ea_value = ft_strdup(line);
-	// printf("ppppp -------%p\n", value);
-	// printf("ppp - %p\n", dbase->xpm_json.no_value);
-	// printf("ppp - %p\n", dbase->xpm_json.so_value);
-	// printf("ppp - %p\n", dbase->xpm_json.we_value);
-	// printf("ppp - %p\n", dbase->xpm_json.ea_value);
 // 	free(value);
 // 	value = NULL;
 }
@@ -79,23 +74,23 @@ int valid_whole_file_keep_data(char **lines, t_data *dbase, int count)
 	{
 		if (is_map_line(*lines))
 			break ;
-		else if (is_texture(*lines)) // change to else if
+		else if (is_texture(*lines))
 		{
-			if (check_keep_xpm(dbase, *lines)) // add here exit
+			if (check_keep_xpm(dbase, *lines))
 				count++;
 			else
 				break ;
 		}
 		else if (is_color(*lines))
 		{
-			if (keep_check_rgb(dbase, *lines)) // add here exit
+			if (keep_check_rgb(dbase, *lines))
 				count++;
 			else
 				break ;
 		}
 		lines++;
 	}
-	check_design_instance(dbase); //added exit
+	check_design_instance(dbase);
 	if (count == 6)
 		return (keep_valid_map(lines, dbase)); // add here exit
 	return (0);
@@ -130,20 +125,17 @@ int	valid_and_parsing(t_data *dbase, char *filename)
 	buf = res;
 	only_whitespace(dbase, res);
 	res = ft_strtrim(res, "\n\t\v\f\r ");
-	check_res(dbase, res, buf); // changed here, // i think exit may cause leaks
+	check_res(dbase, res, buf);
 	res = cut_front(res);
-	fd_inf = ft_split(res, '\n'); // check split
-	// printf("%p, %p, %p\n", buf, res, filename);
-	// free_res(buf, res);
+	fd_inf = ft_split(res, '\n');
 	if (!fd_inf)
 		print_err_exit(dbase, "Error\nWhile allocating\n");
-	// shoud mbe from below
 	if (valid_whole_file_keep_data(fd_inf, dbase, 0) == 0)
 	{
-			close(fd); // check this later
+			close(fd);
 			clean_dbl_chr_ptr(fd_inf);
-			print_err_exit(dbase, ""); // make this to exit itself
+			print_err_exit(dbase, "");
 	}
-	close(fd); // check this later
+	close(fd);
 	return (0);
 }
