@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/07 17:28:02 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/07 17:46:44 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	check_keep_xpm(t_data *dbase, char *line)
 		copy_key(dbase, line);
 	return (1);
 }
-
 int	check_design_instance(t_data *dbase)
 {
 	if (!dbase->rgb_lst.cB || !dbase->rgb_lst.cG || !dbase->rgb_lst.cR ||\
@@ -93,8 +92,6 @@ int valid_whole_file_keep_data(char **lines, t_data *dbase, int count)
 	return (0);
 }
 
-
-// 5
 int check_res(t_data *dbase, char *string, char *buf)
 {
 	if (!string)
@@ -105,8 +102,6 @@ int check_res(t_data *dbase, char *string, char *buf)
 	}
 	return (0);
 }
-
-
 void free_string_array(char **array)
 {
 	int	i;
@@ -122,8 +117,6 @@ void free_string_array(char **array)
 
     free(array);
 }
-
-// 4
 int	valid_and_parsing(t_data *dbase, char *filename)
 {
 	char		*buf;
@@ -150,7 +143,5 @@ int	valid_and_parsing(t_data *dbase, char *filename)
 			free_string_array(fd_inf);
 			print_err_exit(dbase, "");
 	}
-	free_string_array(fd_inf);
-	free(res);
-	return (0);
+	return (free_string_array(fd_inf), free(res), 0);
 }

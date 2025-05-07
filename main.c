@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:03:10 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/07 17:40:02 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/07 17:50:39 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,9 @@ void clean_data(t_data *data)
 		free(data->xpm_json.we_value);
 	if (data->xpm_json.ea_value)
 		free(data->xpm_json.ea_value);
-	data->xpm_json.no_value = NULL;
-	data->xpm_json.so_value = NULL;
-	data->xpm_json.we_value = NULL;
-	data->xpm_json.ea_value = NULL;
 	if (data->player.direction)
 		free(data->player.direction);
-	data->player.direction = NULL;
 }
-
 void init_dbase(t_data *dbase)
 {
 	dbase->map = NULL;
@@ -60,7 +54,6 @@ void init_dbase(t_data *dbase)
 	dbase->rgb_lst.fB = -1;
 }
 
-
 int main(int argc, char **argv)
 {
 	t_data	dbase;
@@ -74,9 +67,3 @@ int main(int argc, char **argv)
 	clean_data(&dbase);
 	return (0);
 }
-
-// int main(int argc, char **argv)
-// {
-// 	main_a(argc, argv);
-// 	system("leaks cub3D");
-// }
