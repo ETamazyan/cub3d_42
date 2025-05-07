@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/07 17:13:50 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/07 17:28:02 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,8 @@ int valid_whole_file_keep_data(char **lines, t_data *dbase, int count)
 	}
 	if (check_design_instance(dbase) == 1)
 		return (1);
-	// leak 39 block here
-	// now 8 blocks
 	if (count == 6)
-	{
-		keep_valid_map(lines, dbase);
-		return (1); // add here exit
-	}
+		return(keep_valid_map(lines, dbase));
 	return (0);
 }
 
@@ -149,15 +144,12 @@ int	valid_and_parsing(t_data *dbase, char *filename)
 		free(res);
 		print_err_exit(dbase, "Error\nWhile allocating\n");
 	}
-	// leaks only in this part
-	// now leaks from maps
 	if (valid_whole_file_keep_data(fd_inf, dbase, 0) == 1)
 	{
-			free(res); // checked
-			free_string_array(fd_inf); // checked
-			print_err_exit(dbase, ""); // checked
+			free(res);
+			free_string_array(fd_inf);
+			print_err_exit(dbase, "");
 	}
-	// end of leaks-part
 	free_string_array(fd_inf);
 	free(res);
 	return (0);
