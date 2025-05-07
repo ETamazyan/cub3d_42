@@ -6,7 +6,7 @@
 /*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:06:13 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/07 18:30:24 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/07 22:05:34 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ bool	touch(float px, float py, t_game *game)
 
 	x = px / BLOCK;
 	y = py / BLOCK;
-	if (y < 0 || !game->map[y] || x < 0 || x >= (int)strlen(game->map[y]))
+	if (y < 0 || !game->map[y] || x < 0 || x >= (int)ft_strlen(game->map[y]))
 		return (true);
 	return (game->map[y][x] == '1');
 }

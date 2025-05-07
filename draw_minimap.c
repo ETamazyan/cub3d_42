@@ -6,7 +6,7 @@
 /*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:39:10 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/07 21:43:49 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/07 22:07:02 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	draw_minimap_background(t_game *game, t_minimap *mm)
 	mm->cols = 0;
 	while (game->map[mm->rows])
 	{
-		if ((int)strlen(game->map[mm->rows]) > mm->cols)
-			mm->cols = strlen(game->map[mm->rows]);
+		if ((int)ft_strlen(game->map[mm->rows]) > mm->cols)
+			mm->cols = (int)ft_strlen(game->map[mm->rows]);
 		mm->rows++;
 	}
 	mm->minimap_width = mm->cols * mm->scaled_block;
