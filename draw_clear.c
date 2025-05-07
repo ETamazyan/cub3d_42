@@ -6,7 +6,7 @@
 /*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 19:22:32 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/02 20:06:03 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/07 21:39:48 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,21 @@ void	clear_image(t_game *game)
 	int	y;
 	int	x;
 
-	y = 0;
-	while (y < game->screen_height/2)
+	y = -1;
+	while (++y < game->screen_height / 2)
 	{
-		x = 0;
-		while (x < game->screen_width)
-		{
-			put_pixel_cf(x, y, ((game->rgb_lst.fR << 16) | (game->rgb_lst.fG << 8) | game->rgb_lst.fB), game);
-			x++;
-		}
-		y++;
+		x = -1;
+		while (++x < game->screen_width)
+			put_pixel_cf(x, y, ((game->rgb_lst.fR << 16)
+					| (game->rgb_lst.fG << 8) | game->rgb_lst.fB), game);
 	}
-	y = game->screen_height/2;
+	y = game->screen_height / 2;
 	while (y < game->screen_height)
 	{
-		x = 0;
-		while (x < game->screen_width)
-		{
-			put_pixel_cf(x, y, ((game->rgb_lst.cR << 16) | (game->rgb_lst.cG << 8) | game->rgb_lst.cB), game);
-			x++;
-		}
+		x = -1;
+		while (++x < game->screen_width)
+			put_pixel_cf(x, y, ((game->rgb_lst.cR << 16)
+					| (game->rgb_lst.cG << 8) | game->rgb_lst.cB), game);
 		y++;
 	}
 }

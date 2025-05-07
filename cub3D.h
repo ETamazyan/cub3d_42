@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:04:34 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/07 17:10:50 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/07 21:44:10 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,13 @@
 # define RIGHT 65363
 # define ESC 65307
 #define MINIMAP_SCALE 0.2
-#define MINIMAP_PADDING 10
-#define PLAYER_SIZE 4
+#define MINIMAP_PADDING 20
+#define WALL_COLOR 0x4A4A4A
+#define FLOOR_COLOR 0x303030
+#define BACKGROUND_COLOR 0x202020
+#define PLAYER_COLOR 0xFF5555
+#define RAY_COLOR 0xFFAA00
+#define PLAYER_SIZE 6
 
 # define PI 3.14159265359
 
@@ -69,12 +74,14 @@ typedef struct s_coords
 	int tex_x;
 }	t_coords;
 
-typedef struct s_pixel
+typedef struct s_line
 {
-    int x;
-    int y;
-    int color;
-}               t_pixel;
+	int x0;
+	int y0;
+	int x1;
+	int y1;
+	int color;
+} t_line;
 
 typedef struct s_draw
 {
@@ -82,6 +89,7 @@ typedef struct s_draw
     int dy;
     int size;
     int color;
+	int n;
 }               t_draw;
 
 typedef struct s_minimap
@@ -95,14 +103,6 @@ typedef struct s_minimap
     int minimap_height;
 }               t_minimap;
 
-typedef struct s_tex
-{
-    int tex_x;
-    int tex_y;
-    int start_y;
-    int end_y;
-    float height;
-}               t_tex;
 //
 typedef struct s_player
 {
@@ -142,9 +142,7 @@ typedef struct s_rgb
 
 typedef struct s_game
 {
-    // //added for door
-    // void	*img_1;
-    // // end_here
+
     void *mlx;
     void *win;
     void *img;
@@ -203,6 +201,13 @@ typedef struct s_data
 }   t_data;
 
 
+
+void draw_circle(t_draw draw, t_game *game);
+void draw_thick_line(t_line temp, int thickness, t_game *game);
+void	draw_line2d(t_line line, t_game *game);
+void	init_temp(t_line *temp, t_game *game, t_minimap *mm);
+void	free_image(t_game *game);
+void	load_textures(t_game *game, t_data *data);
 void put_pixel(int x, int y, int color, t_game *game);
 void clear_image(t_game *game);
 void draw_square(t_draw draw, t_game *game);
