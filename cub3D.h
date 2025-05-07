@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:04:34 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/07 14:13:15 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/07 17:10:50 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,7 @@ int	is_texture(char *line);
 int	is_color(char *line);
 int	is_map_line(char *line);
 int check_keep_xpm(t_data *dbase, char *line);
-
+int	check_design_instance(t_data *dbase);
 // helper functions
 size_t	ft_startlen(const char *s1, const char *set);
 int		ft_check2(char const *set, char const str);
@@ -267,7 +267,7 @@ int check_res(t_data *t_dbase, char *string, char *buf);
 // rgb validation parsing
 int		keep_check_rgb(t_data *db, char *line);
 int		keep_rgb(int *r, int *g, int *b, char *line);
-void	check_rgb(t_data *dbase, int r, int g, int b);
+int     check_rgb(int r, int g, int b);
 
 // map validation
 char	*cut_front(char *old);
@@ -275,9 +275,7 @@ int keep_valid_map(char **lines, t_data *dbase);
 void init_dbase(t_data *dbase);
 
 /* helpers */
-void	free_str_array(char **arr);
-void	free_res(char *buf, char *res);
-char *ft_strncpy_malloc(const char *src, int n);
+void free_string_array(char **array);
 
 // utils
 char    **ft_strdup_2d(char **s1, int index);

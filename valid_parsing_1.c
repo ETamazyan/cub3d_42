@@ -6,28 +6,27 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/07 14:30:10 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/07 17:13:50 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-// 5
-void copy_key(t_data *dbase, char *line)
+void copy_key(t_data *dbase, char *line) // causes 4 byte leak
 {
 	int i;
 	char *value;
 
 	i = 0;
-	while (line[i] && (line[i] != ' ' && line[i] != '\t'))
+	while (line[i] && (line[i] != ' ' && line[i] != '\t' && line[i] != '\v' &&\
+		line[i] != '\f' &&  line[i] != '\r'))
 		i++;
-	value = ft_strncpy_malloc(line, i);
+	value = ft_strdup(line);
 	if (!value)
 		return ;
-	while (*line && (*line != ' ' && *line != '\t'))
-		line++;
+	line += i;
 	while (*line == ' ' || *line == '\t')
-		line++;
+			line++;
 	if (ft_strncmp(value, "NO", 2) == 0)
 		dbase->xpm_json.no_value = ft_strdup(line);
 	else if (ft_strncmp(value, "SO", 2) == 0)
@@ -36,63 +35,66 @@ void copy_key(t_data *dbase, char *line)
 		dbase->xpm_json.we_value = ft_strdup(line);
 	else if (ft_strncmp(value, "EA", 2) == 0)
 		dbase->xpm_json.ea_value = ft_strdup(line);
-// 	free(value);
-// 	value = NULL;
+	free(value);
+	value = NULL;
 }
-// 1
+
 int	check_keep_xpm(t_data *dbase, char *line)
 {
 	size_t len;
 	
 	len = ft_strlen(line);
 	if (len < 4 || ft_strncmp(line + len - 4, ".xpm", 4) != 0)
-		return (0);
-	while (*line == ' ' || *line == '\t')
+		return (printf("Error\nTexture path should end with .xpm\n"), 0);
+	while (check_sep(*line, "\t\v\f\r "))
 		line++;
-	if (*line && (*line != ' ' || *line != ' '))
+	if (*line && (*line != ' ' || *line != '\t' || *line != '\v' ||\
+		*line != '\f' ||  *line != '\r'))
 		copy_key(dbase, line);
 	return (1);
 }
 
-// ************************
-void	check_design_instance(t_data *dbase)
+int	check_design_instance(t_data *dbase)
 {
 	if (!dbase->rgb_lst.cB || !dbase->rgb_lst.cG || !dbase->rgb_lst.cR ||\
 		!dbase->rgb_lst.fB || !dbase->rgb_lst.fG || !dbase->rgb_lst.fR ||\
 		!dbase->xpm_json.ea_value || !dbase->xpm_json.no_value ||\
 		!dbase->xpm_json.so_value || !dbase->xpm_json.we_value)
-		print_err_exit(dbase, "Error\nWhile allocating rgb or xpm value\n");
+			return (1);
+	return (0);
 }
 
-
-// 2 // 8-rd
-// ays funkcian patasxanatu e nayev tvyalnery pahelu hamar
-// if 1 error
 int valid_whole_file_keep_data(char **lines, t_data *dbase, int count) 
 {
 	while (*lines)
 	{
 		if (is_map_line(*lines))
-			break ;
+			break;
 		else if (is_texture(*lines))
 		{
-			if (check_keep_xpm(dbase, *lines))
+			if (check_keep_xpm(dbase, *lines) == 1) // check this one, too
 				count++;
 			else
 				break ;
 		}
 		else if (is_color(*lines))
 		{
-			if (keep_check_rgb(dbase, *lines))
+			if (keep_check_rgb(dbase, *lines) == 0)
 				count++;
 			else
 				break ;
 		}
 		lines++;
 	}
-	check_design_instance(dbase);
+	if (check_design_instance(dbase) == 1)
+		return (1);
+	// leak 39 block here
+	// now 8 blocks
 	if (count == 6)
-		return (keep_valid_map(lines, dbase)); // add here exit
+	{
+		keep_valid_map(lines, dbase);
+		return (1); // add here exit
+	}
 	return (0);
 }
 
@@ -110,14 +112,18 @@ int check_res(t_data *dbase, char *string, char *buf)
 }
 
 
-static void free_string_array(char **array) {
+void free_string_array(char **array)
+{
+	int	i;
     if (array == NULL) {
         return;
     }
-
-    for (int i = 0; array[i] != NULL; i++) {
+	i = 0;
+    while (array[i] != NULL)
+	{
         free(array[i]);
-    }
+		i++;
+	}
 
     free(array);
 }
@@ -132,7 +138,7 @@ int	valid_and_parsing(t_data *dbase, char *filename)
 
 	fd = open(filename, O_RDONLY);
 	valid_fd_filename(dbase, fd, filename);
-	res = initialize_buf(fd); // malloceeeeeed res
+	res = initialize_buf(fd);
 	buf = res;
 	res = ft_strtrim(res, "\n\t\v\f\r ");
 	check_res(dbase, res, buf);
@@ -143,14 +149,16 @@ int	valid_and_parsing(t_data *dbase, char *filename)
 		free(res);
 		print_err_exit(dbase, "Error\nWhile allocating\n");
 	}
-	// if (valid_whole_file_keep_data(fd_inf, dbase, 0) == 0)
-	// {
-	// 		close(fd);
-	// 		clean_dbl_chr_ptr(fd_inf);
-	// 		print_err_exit(dbase, "");
-	// }
+	// leaks only in this part
+	// now leaks from maps
+	if (valid_whole_file_keep_data(fd_inf, dbase, 0) == 1)
+	{
+			free(res); // checked
+			free_string_array(fd_inf); // checked
+			print_err_exit(dbase, ""); // checked
+	}
+	// end of leaks-part
 	free_string_array(fd_inf);
 	free(res);
-	close(fd);
 	return (0);
 }
