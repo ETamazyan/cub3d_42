@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:04:34 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/05 21:08:07 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:13:15 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,8 +234,9 @@ int mouse_move(int x, int y, t_game *game);
 int		valid_and_parsing(t_data *dbase, char *filename);
 void	valid_fd_filename(t_data *dbase, int fd, char *filename);
 char	*initialize_buf(int fd);
-void	only_whitespace(t_data *dbase, char *res);
+// void	only_whitespace(t_data *dbase, char *res);
 int valid_whole_file_keep_data(char **lines, t_data *dbase, int count); // if 1 error
+int	check_sep(char c, char *charset);
 
 // error.c
 void print_err_exit(t_data *data, char *msg);

@@ -6,26 +6,26 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 06:13:34 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/06 19:20:45 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:24:13 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
 // 1
-static int	check_sep(char c, char *charset)
-{
-	int	i;
+// static int	check_sep(char c, char *charset)
+// {
+// 	int	i;
 
-	i = 0;
-	while (charset[i] != '\0')
-	{
-		if (c == charset[i])
-			return (1);
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	while (charset[i] != '\0')
+// 	{
+// 		if (c == charset[i])
+// 			return (1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 // 2 // 6-rd
 char	*cut_front(char *old)
 {
@@ -43,23 +43,24 @@ char	*cut_front(char *old)
 		new[j] = old[i + j];
 		j++;
 	}
-	// if (old)
-	// 	free(old);
+	if (old)
+		free(old);
 	new[j] = '\0';
 	return (new);
 }
 
 // 3 //4-rd
-void	only_whitespace(t_data *dbase, char *res)
-{
-	int	i;
+// void	only_whitespace(t_data *dbase, char *res)
+// {
+// 	int	i;
 
-	i = 0;
-	while (res[i])
-	{
-		if (!check_sep(res[i], "\n\t\v\f\r "))
-			return ;
-		i++;
-	}
-	print_err_exit(dbase, "Error\nOnly whitespaces in map");
-}
+// 	i = 0;
+// 	while (res[i])
+// 	{
+// 		if (!check_sep(res[i], "\n\t\v\f\r "))
+// 			return ; // check later
+// 		i++;
+// 	}
+// 	free(res);
+// 	print_err_exit(dbase, "Error\nOnly whitespaces in map");
+// }

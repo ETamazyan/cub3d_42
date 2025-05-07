@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/07 13:51:05 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:30:10 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,14 +102,25 @@ int check_res(t_data *dbase, char *string, char *buf)
 {
 	if (!string)
 	{
-		// free_res(buf, string);
-		free(buf);
+		if (buf)
+			free(buf);
 		print_err_exit(dbase, "Error\nWhile allocating.\n");
 	}
-	
 	return (0);
 }
 
+
+static void free_string_array(char **array) {
+    if (array == NULL) {
+        return;
+    }
+
+    for (int i = 0; array[i] != NULL; i++) {
+        free(array[i]);
+    }
+
+    free(array);
+}
 
 // 4
 int	valid_and_parsing(t_data *dbase, char *filename)
@@ -121,21 +132,25 @@ int	valid_and_parsing(t_data *dbase, char *filename)
 
 	fd = open(filename, O_RDONLY);
 	valid_fd_filename(dbase, fd, filename);
-	res = initialize_buf(fd);
+	res = initialize_buf(fd); // malloceeeeeed res
 	buf = res;
-	only_whitespace(dbase, res);
 	res = ft_strtrim(res, "\n\t\v\f\r ");
 	check_res(dbase, res, buf);
 	res = cut_front(res);
 	fd_inf = ft_split(res, '\n');
 	if (!fd_inf)
-		print_err_exit(dbase, "Error\nWhile allocating\n");
-	if (valid_whole_file_keep_data(fd_inf, dbase, 0) == 0)
 	{
-			close(fd);
-			clean_dbl_chr_ptr(fd_inf);
-			print_err_exit(dbase, "");
+		free(res);
+		print_err_exit(dbase, "Error\nWhile allocating\n");
 	}
+	// if (valid_whole_file_keep_data(fd_inf, dbase, 0) == 0)
+	// {
+	// 		close(fd);
+	// 		clean_dbl_chr_ptr(fd_inf);
+	// 		print_err_exit(dbase, "");
+	// }
+	free_string_array(fd_inf);
+	free(res);
 	close(fd);
 	return (0);
 }
