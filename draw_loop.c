@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 20:33:42 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/08 20:35:24 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:55:05 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ int	draw_loop(t_game *game)
 	clear_image(game);
 	if (DEBUG)
 		draw = draw_loop1(game, player);
-	start_angle = player->angle - M_PI / 6;
+	start_angle = check_angle(player->angle - M_PI / 6);
 	step = (M_PI / 3) / game->screen_width;
 	i = 0;
 	while (i < game->screen_width)
 	{
-		draw_line(player, game, check_angle(start_angle), i);
+		draw_line(player, game, start_angle, i);
 		start_angle += step;
 		i++;
 	}
