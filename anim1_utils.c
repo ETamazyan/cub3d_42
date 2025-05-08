@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   anim1_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:06:13 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/07 22:05:34 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:29:56 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ float	fixed_dist(t_player *player, t_rays *rays, t_game *game)
 
 	dx = rays->ray_x - player->x;
 	dy = rays->ray_y - player->y;
+	(void)game;
 	angle = atan2(dy, dx) - game->player.angle;
 	return (distance(dx, dy) * cos(angle));
 }
@@ -49,7 +50,7 @@ void	safe_texture_load(t_game *game, t_texture *tex, char *path)
 			&tex->width, &tex->height);
 	if (!tex->img)
 		handle_error(game, "Failed to load texture");
-	tex->data = (int *)mlx_get_data_addr(tex->img, &tex->bpp, &tex->size_line,
+	tex->data = mlx_get_data_addr(tex->img, &tex->bpp, &tex->size_line,
 			&tex->endian);
 }
 

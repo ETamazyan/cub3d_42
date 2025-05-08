@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:04:34 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/07 21:44:10 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:18:48 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@
 # define LEFT 65361
 # define RIGHT 65363
 # define ESC 65307
-#define MINIMAP_SCALE 0.2
+#define MINIMAP_SCALE 0.1
 #define MINIMAP_PADDING 20
 #define WALL_COLOR 0x4A4A4A
 #define FLOOR_COLOR 0x303030
 #define BACKGROUND_COLOR 0x202020
 #define PLAYER_COLOR 0xFF5555
 #define RAY_COLOR 0xFFAA00
-#define PLAYER_SIZE 6
+#define PLAYER_SIZE 4
 
 # define PI 3.14159265359
 
@@ -121,7 +121,7 @@ typedef struct s_player
 
 typedef struct s_texture {
     void *img;
-    int *data;
+    char *data;
     int width;
     int height;
     int bpp;
@@ -294,5 +294,7 @@ int check_chars(char **map);
 void clean_map(char **map);
 int check_player(char **map);
 int check_door(char **map);
+
+float	check_angle(float angle);
 
 #endif

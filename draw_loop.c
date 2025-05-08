@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 20:33:42 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/04 17:06:43 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:35:24 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	draw_loop(t_game *game)
 	i = 0;
 	while (i < game->screen_width)
 	{
-		draw_line(player, game, start_angle, i);
+		draw_line(player, game, check_angle(start_angle), i);
 		start_angle += step;
 		i++;
 	}
@@ -51,4 +51,13 @@ int	draw_loop(t_game *game)
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	return (0);
 	(void)draw;
+}
+
+float	check_angle(float angle)
+{
+	if (angle < 0)
+		angle += 2 * M_PI;
+	if (angle > 2 * M_PI)
+		angle -= 2 * M_PI;
+	return (angle);
 }

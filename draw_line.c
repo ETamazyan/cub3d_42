@@ -3,33 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/02 20:18:00 by by maavalya       #+#    #+#             */
-/*   Updated: 2025/05/07 22:01:58 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:31:48 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	get_texture_color(t_texture *tex, int tex_x, int tex_y)
+int	get_texture_color(t_texture *tex, int x, int y)
 {
-	int	index;
+	// int	index;
+	
+	// if (!tex || !tex->data)
+	// 	return (0);
+	// if (tex_x < 0)
+	// 	tex_x = 0;
+	// if (tex_y < 0)
+	// 	tex_y = 0;
+	// if (tex_x >= tex->width)
+	// 	tex_x = tex->width - 1;
+	// if (tex_y >= tex->height)
+	// 	tex_y = tex->height - 1;
+	unsigned int	color;
+	char			*dst;
 
-	if (!tex || !tex->data)
-		return (0xFF0000);
-	if (tex_x < 0)
-		tex_x = 0;
-	if (tex_y < 0)
-		tex_y = 0;
-	if (tex_x >= tex->width)
-		tex_x = tex->width - 1;
-	if (tex_y >= tex->height)
-		tex_y = tex->height - 1;
-	index = tex_y * tex->width + tex_x;
-	if (index < 0 || index >= tex->width * tex->height)
-		return (0xFF0000);
-	return (tex->data[index]);
+	if(x >= 0 && x < tex->width && y >= 0 && y < tex->height)
+	{
+		
+		dst = tex->data + (y * tex->size_line + x * (tex->bpp / 8));
+		color = *(unsigned int *)dst;
+		return (color);
+	}
+	return (0);
 }
 
 void	draw_line1(t_player *player, t_game *game, t_rays *rays, int i)
@@ -39,16 +46,10 @@ void	draw_line1(t_player *player, t_game *game, t_rays *rays, int i)
 	int			tex_y;
 	int			color;
 	t_texture	*tex;
-	float	angle_diff;
 
 	coords.dist = fixed_dist(player, rays, game);
 	if (coords.dist <= 0.1)
 		coords.dist = 0.1;
-	angle_diff = atan2f(rays->sin_a, rays->cos_a) - player->angle;
-	while (angle_diff > M_PI)
-		angle_diff -= 2 * M_PI;
-	while (angle_diff < -M_PI)
-		angle_diff += 2 * M_PI;
 	coords.height = (BLOCK / coords.dist) * (game->screen_height / 2);
 	coords.start_y = (game->screen_height - coords.height) / 2;
 	if (coords.start_y < 0)
@@ -61,18 +62,18 @@ void	draw_line1(t_player *player, t_game *game, t_rays *rays, int i)
 		printf("Warning: Attempted to draw column outside screen bounds: %d\n", i);
 		return;
 	}
-	if (fabsf(fmodf(rays->ray_x, BLOCK)) < fabsf(fmodf(rays->ray_y, BLOCK)))
+	if (fabsf(fmodf(check_angle(rays->ray_x), BLOCK)) < fabsf(fmodf(check_angle(rays->ray_y), BLOCK)))
 	{
-		coords.tex_x = (int)fmodf(rays->ray_x, BLOCK);
-		if (rays->ray_y > player->y)
+		coords.tex_x = (int)fmodf((check_angle(rays->ray_x)), BLOCK);
+		if (check_angle(rays->ray_y) > player->y)
 			tex = &game->south;
 		else
 			tex = &game->north;
 	}
 	else
 	{
-		coords.tex_x = (int)fmodf(rays->ray_y, BLOCK);
-		if (rays->ray_x > player->x)
+		coords.tex_x = (int)fmodf((check_angle(rays->ray_y)), BLOCK);
+		if (check_angle(rays->ray_x) > player->x)
 			tex = &game->east;
 		else
 			tex = &game->west;
@@ -129,3 +130,4 @@ void draw_line(t_player *player, t_game *game, float angle, int i)
 	if (!DEBUG)
 		draw_line1(player, game, &rays, i);
 }
+
