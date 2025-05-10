@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/02 20:18:00 by by maavalya       #+#    #+#             */
-/*   Updated: 2025/05/08 21:29:43 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/10 18:49:04 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,30 +145,44 @@ void	draw_line1(t_player *player, t_game *game, t_rays *rays, int i, float ray_s
     int			color;
     t_texture	*tex;
 
-    coords.dist = fixed_dist(player, rays, game);
+	(void)ray_screen_angle; // Remove this line if you want to use ray_screen_angle in the calculations
 
-    // Apply fish-eye correction using the passed ray_screen_angle
-    float ray_angle_diff = ray_screen_angle - player->angle;
-    // Normalize the angle difference to [-PI, PI] for correct cosine calculation
-    if (ray_angle_diff > M_PI)
-        ray_angle_diff -= 2 * M_PI;
-    if (ray_angle_diff < -M_PI)
-        ray_angle_diff += 2 * M_PI;
+	// Calculate distance from player to wall
+	// coords.dist = distance(player->x, player->y, rays->ray_x, rays->ray_y);
+	// Use fixed_dist function to calculate the distance
+	// coords.dist = fixed_dist(player, rays, game);
+    // // Apply fish-eye correction using the passed ray_screen_angle
+    // float ray_angle_diff = ray_screen_angle - player->angle;
+    // // Normalize the angle difference to [-PI, PI] for correct cosine calculation
+    // if (ray_angle_diff > M_PI)
+    //     ray_angle_diff -= 2 * M_PI;
+    // if (ray_angle_diff < -M_PI)
+    //     ray_angle_diff += 2 * M_PI;
 
-    coords.dist = coords.dist * cosf(ray_angle_diff); // Corrected distance
+	// 	coords.dist *= cos(ray_angle_diff); // Apply fisheye correction
 
-    if (coords.dist <= 0.1) // Prevent division by zero or very small numbers
-        coords.dist = 0.1;
+    // if (coords.dist <= 0.1) // Prevent division by zero or very small numbers
+    //     coords.dist = 0.1;
 
-    // Wall height calculation
-    coords.height = (BLOCK / coords.dist) * (game->screen_height / 2); // You may need to tune game->screen_height / 2
-    coords.start_y = (game->screen_height - coords.height) / 2;
-    if (coords.start_y < 0)
-        coords.start_y = 0;
-    coords.end_y = coords.start_y + coords.height;
-    if (coords.end_y >= game->screen_height)
-        coords.end_y = game->screen_height - 1;
+    // // Wall height calculation
+    // coords.height = (BLOCK / coords.dist) * (game->screen_height / 2); // You may need to tune game->screen_height / 2
+    // coords.start_y = (game->screen_height - coords.height) / 2;
+    // if (coords.start_y < 0)
+    //     coords.start_y = 0;
+    // coords.end_y = coords.start_y + coords.height;
+    // if (coords.end_y >= game->screen_height)
+    //     coords.end_y = game->screen_height - 1;
 
+		coords.dist = fixed_dist(player, rays, game);
+	if (coords.dist <= 0.0000001)
+		coords.dist = 0.0000001;
+	coords.height = (BLOCK / coords.dist) * (game->screen_height / 2);
+	coords.start_y = (game->screen_height - coords.height) / 2;
+	if (coords.start_y < 0)
+		coords.start_y = 0;
+	coords.end_y = coords.start_y + coords.height;
+	if (coords.end_y >= game->screen_height)
+		coords.end_y = game->screen_height - 1;
     if (i < 0 || i >= game->screen_width)
     {
         printf("Warning: Attempted to draw column outside screen bounds: %d\n", i);
