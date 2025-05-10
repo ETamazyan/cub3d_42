@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:04:34 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/08 20:18:48 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/10 19:49:05 by maavalya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,8 +200,12 @@ typedef struct s_data
 	t_rgb			rgb_lst;
 }   t_data;
 
-
-
+int	get_texture_color(t_texture *tex, int x, int y);
+t_texture	*assign_textures(t_rays *rays, t_game *game,
+	t_texture *tex, t_coords *coords);
+void	init_coords(t_coords *coords, t_player *player,
+	t_game *game, t_rays *rays);
+void	apply_tex(t_texture *tex, t_coords *coords, int i, t_game *game);
 void draw_circle(t_draw draw, t_game *game);
 void draw_thick_line(t_line temp, int thickness, t_game *game);
 void	draw_line2d(t_line line, t_game *game);

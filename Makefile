@@ -15,7 +15,7 @@ SRCS = main.c valid_parsing_1.c error.c valid_parsing_2.c trim_map.c\
 	   valid_checker.c valid_map.c map_checkers.c valid_rgb.c \
 	   anim1.c anim1_utils.c anim2.c player_position.c move_player.c\
 	   draw_clear.c draw_minimap.c \
-	   draw_minimap_utils.c draw_minimap_utils1.c draw_line.c draw_loop.c
+	   draw_minimap_utils.c draw_minimap_utils1.c draw_line.c draw_line_utils.c draw_loop.c\
 
 INCS = cub3D.h
 
