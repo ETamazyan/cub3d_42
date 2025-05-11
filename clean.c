@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 20:09:51 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/07 18:19:12 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/11 16:29:31 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,30 @@
 void	free_string_array(char **array)
 {
 	int	i;
-    if (array == NULL) {
-        return;
-    }
+	if (array == NULL) {
+		return;
+	}
 	i = 0;
-    while (array[i] != NULL)
+	while (array[i] != NULL)
 	{
-        free(array[i]);
+		free(array[i]);
 		i++;
 	}
 
-    free(array);
+	free(array);
 }
 
-void clean_dbl_chr_ptr(char **ptr) {
-    if (!ptr) return;
+void	clean_dbl_chr_ptr(char **ptr)
+{
+	int	i;
 
-    int i = 0;
-    while (ptr[i] != NULL) {
-        free(ptr[i]);
-        i++;
-    }
-    free(ptr);
+	if (!ptr)
+		return;
+	i = 0;
+	while (ptr[i] != NULL)
+	{
+		free(ptr[i]);
+		i++;
+	}
+	free(ptr);
 }
