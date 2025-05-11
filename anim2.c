@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   anim2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 20:55:49 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/07 21:36:11 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/11 18:12:51 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,25 @@ int	exit_game(t_game *game)
 	exit(0);
 }
 
-int	key_press(int keycode, t_player *player, t_game *game)
+int	key_press(int keycode, void *param)
 {
+	t_game		*game;
+	t_player	*player;
+
+	game = (t_game *)param;
+	player = &game->player;
 	if (keycode == W)
-		player->key_up = true;
+		player->key_up = 1;
 	if (keycode == S)
-		player->key_down = true;
+		player->key_down = 1;
 	if (keycode == A)
-		player->key_left = true;
+		player->key_left = 1;
 	if (keycode == D)
-		player->key_right = true;
+		player->key_right = 1;
 	if (keycode == LEFT)
-		player->left_rotate = true;
+		player->left_rotate = 1;
 	if (keycode == RIGHT)
-		player->right_rotate = true;
+		player->right_rotate = 1;
 	if (keycode == ESC)
 		exit_game(game);
 	return (0);
@@ -59,17 +64,17 @@ int	key_press(int keycode, t_player *player, t_game *game)
 int	key_release(int keycode, t_player *player)
 {
 	if (keycode == W)
-		player->key_up = false;
+		player->key_up = 0;
 	if (keycode == S)
-		player->key_down = false;
+		player->key_down = 0;
 	if (keycode == A)
-		player->key_left = false;
+		player->key_left = 0;
 	if (keycode == D)
-		player->key_right = false;
+		player->key_right = 0;
 	if (keycode == LEFT)
-		player->left_rotate = false;
+		player->left_rotate = 0;
 	if (keycode == RIGHT)
-		player->right_rotate = false;
+		player->right_rotate = 0;
 	return (0);
 }
 

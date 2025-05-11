@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_position.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 21:34:28 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/07 21:37:19 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/11 18:12:53 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ void	player_position(char **map, t_player *player)
 void	init_player(t_player *player, t_game *game)
 {
 	player_position(game->map, player);
-	player->key_up = false;
-	player->key_down = false;
-	player->key_right = false;
-	player->key_left = false;
-	player->left_rotate = false;
-	player->right_rotate = false;
+	player->key_up = 0;
+	player->key_down = 0;
+	player->key_right = 0;
+	player->key_left = 0;
+	player->left_rotate = 0;
+	player->right_rotate = 0;
 }

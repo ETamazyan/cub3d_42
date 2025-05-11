@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_rgb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:09:00 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/07 18:25:34 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/11 17:27:21 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,15 @@ int	keep_check_rgb(t_data *db, char *line)
 		line++;
 	if (*line == 'C')
 	{
-		if (!keep_rgb(&db->rgb_lst.cR, &db->rgb_lst.cG, &db->rgb_lst.cB, line))
+		if (!keep_rgb(&db->rgb_lst.cr, &db->rgb_lst.cg, &db->rgb_lst.cb, line))
 			return (0);
-		return (check_rgb(db->rgb_lst.cR, db->rgb_lst.cG, db->rgb_lst.cB));
+		return (check_rgb(db->rgb_lst.cr, db->rgb_lst.cg, db->rgb_lst.cb));
 	}
 	else if (*line == 'F')
 	{
-		if (!keep_rgb(&db->rgb_lst.fR, &db->rgb_lst.fG, &db->rgb_lst.fB, line))
+		if (!keep_rgb(&db->rgb_lst.fr, &db->rgb_lst.fg, &db->rgb_lst.fb, line))
 			return (0);
-		return (check_rgb(db->rgb_lst.fR, db->rgb_lst.fG, db->rgb_lst.fB));
+		return (check_rgb(db->rgb_lst.fr, db->rgb_lst.fg, db->rgb_lst.fb));
 	}
 	else
 		return (1);

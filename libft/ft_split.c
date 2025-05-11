@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 14:47:02 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/06 16:57:58 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/11 18:43:11 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+static void	free_string_array(char **array)
+{
+	int	i;
+
+	if (array == NULL)
+		return ;
+	i = 0;
+	while (array[i] != NULL)
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}
 
 static int	count_strings(char *str, char c)
 {
@@ -86,11 +101,11 @@ char	**ft_split(char const *s, char c)
 		if (*s != '\0' && flag == 1 && *s != c)
 		{
 			res[i] = ft_word((char *)s, c);
-			// if (!res[i])
-			// {
-			// 	clear_res(res);
-			// 	return (NULL);	
-			// }
+			if (!res[i])
+			{
+				free_string_array(res);
+				return (NULL);
+			}
 			flag = 0;
 			i++;
 		}

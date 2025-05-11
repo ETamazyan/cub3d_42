@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   anim1_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:06:13 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/08 20:29:56 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/11 18:52:38 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ float	fixed_dist(t_player *player, t_rays *rays, t_game *game)
 	return (distance(dx, dy) * cos(angle));
 }
 
-bool	touch(float px, float py, t_game *game)
+int	touch(float px, float py, t_game *game)
 {
 	int	x;
 	int	y;
@@ -38,7 +38,7 @@ bool	touch(float px, float py, t_game *game)
 	x = px / BLOCK;
 	y = py / BLOCK;
 	if (y < 0 || !game->map[y] || x < 0 || x >= (int)ft_strlen(game->map[y]))
-		return (true);
+		return (1);
 	return (game->map[y][x] == '1');
 }
 

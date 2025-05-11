@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 21:36:17 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/07 21:36:24 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/11 17:55:26 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ int	is_walkable(float x, float y, t_game *game)
 	int	tile_y;
 	int	points[4][2];
 
-	points[0][0] = (int)((x - 10) / BLOCK);
-	points[0][1] = (int)((y - 10) / BLOCK);
-	points[1][0] = (int)((x + 10) / BLOCK);
-	points[1][1] = (int)((y - 10) / BLOCK);
-	points[2][0] = (int)((x - 10) / BLOCK);
-	points[2][1] = (int)((y + 10) / BLOCK);
-	points[3][0] = (int)((x + 10) / BLOCK);
-	points[3][1] = (int)((y + 10) / BLOCK);
+	points[0][0] = (int)((x - 5) / BLOCK);
+	points[0][1] = (int)((y - 5) / BLOCK);
+	points[1][0] = (int)((x + 5) / BLOCK);
+	points[1][1] = (int)((y - 5) / BLOCK);
+	points[2][0] = (int)((x - 5) / BLOCK);
+	points[2][1] = (int)((y + 5) / BLOCK);
+	points[3][0] = (int)((x + 5) / BLOCK);
+	points[3][1] = (int)((y + 5) / BLOCK);
 	i = 0;
 	while (i < 4)
 	{

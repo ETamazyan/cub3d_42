@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   anim1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 19:21:38 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/07 18:48:11 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/11 17:47:12 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	calculate_window_size(t_game *game)
 	max_height = 0;
 	while (game->map[max_height])
 	{
-		w = strlen(game->map[max_height]);
+		w = (int)ft_strlen(game->map[max_height]);
 		if (w > max_width)
 			max_width = w;
 		max_height++;
@@ -113,7 +113,7 @@ int	start_anim(t_data *dbase)
 	if (!dbase->map)
 		handle_error(&game, "Invalid map data");
 	init_game(&game, dbase);
-	mlx_hook(game.win, 2, 1L << 0, key_press, &game.player);
+	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_release, &game.player);
 	mlx_hook(game.win, 17, 0L, exit_game, &game);
 	mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);

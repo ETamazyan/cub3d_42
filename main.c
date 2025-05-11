@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:03:10 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/08 15:41:51 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/11 17:27:21 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	init_dbase(t_data *dbase)
 	dbase->player.direction = NULL;
 	dbase->player.x = -1;
 	dbase->player.y = -1;
-	dbase->rgb_lst.cR = -1;
-	dbase->rgb_lst.cG = -1;
-	dbase->rgb_lst.cB = -1;
-	dbase->rgb_lst.fR = -1;
-	dbase->rgb_lst.fG = -1;
-	dbase->rgb_lst.fB = -1;
+	dbase->rgb_lst.cr = -1;
+	dbase->rgb_lst.cg = -1;
+	dbase->rgb_lst.cb = -1;
+	dbase->rgb_lst.fr = -1;
+	dbase->rgb_lst.fg = -1;
+	dbase->rgb_lst.fb = -1;
 }
 
 int	main(int argc, char **argv)
