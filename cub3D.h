@@ -6,7 +6,7 @@
 /*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:04:34 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/11 18:16:40 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/05/11 20:56:56 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,7 +265,7 @@ int			check_rgb(int r, int g, int b);
 
 // map validation
 char		*cut_front(char *old);
-int			keep_valid_map(char **lines, t_data *dbase);
+int			keep_valid_map(char **lines, t_data *dbase, int count);
 void		init_dbase(t_data *dbase);
 
 /* helpers */

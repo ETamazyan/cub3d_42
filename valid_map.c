@@ -6,7 +6,7 @@
 /*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 13:32:06 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/11 19:57:53 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/05/11 21:04:44 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ void	copy_map(t_data *dbase, char **lines, int i, int j)
 	dbase->map[count] = NULL;
 }
 
-int	keep_valid_map(char **lines, t_data *dbase) // ete 0 error
+int	keep_valid_map(char **lines, t_data *dbase, int count) // ete 0 error
 {
+	if (count != 6)
+		return (printf("Error\nWrong initialization of rgb/xpm\n"), 1);
 	if (!lines || !*lines)
 		return (0);
 	if (!check_chars(lines) || !check_walls(lines) || !check_player(lines) \

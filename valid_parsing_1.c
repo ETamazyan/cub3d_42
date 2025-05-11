@@ -6,7 +6,7 @@
 /*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/11 20:53:21 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/05/11 21:04:50 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	check_design_instance(t_data *dbase)
 {
 	if (!dbase->xpm_json.ea_value || !dbase->xpm_json.no_value || \
 !dbase->xpm_json.so_value || !dbase->xpm_json.we_value)
-		return (1);
+		return (printf("Error\nAn xpm value is missing\n"), 1);
 	return (0);
 }
 
@@ -86,9 +86,7 @@ int	valid_whole_file_keep_data(char **lines, t_data *dbase, int count)
 	}
 	if (check_design_instance(dbase) == 1)
 		return (1);
-	if (count == 6)
-		return (keep_valid_map(lines, dbase));
-	return (0);
+	return (keep_valid_map(lines, dbase, count));
 }
 
 int	valid_and_parsing(t_data *dbase, char *filename)
