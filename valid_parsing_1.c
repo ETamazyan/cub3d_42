@@ -6,7 +6,7 @@
 /*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/11 17:27:21 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/05/11 20:53:21 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ int	check_keep_xpm(t_data *dbase, char *line)
 
 int	check_design_instance(t_data *dbase)
 {
-	if (!dbase->rgb_lst.cb || !dbase->rgb_lst.cg || !dbase->rgb_lst.cr || \
-!dbase->rgb_lst.fb || !dbase->rgb_lst.fg || !dbase->rgb_lst.fr || \
-!dbase->xpm_json.ea_value || !dbase->xpm_json.no_value || \
+	if (!dbase->xpm_json.ea_value || !dbase->xpm_json.no_value || \
 !dbase->xpm_json.so_value || !dbase->xpm_json.we_value)
 		return (1);
 	return (0);

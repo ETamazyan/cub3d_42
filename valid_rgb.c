@@ -6,7 +6,7 @@
 /*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:09:00 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/11 17:27:21 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/05/11 20:45:42 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	check_rgb(int r, int g, int b)
 {
 	if (!(r >= 0 && r <= 255) || !(g >= 0 && g <= 255) || \
 !(b >= 0 && b <= 255))
-		return (printf("Error:\nAn RGB value is not in the \
+		return (printf("Error\nAn RGB value is not in the \
 correct range.\n"), 1);
 	return (0);
 }

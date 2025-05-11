@@ -6,7 +6,7 @@
 /*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:06:13 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/11 18:52:38 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/05/11 20:48:14 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ int	touch(float px, float py, t_game *game)
 void	safe_texture_load(t_game *game, t_texture *tex, char *path)
 {
 	if (!path)
-		handle_error(game, "Texture path not provided");
+		handle_error(game, "Error\nTexture path not provided");
 	tex->img = mlx_xpm_file_to_image(game->mlx, path,
 			&tex->width, &tex->height);
 	if (!tex->img)
-		handle_error(game, "Failed to load texture");
+		handle_error(game, "Error\nFailed to load texture");
 	tex->data = mlx_get_data_addr(tex->img, &tex->bpp, &tex->size_line,
 			&tex->endian);
 }

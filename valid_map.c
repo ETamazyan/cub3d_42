@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 13:32:06 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/07 18:59:00 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/11 19:57:53 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	copy_map(t_data *dbase, char **lines, int i, int j)
 
 int	keep_valid_map(char **lines, t_data *dbase) // ete 0 error
 {
+	if (!lines || !*lines)
+		return (0);
 	if (!check_chars(lines) || !check_walls(lines) || !check_player(lines) \
 || !check_disordered_wall(lines, 1, 1) || !check_door(lines))
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 14:47:02 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/11 18:43:11 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/05/11 19:20:16 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,6 @@ static void	free_string_array(char **array)
 		i++;
 	}
 	free(array);
-}
-
-static int	count_strings(char *str, char c)
-{
-	int	count;
-	int	flag;
-
-	flag = 1;
-	count = 0;
-	while (*str != '\0')
-	{
-		if (*str == c && flag == 0)
-			flag = 1;
-		if (*str != '\0' && *str != c && flag == 1)
-		{
-			count++;
-			flag = 0;
-		}
-		str++;
-	}
-	return (count);
 }
 
 static int	ft_strlen_sep(char *str, char c)
@@ -89,12 +68,8 @@ char	**ft_split(char const *s, char c)
 
 	i = 0;
 	flag = 1;
-	if (!s)
-		return (NULL);
-	res = (char **)malloc((count_strings((char *)s, c) + 1) * sizeof(char *));
-	if (!res)
-		return (NULL);
-	while (*s != '\0')
+	res = check_s_mlc_res(s, c);
+	while (*s != '\0' && res)
 	{
 		if (*s != '\0' && *s == c)
 			flag = 1;
@@ -102,10 +77,7 @@ char	**ft_split(char const *s, char c)
 		{
 			res[i] = ft_word((char *)s, c);
 			if (!res[i])
-			{
-				free_string_array(res);
-				return (NULL);
-			}
+				return (free_string_array(res), NULL);
 			flag = 0;
 			i++;
 		}

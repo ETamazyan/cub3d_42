@@ -6,7 +6,7 @@
 /*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 19:22:32 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/11 17:39:14 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/05/11 19:41:30 by elen_t13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,16 @@ void	clear_image(t_game *game)
 	{
 		x = -1;
 		while (++x < game->screen_width)
-			put_pixel_cf(x, y, ((game->rgb_lst.fr << 16)
-					| (game->rgb_lst.fg << 8) | game->rgb_lst.fb), game);
+			put_pixel_cf(x, y, ((game->rgb_lst.cr << 16)
+					| (game->rgb_lst.cg << 8) | game->rgb_lst.cb), game);
 	}
 	y = game->screen_height / 2;
 	while (y < game->screen_height)
 	{
 		x = -1;
 		while (++x < game->screen_width)
-			put_pixel_cf(x, y, ((game->rgb_lst.cr << 16)
-					| (game->rgb_lst.cg << 8) | game->rgb_lst.cb), game);
+			put_pixel_cf(x, y, ((game->rgb_lst.fr << 16)
+					| (game->rgb_lst.fg << 8) | game->rgb_lst.fb), game);
 		y++;
 	}
 }
