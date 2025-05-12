@@ -6,7 +6,7 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:04:34 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/12 12:42:01 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/12 13:05:14 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct s_minimap
 	int	minimap_height;
 }			t_minimap;
 
-//
+
 typedef struct s_player
 {
 	float	x;
@@ -282,7 +282,6 @@ int			check_disordered_wall(char **map, int j, int i);
 int			check_side_walls(char **map, int i, int j);
 int			check_walls(char **map);
 int			check_chars(char **map);
-void		clean_map(char **map);
 int			check_player(char **map);
 int			check_door(char **map);
 

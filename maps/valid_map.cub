@@ -1,5 +1,5 @@
 
-F 5      ,  10    , 12  
+F 0      ,  128    , 0  
 
 
 NO 	 	./textures/bluestone.xpm
@@ -9,7 +9,7 @@ WE 	./textures/eagle.xpm
 EA ./textures/greystone.xpm
 
 
-C 70,80,100
+C 135, 206, 250
 
 
 1111
