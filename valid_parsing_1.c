@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_parsing_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:43:05 by maavalya          #+#    #+#             */
-/*   Updated: 2025/05/11 21:04:50 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/05/12 12:44:41 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,10 @@ int	check_design_instance(t_data *dbase)
 	if (!dbase->xpm_json.ea_value || !dbase->xpm_json.no_value || \
 !dbase->xpm_json.so_value || !dbase->xpm_json.we_value)
 		return (printf("Error\nAn xpm value is missing\n"), 1);
+	if (dbase->rgb_lst.cb < 0 || dbase->rgb_lst.cr < 0 \
+|| dbase->rgb_lst.cg < 0 || dbase->rgb_lst.fr < 0 || \
+dbase->rgb_lst.fb < 0 || dbase->rgb_lst.fg < 0)
+		return (printf("Error\nMissing rgb value\n"), 1);
 	return (0);
 }
 
@@ -73,14 +77,14 @@ int	valid_whole_file_keep_data(char **lines, t_data *dbase, int count)
 			if (check_keep_xpm(dbase, *lines) == 1)
 				count++;
 			else
-				break ;
+				return (1);
 		}
 		else if (is_color(*lines))
 		{
 			if (keep_check_rgb(dbase, *lines) == 0)
 				count++;
 			else
-				break ;
+				return (1);
 		}
 		lines++;
 	}

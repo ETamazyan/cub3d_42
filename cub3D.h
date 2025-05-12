@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:04:34 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/11 20:56:56 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/05/12 12:42:01 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,6 +243,8 @@ int			is_color(char *line);
 int			is_map_line(char *line);
 int			check_keep_xpm(t_data *dbase, char *line);
 int			check_design_instance(t_data *dbase);
+int			skip_whitespace(char **line);
+int			expect_comma(char **line);
 // helper functions
 size_t		ft_startlen(const char *s1, const char *set);
 int			ft_check2(char const *set, char const str);

@@ -6,11 +6,27 @@
 /*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 20:12:24 by etamazya          #+#    #+#             */
-/*   Updated: 2025/05/07 18:56:36 by etamazya         ###   ########.fr       */
+/*   Updated: 2025/05/12 12:41:37 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+int	skip_whitespace(char **line)
+{
+	while (**line == ' ' || **line == '\t')
+		(*line)++;
+	return (0);
+}
+
+int	expect_comma(char **line)
+{
+	skip_whitespace(line);
+	if (**line != ',')
+		return (printf("Error\n Expected comma\n"), 1);
+	(*line)++;
+	return (0);
+}
 
 int	check_disordered_wall(char **map, int j, int i)
 {

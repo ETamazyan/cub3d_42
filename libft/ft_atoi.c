@@ -3,20 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maavalya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: etamazya <etamazya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 15:42:47 by maavalya          #+#    #+#             */
-/*   Updated: 2023/10/16 15:42:49 by maavalya         ###   ########.fr       */
+/*   Updated: 2025/05/11 22:20:50 by etamazya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *str)
+int	ft_atoi(const char *str, int i, int flag)
 {
-	int	i;
 	int	num;
 	int	sign;
 
-	i = 0;
 	num = 0;
 	sign = 1;
 	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
@@ -30,11 +28,14 @@ int	ft_atoi(const char *str)
 		i++;
 	while (str[i] && str[i] >= '0' && str[i] <= '9')
 	{
+		flag = 1;
 		num = num * 10;
 		num += str[i] - '0';
 		i++;
 	}
-	return (num * sign);
+	if (flag == 1)
+		return (num * sign);
+	return (-1);
 }
 
 /*#include <stdio.h>
